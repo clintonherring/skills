@@ -1,0 +1,29 @@
+# Istio ingress gateway customRules for cps/helm-core.
+# Repo: https://github.je-labs.com/cps/helm-core
+# Only needed for R-records, G-records, and brand domains.
+# E-records and NG-records are auto-provisioned by the igw wildcard — no customRules needed.
+# jet-external.com does NOT need customRules — SmartGateway proxies to the NG-record.
+#
+# File location in cps/helm-core:
+#   clusters/{CLUSTER}/releases/istio-gateways.yaml.gotmpl
+#   Add under: igw-{{PROJECT_ID}}.customRules
+#
+# CRITICAL: customRules MUST be on the SAME ingress gateway (igw-{{PROJECT_ID}}) that
+# serves the wildcard E-records. This is what allows CNAME chains (NG-record → E-record,
+# R-record → E-record) to resolve through the same gateway. Placing customRules on a
+# different IGW will cause the CNAME chain to break (404 for the aliased hostname).
+#
+# Placeholders:
+#   {{PROJECT_ID}}    — Sonic Runtime project / namespace
+#   {{HOSTNAME}}      — the DNS record that needs routing (R-record, G-record, or brand domain)
+#
+# CRITICAL: Hostnames must EXACTLY match:
+#   1. DNS record name (Route53 / domain-routing)
+#   2. This customRules entry
+#   3. VirtualService hosts (domains list in state_values)
+# Run Section 5.7 consistency validation before creating PRs.
+
+# Add to igw-{{PROJECT_ID}}.customRules in the appropriate cluster file:
+customRules:
+  - hosts:
+      - "{{HOSTNAME}}"

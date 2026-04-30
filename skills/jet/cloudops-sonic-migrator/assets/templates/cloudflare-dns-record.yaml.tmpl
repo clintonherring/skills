@@ -1,0 +1,26 @@
+# Cloudflare DNS record for brand domain traffic split.
+# Only needed when service has external brand domain endpoints (EXPOSURE_TYPE = brand-domain or both).
+# File location in IFA/domain-routing: vars/records/cloudflare/{brand-zone}.yml
+#
+# Placeholders:
+#   {{BRAND_DOMAIN}}        — brand domain (e.g., goldenpath.takeaway.com)
+#   {{CLOUDOPS_ORIGIN}}     — existing CloudOps origin CNAME target
+#   {{SONIC_ORIGIN}}        — Sonic Runtime origin (NG-record or E-record)
+#   {{APP_NAME}}            — application name for identifier
+
+# Existing CloudOps entry (modify to weighted if currently flat)
+- name: "{{BRAND_DOMAIN}}"
+  type: "CNAME"
+  value: "{{CLOUDOPS_ORIGIN}}"
+  proxied: true
+  comment: "cloudops-{{APP_NAME}} - weight 100"
+
+# Sonic Runtime entry (new - starts at weight 0)
+# Note: Cloudflare weighted routing uses load balancer pools, not DNS weights.
+# If using Cloudflare load balancing:
+#   - Create origin pool for CloudOps (weight 100)
+#   - Create origin pool for Sonic Runtime (weight 0)
+#   - Attach both to a load balancer on the brand domain
+# If using Route53 behind Cloudflare:
+#   - The Route53 weighted-cname template handles the traffic split
+#   - Cloudflare just proxies to the Route53-managed origin

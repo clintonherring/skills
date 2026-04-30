@@ -1,0 +1,25 @@
+# jet-pi-troubleshooter - Overview (L1)
+
+## Triggers
+- "investigate PI-XXXXX", "troubleshoot this PI", "what caused this outage"
+- "find the root cause", "what changed", "why is X service down"
+- Any request to correlate changes with production failures
+- NOT for: pi timeline, pi catchup, pi post-mortem, pi prodmeet (use jet-pi-summary)
+
+## Evidence Streams
+1. Jira ticket data (timeline, components, comments)
+2. Datadog observability (error logs, metrics spikes, events)
+3. GitHub PR history (infra and app changes)
+4. AWS events (CloudTrail, CloudWatch, Route53)
+5. Wiz security (vulnerabilities, misconfigurations)
+
+## Dependencies
+- jet-company-standards (acli, gh)
+- jet-datadog (pup)
+- jet-aws (AWS CLI)
+- wiz-skill (Wiz API)
+
+## Self-Improving
+- Check `examples/` for past PI investigations with similar symptoms
+- Apply patterns from `learnings.md` before starting fresh analysis
+- After each investigation, add a new example and update learnings

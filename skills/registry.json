@@ -1,0 +1,276 @@
+{
+    "categories":  {
+                       "custom":  [
+                                      {
+                                          "abstract":  "Investigate and root-cause production incidents at JET by correlating infrastructure changes, Datadog observability, GitHub PRs, AWS events, and Wiz security findings.",
+                                          "path":  "skills://custom/jet-pi-troubleshooter",
+                                          "name":  "jet-pi-troubleshooter"
+                                      },
+                                      {
+                                          "abstract":  "Review Jira tickets in Review status assigned to the current user, verify work was done correctly via PRs/DNS/logs, and close or provide feedback.",
+                                          "path":  "skills://custom/ticket-reviewer",
+                                          "name":  "ticket-reviewer"
+                                      }
+                                  ],
+                       "anthropic":  [
+                                         {
+                                             "abstract":  "Creating algorithmic art using p5.js with seeded randomness and interactive parameter exploration. Use this when users r",
+                                             "path":  "skills://anthropic/algorithmic-art",
+                                             "name":  "algorithmic-art"
+                                         },
+                                         {
+                                             "abstract":  "Applies Anthropic\u0027s official brand colors and typography to any sort of artifact that may benefit from having Anthropic\u0027",
+                                             "path":  "skills://anthropic/brand-guidelines",
+                                             "name":  "brand-guidelines"
+                                         },
+                                         {
+                                             "abstract":  "Create beautiful visual art in .png and .pdf documents using design philosophy. You should use this skill when the user ",
+                                             "path":  "skills://anthropic/canvas-design",
+                                             "name":  "canvas-design"
+                                         },
+                                         {
+                                             "abstract":  "\"Build, debug, and optimize Claude API / Anthropic SDK apps. Apps built with this skill should include prompt caching. A",
+                                             "path":  "skills://anthropic/claude-api",
+                                             "name":  "claude-api"
+                                         },
+                                         {
+                                             "abstract":  "Guide users through a structured workflow for co-authoring documentation. Use when user wants to write documentation, pr",
+                                             "path":  "skills://anthropic/doc-coauthoring",
+                                             "name":  "doc-coauthoring"
+                                         },
+                                         {
+                                             "abstract":  "\"Use this skill whenever the user wants to create, read, edit, or manipulate Word documents (.docx files). Triggers incl",
+                                             "path":  "skills://anthropic/docx",
+                                             "name":  "docx"
+                                         },
+                                         {
+                                             "abstract":  "Create distinctive, production-grade frontend interfaces with high design quality. Use this skill when the user asks to ",
+                                             "path":  "skills://anthropic/frontend-design",
+                                             "name":  "frontend-design"
+                                         },
+                                         {
+                                             "abstract":  "Guide for creating high-quality MCP (Model Context Protocol) servers that enable LLMs to interact with external services",
+                                             "path":  "skills://anthropic/mcp-builder",
+                                             "name":  "mcp-builder"
+                                         },
+                                         {
+                                             "abstract":  "Use this skill whenever the user wants to do anything with PDF files. This includes reading or extracting text/tables fr",
+                                             "path":  "skills://anthropic/pdf",
+                                             "name":  "pdf"
+                                         },
+                                         {
+                                             "abstract":  "\"Use this skill any time a .pptx file is involved in any way — as input, output, or both. This includes: creating slid",
+                                             "path":  "skills://anthropic/pptx",
+                                             "name":  "pptx"
+                                         },
+                                         {
+                                             "abstract":  "Create new skills, modify and improve existing skills, and measure skill performance. Use when users want to create a sk",
+                                             "path":  "skills://anthropic/skill-creator",
+                                             "name":  "skill-creator"
+                                         },
+                                         {
+                                             "abstract":  "Rules and best-practice guidelines for reviewing an agent skill\u0027s SKILL.md, focused on required frontmatter validation a",
+                                             "path":  "skills://anthropic/skill-reviewer",
+                                             "name":  "skill-reviewer"
+                                         },
+                                         {
+                                             "abstract":  "Knowledge and utilities for creating animated GIFs optimized for Slack. Provides constraints, validation tools, and anim",
+                                             "path":  "skills://anthropic/slack-gif-creator",
+                                             "name":  "slack-gif-creator"
+                                         },
+                                         {
+                                             "abstract":  "Toolkit for styling artifacts with a theme. These artifacts can be slides, docs, reportings, HTML landing pages, etc. Th",
+                                             "path":  "skills://anthropic/theme-factory",
+                                             "name":  "theme-factory"
+                                         },
+                                         {
+                                             "abstract":  "Suite of tools for creating elaborate, multi-component claude.ai HTML artifacts using modern frontend web technologies (",
+                                             "path":  "skills://anthropic/web-artifacts-builder",
+                                             "name":  "web-artifacts-builder"
+                                         },
+                                         {
+                                             "abstract":  "Toolkit for interacting with and testing local web applications using Playwright. Supports verifying frontend functional",
+                                             "path":  "skills://anthropic/webapp-testing",
+                                             "name":  "webapp-testing"
+                                         },
+                                         {
+                                             "abstract":  "\"Use this skill any time a spreadsheet file is the primary input or output. This means any task where the user wants to:",
+                                             "path":  "skills://anthropic/xlsx",
+                                             "name":  "xlsx"
+                                         }
+                                     ],
+                       "jet":  [
+                                   {
+                                       "abstract":  "\"Migrate services from CloudOps-EKS to Sonic Runtime (OneEKS). Interactive skill that analyzes a service repository on C",
+                                       "path":  "skills://jet/cloudops-sonic-migrator",
+                                       "name":  "cloudops-sonic-migrator"
+                                   },
+                                   {
+                                       "abstract":  "A set of resources to help me write all kinds of internal communications, using the formats that my company likes to use",
+                                       "path":  "skills://jet/internal-comms",
+                                       "name":  "internal-comms"
+                                   },
+                                   {
+                                       "abstract":  "Creates and manages agent guidance files (AGENTS.md, CLAUDE.md) for any codebase. Use this skill when a developer wants ",
+                                       "path":  "skills://jet/jet-agents-md",
+                                       "name":  "jet-agents-md"
+                                   },
+                                   {
+                                       "abstract":  "Evaluate AGENTS.md or CLAUDE.md files for repo agentic readiness. Use when the user asks for an assessment of the agenti",
+                                       "path":  "skills://jet/jet-assess-agent-guidance-files",
+                                       "name":  "jet-assess-agent-guidance-files"
+                                   },
+                                   {
+                                       "abstract":  "JET (Just Eat Takeaway) AWS operational tasks including SSO authentication (orga and acas portals), profile selection, E",
+                                       "path":  "skills://jet/jet-aws",
+                                       "name":  "jet-aws"
+                                   },
+                                   {
+                                       "abstract":  "AWS Athena query execution and data exploration via the AWS CLI. Use this skill when running SQL queries against Athena,",
+                                       "path":  "skills://jet/jet-aws-athena",
+                                       "name":  "jet-aws-athena"
+                                   },
+                                   {
+                                       "abstract":  "BigQuery data exploration, querying, and optimization. Use when working with BigQuery data, writing BQ SQL queries, expl",
+                                       "path":  "skills://jet/jet-bq",
+                                       "name":  "jet-bq"
+                                   },
+                                   {
+                                       "abstract":  "",
+                                       "path":  "skills://jet/jet-code-swarm",
+                                       "name":  "jet-code-swarm"
+                                   },
+                                   {
+                                       "abstract":  "JET (Just Eat Takeaway) company development standards, internal documentation, and resources. Use this skill when workin",
+                                       "path":  "skills://jet/jet-company-standards",
+                                       "name":  "jet-company-standards"
+                                   },
+                                   {
+                                       "abstract":  "Interact with Datadog\u0027s observability platform using the pup CLI (https://github.com/datadog-labs/pup). Use when the use",
+                                       "path":  "skills://jet/jet-datadog",
+                                       "name":  "jet-datadog"
+                                   },
+                                   {
+                                       "abstract":  "",
+                                       "path":  "skills://jet/jet-datahub",
+                                       "name":  "jet-datahub"
+                                   },
+                                   {
+                                       "abstract":  "Use this skill when the user asks for an epic summary, epic overview, or wants to know what tickets are in a Jira epic. ",
+                                       "path":  "skills://jet/jet-epic-summary",
+                                       "name":  "jet-epic-summary"
+                                   },
+                                   {
+                                       "abstract":  "\"Discovers and maps event-driven architecture across JET (Just Eat Takeaway) internal services, requiring access to JET ",
+                                       "path":  "skills://jet/jet-event-discovery",
+                                       "name":  "jet-event-discovery"
+                                   },
+                                   {
+                                       "abstract":  "",
+                                       "path":  "skills://jet/jet-feasibility-panel",
+                                       "name":  "jet-feasibility-panel"
+                                   },
+                                   {
+                                       "abstract":  "",
+                                       "path":  "skills://jet/jet-figma-ui-builder",
+                                       "name":  "jet-figma-ui-builder"
+                                   },
+                                   {
+                                       "abstract":  "",
+                                       "path":  "skills://jet/jet-github-actions",
+                                       "name":  "jet-github-actions"
+                                   },
+                                   {
+                                       "abstract":  "Skill for interacting with Google Sheets within JET company Google accounts. Read tables, append rows, update cells by k",
+                                       "path":  "skills://jet/jet-google-sheets",
+                                       "name":  "jet-google-sheets"
+                                   },
+                                   {
+                                       "abstract":  "Validate whether a JET repository meets the InnerSource certification requirements, or validate a PlatformMetadata PR fo",
+                                       "path":  "skills://jet/jet-innersource-certification",
+                                       "name":  "jet-innersource-certification"
+                                   },
+                                   {
+                                       "abstract":  "",
+                                       "path":  "skills://jet/jet-jira-repo-finder",
+                                       "name":  "jet-jira-repo-finder"
+                                   },
+                                   {
+                                       "abstract":  "",
+                                       "path":  "skills://jet/jet-k8s-debugger",
+                                       "name":  "jet-k8s-debugger"
+                                   },
+                                   {
+                                       "abstract":  "Load and performance testing at Just Eat Takeaway.com using k6. Use this skill when writing, managing, or maintaining lo",
+                                       "path":  "skills://jet/jet-load-testing",
+                                       "name":  "jet-load-testing"
+                                   },
+                                   {
+                                       "abstract":  "\"Migrate .NET 8+ services from JustSayingStack (the old fluent SNS/SQS wrapper library) to plain JustSaying with explici",
+                                       "path":  "skills://jet/jet-migrate-justsayingstack-to-justsaying",
+                                       "name":  "jet-migrate-justsayingstack-to-justsaying"
+                                   },
+                                   {
+                                       "abstract":  "Query JET\u0027s Operational Data Lake (ODL) via AWS Athena to investigate production incidents, track deployments, look up t",
+                                       "path":  "skills://jet/jet-odl-athena",
+                                       "name":  "jet-odl-athena"
+                                   },
+                                   {
+                                       "abstract":  "Set up and configure opencode-notifier for native desktop notifications in OpenCode. Use this skill when the user wants ",
+                                       "path":  "skills://jet/jet-opencode-notifier",
+                                       "name":  "jet-opencode-notifier"
+                                   },
+                                   {
+                                       "abstract":  "Use this skill instead of going to PagerDuty directly when working in the JET environment. Covers all PagerDuty work at ",
+                                       "path":  "skills://jet/jet-pagerduty",
+                                       "name":  "jet-pagerduty"
+                                   },
+                                   {
+                                       "abstract":  "",
+                                       "path":  "skills://jet/jet-pi-summary",
+                                       "name":  "jet-pi-summary"
+                                   },
+                                   {
+                                       "abstract":  "",
+                                       "path":  "skills://jet/jet-report",
+                                       "name":  "jet-report"
+                                   },
+                                   {
+                                       "abstract":  "Generate comprehensive runbooks for JET (Just Eat Takeaway.com) applications and services. Use when creating documentati",
+                                       "path":  "skills://jet/jet-runbook",
+                                       "name":  "jet-runbook"
+                                   },
+                                   {
+                                       "abstract":  "Generate Google Slides presentations for JET (Just Eat Takeaway.com) using brand templates, visual identity, and brand v",
+                                       "path":  "skills://jet/jet-slides",
+                                       "name":  "jet-slides"
+                                   },
+                                   {
+                                       "abstract":  "\"Read-only analysis and complexity scoring tool for Sonic Runtime (OneEKS) migrations. Scores complexity (0-100), estima",
+                                       "path":  "skills://jet/sonic-migration-analyzer",
+                                       "name":  "sonic-migration-analyzer"
+                                   },
+                                   {
+                                       "abstract":  "\"Use this skill when asked to configure or modify Sonic Pipeline for an application — defining workloads, artifacts, d",
+                                       "path":  "skills://jet/sonic-pipeline",
+                                       "name":  "sonic-pipeline"
+                                   },
+                                   {
+                                       "abstract":  "Troubleshoot unhealthy applications running on Sonic Runtime (OneEKS). Use when investigating pod failures, application ",
+                                       "path":  "skills://jet/sonic-runtime-troubleshooter",
+                                       "name":  "sonic-runtime-troubleshooter"
+                                   },
+                                   {
+                                       "abstract":  "\"Migrate services from SRE-EKS to Sonic Runtime (OneEKS). Interactive skill that analyzes a service repository on SRE-EK",
+                                       "path":  "skills://jet/sre-eks-sonic-migrator",
+                                       "name":  "sre-eks-sonic-migrator"
+                                   },
+                                   {
+                                       "abstract":  "Wiz cloud security platform integration for retrieving and analyzing vulnerability findings and security issues. Use thi",
+                                       "path":  "skills://jet/wiz-skill",
+                                       "name":  "wiz-skill"
+                                   }
+                               ]
+                   },
+    "total":  53
+}

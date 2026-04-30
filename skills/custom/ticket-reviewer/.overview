@@ -1,0 +1,21 @@
+# ticket-reviewer - Overview (L1)
+
+## Triggers
+- "review my tickets", "what tickets need review", "check my review queue"
+- Any mention of Jira reviews or verifying completed work before closing
+
+## Workflow
+1. Fetch tickets in Review status via acli JQL query
+2. For each ticket: get details, comments, linked PRs
+3. Verify work: check PR merged, DNS propagated, service deployed, etc.
+4. Close ticket or provide feedback with specific comments
+
+## Dependencies
+- acli (Atlassian CLI - see toolkit/acli.md for location)
+- gh (GitHub CLI, authenticated to github.je-labs.com)
+- nslookup / DNS tools
+
+## Self-Improving
+- Check `examples/` for past reviews of similar ticket types
+- Apply patterns from `learnings.md` (common review criteria, gotchas)
+- After each review session, add notable examples and update learnings

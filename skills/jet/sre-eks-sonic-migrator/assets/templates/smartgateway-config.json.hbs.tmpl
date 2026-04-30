@@ -1,0 +1,56 @@
+{
+  "name": "{{SERVICE_NAME}}",
+  "feature_name": "{{SERVICE_NAME}}",
+  "workspace": "default",
+  "environments": [{{SMARTGATEWAY_ENVIRONMENTS}}],
+  "host": "{{NG_RECORD}}",
+  "port": 443,
+  "protocol": "https",
+  "retries": {{RETRIES | default: 1}},
+  "connect_timeout": {{CONNECT_TIMEOUT | default: 2000}},
+  "write_timeout": {{WRITE_TIMEOUT | default: 2000}},
+  "read_timeout": {{READ_TIMEOUT | default: 2000}},
+  "routes": [
+    {
+      "protocols": ["http", "https"],
+      "methods": [{{METHODS}}],
+      "paths": [{{PATHS}}],
+      "strip_path": false
+    }
+  ],
+  "plugins": [
+    {
+      "name": "rate-limiting",
+      "config": {
+        "policy": "local",
+        "second": {{RATE_LIMIT_PER_SECOND | default: 150}},
+        "limit_by": "ip"
+      }
+    }
+  ]
+}
+
+{{!--
+  IMPORTANT: This is a starting point template.
+  Always fetch current patterns from the SmartGateway repo before generating:
+    gh repo clone github.je-labs.com/external-api-services/smartgatewayconfiguration /tmp/smartgatewayconfiguration
+  
+  Explore Data/Global/ for existing config files and follow the latest schema.
+
+  Key rules:
+  - host: Must use the NG-record (internal address), NOT E-record
+  - port: Must be 443
+  - protocol: Must be "https" — prevents 301 redirects
+  - environments: Use SmartGateway env names, NOT Sonic Runtime env names
+    See 05-dns-and-networking.md for the mapping table
+  - routes: paths should use regex patterns with (?i) for case-insensitive matching
+  - plugins: rate-limiting is the minimum; add others based on existing patterns in the repo
+
+  Place generated file at: Data/Global/{SERVICE_NAME}.json.hbs
+  
+  Testing workflow:
+  1. PR → ad-hoc deploy to QA
+  2. Test via SmartGateway regional endpoints
+  3. Request review in #help-http-integrations
+  4. Merge → deploy to staging/production
+--}}

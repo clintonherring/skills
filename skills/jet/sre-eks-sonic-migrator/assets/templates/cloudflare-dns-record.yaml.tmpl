@@ -1,0 +1,25 @@
+# Cloudflare DNS record for brand domain
+# Place in: vars/records/cloudflare/{DOMAIN}.yaml within the IFA/domain-routing repo
+#
+# IMPORTANT: Always fetch the current format from the domain-routing repo before generating:
+#   gh repo clone github.je-labs.com/IFA/domain-routing /tmp/domain-routing
+#   Explore vars/records/cloudflare/ for existing records and current schema.
+#
+# The 'value' field is the origin endpoint. During migration:
+# - Initially: keep pointing to SRE-EKS origin (traffic split via weighted endpoints)
+# - After 100% traffic shift: update to Sonic Runtime SmartGateway/ingress endpoint
+
+{{SERVICE_SUBDOMAIN}}:
+  octodns:
+    cloudflare:
+      proxied: true
+  ttl: 1
+  type: CNAME
+  value: {{ORIGIN_ENDPOINT}}
+
+# Corresponding Route53 record (place in vars/records/route53/{DOMAIN}.yaml):
+#
+# {{SERVICE_SUBDOMAIN}}:
+#   ttl: 300
+#   type: CNAME
+#   value: {{SERVICE_SUBDOMAIN}}.{{BRAND_DOMAIN}}.cdn.cloudflare.net.

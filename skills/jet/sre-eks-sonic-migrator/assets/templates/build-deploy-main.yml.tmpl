@@ -1,0 +1,78 @@
+name: Build & Deploy Main
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  generate-version:
+    uses: github-actions/pipelines/.github/workflows/generate-version@{{WORKFLOW_VERSION}}
+    with:
+      prefix: "{{VERSION_PREFIX}}"
+
+  unit-test:
+    runs-on: ubuntu-latest
+    needs: []
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run tests
+        run: {{TEST_COMMAND}}
+
+  docker-build:
+    needs: [generate-version, unit-test]
+    uses: github-actions/pipelines/.github/workflows/publish-docker-artifactory.yml@{{WORKFLOW_VERSION}}
+    with:
+      image-name: {{SERVICE_NAME}}
+      image-tag: ${{ needs.generate-version.outputs.version }}
+      docker-repository: {{DOCKER_REPO}}
+
+  create-tag:
+    needs: [docker-build, generate-version]
+    uses: github-actions/pipelines/.github/workflows/publish-version.yml@{{WORKFLOW_VERSION}}
+    with:
+      version: ${{ needs.generate-version.outputs.version }}
+
+  deploy-qa:
+    needs: [create-tag, generate-version]
+    uses: github-actions/pipelines/.github/workflows/deploy-helmfile.yml@{{WORKFLOW_VERSION}}
+    with:
+      app: {{SERVICE_NAME}}
+      environment: {{ENVIRONMENT_QA}}
+      image-tag: ${{ needs.generate-version.outputs.version }}
+      image-name: {{SERVICE_NAME}}
+      team-name: {{TEAM_NAME}}
+      namespace: {{NAMESPACE}}
+      docker-repository: {{DOCKER_REPO}}
+      slack-channel-id: {{SLACK_CHANNEL_ID}}
+      wait-for-rollout: true
+      extra-helmfile-args: --state-values-set app_version=${{ needs.generate-version.outputs.version }}
+
+  deploy-staging:
+    needs: [deploy-qa, generate-version]
+    uses: github-actions/pipelines/.github/workflows/deploy-helmfile.yml@{{WORKFLOW_VERSION}}
+    with:
+      app: {{SERVICE_NAME}}
+      environment: {{ENVIRONMENT_STG}}
+      image-tag: ${{ needs.generate-version.outputs.version }}
+      image-name: {{SERVICE_NAME}}
+      team-name: {{TEAM_NAME}}
+      namespace: {{NAMESPACE}}
+      docker-repository: {{DOCKER_REPO}}
+      slack-channel-id: {{SLACK_CHANNEL_ID}}
+      wait-for-rollout: true
+      extra-helmfile-args: --state-values-set app_version=${{ needs.generate-version.outputs.version }}
+
+  deploy-production:
+    needs: [deploy-staging, generate-version]
+    uses: github-actions/pipelines/.github/workflows/deploy-helmfile.yml@{{WORKFLOW_VERSION}}
+    with:
+      app: {{SERVICE_NAME}}
+      environment: {{ENVIRONMENT_PRD}}
+      image-tag: ${{ needs.generate-version.outputs.version }}
+      image-name: {{SERVICE_NAME}}
+      team-name: {{TEAM_NAME}}
+      namespace: {{NAMESPACE}}
+      docker-repository: {{DOCKER_REPO}}
+      slack-channel-id: {{SLACK_CHANNEL_ID}}
+      wait-for-rollout: true
+      extra-helmfile-args: --state-values-set app_version=${{ needs.generate-version.outputs.version }}

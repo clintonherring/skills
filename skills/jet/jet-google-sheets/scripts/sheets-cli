@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+# Resolve the skill's base directory (parent of scripts/)
+SKILL_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+
+VENDOR_BIN="${SKILL_DIR}/vendor/gmickel_sheets-cli/dist/sheets-cli"
+
+# Build the CLI binary if it doesn't exist yet
+if [ ! -x "$VENDOR_BIN" ]; then
+  cd "${SKILL_DIR}/vendor/gmickel_sheets-cli" || exit 1
+  # check for bun command
+  if ! command -v bun &> /dev/null; then
+    brew install oven-sh/bun/bun
+  fi
+  bun install --ignore-scripts
+  bun run build
+fi
+
+exec "$VENDOR_BIN" "$@"

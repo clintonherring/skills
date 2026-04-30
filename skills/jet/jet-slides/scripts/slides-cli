@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+SKILL_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
+VENDOR_DIR="$SKILL_DIR/vendor/slides-cli"
+
+cd "$VENDOR_DIR"
+
+if ! command -v bun >/dev/null 2>&1; then
+  brew install oven-sh/bun/bun
+fi
+
+if [ ! -d "$VENDOR_DIR/node_modules" ]; then
+  bun install --frozen-lockfile
+fi
+
+# This skill runs locally and authenticates via user OAuth tokens, so disable
+# cloud metadata probing that can look like beaconing on managed endpoints.
+export METADATA_SERVER_DETECTION="none"
+
+exec bun ./src/cli.ts "$@"

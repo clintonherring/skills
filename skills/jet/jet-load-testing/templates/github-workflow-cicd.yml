@@ -1,0 +1,102 @@
+# GitHub Actions Workflow: CI/CD Load Test Integration
+#
+# This workflow demonstrates how to integrate load tests within a CI/CD pipeline:
+#   1. Pre-deployment validation - Lightweight test to validate script before deploy
+#   2. Deploy to staging - Your existing deployment job
+#   3. Post-deployment smoke test - Run load test after staging deployment
+#
+# The workflow triggers on:
+#   - Push to main branch (excluding markdown files)
+#   - Manual trigger via workflow_dispatch
+#
+# Documentation: https://backstage.eu-west-1.production.jet-internal.com/docs/default/concept/load-testing/getting-started/triggering-tests/
+
+name: deploy-and-test
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - "**.md"
+  workflow_dispatch:
+
+jobs:
+  # ============================================================================
+  # Pre-deployment: Validate k6 test script
+  # ============================================================================
+  # Runs a lightweight validation test (1 VU, 1 iteration) to ensure the test
+  # script is correctly configured before deploying. This catches syntax errors
+  # and configuration issues early.
+  
+  validate-k6-test:
+    uses: github-actions/load-testing/.github/workflows/run-k6.yml@v1
+    secrets: inherit
+    with:
+      app: "{YOUR_APP_NAME}"                    # App name as per PlatformMetadata
+      path: ".load-tests/smoke.js"              # Relative path to your test script
+      validation-test: true                     # Runs with 1 VU, 1 iteration
+
+  # ============================================================================
+  # Deploy to staging
+  # ============================================================================
+  # Your existing deployment job. This is a placeholder - replace with your
+  # actual deployment configuration.
+  
+  deploy-staging:
+    needs: [validate-k6-test]
+    runs-on: [self-hosted, docker-runner]
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Deploy to staging
+        run: |
+          echo "Deploying to staging environment..."
+          # Your deployment commands here
+          # e.g., helmfile apply, kubectl apply, etc.
+
+  # ============================================================================
+  # Post-deployment: Run smoke test against staging
+  # ============================================================================
+  # After staging deployment completes, run a smoke test to validate the
+  # deployment is healthy and meets performance thresholds.
+  
+  run-staging-smoke-test:
+    needs: [deploy-staging]
+    uses: github-actions/load-testing/.github/workflows/run-k6.yml@v1
+    secrets: inherit
+    with:
+      # REQUIRED: Update these values for your service
+      app: "{YOUR_APP_NAME}"                    # App name as per PlatformMetadata
+      path: ".load-tests/smoke.js"              # Relative path to your test script
+      mode: cloud                               # Execution mode
+      environment: "euw1-plt-staging-1"         # Staging environment
+      cloud-project-id: 12345                   # Your k6 Cloud project ID
+      profile: "staging-uk"                     # Profile for staging environment
+      
+      # OPTIONAL: Team-specific Slack notifications
+      # slack-channel-id: "C08K49U007N"         # Your team's Slack channel ID
+  
+  deploy-production:
+    needs: [run-staging-smoke-test]
+    runs-on: [self-hosted, docker-runner]
+    environment: production                   # Requires manual approval
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Deploy to production
+        run: |
+          echo "Deploying to production environment..."
+          # Your production deployment commands here
+
+  run-production-smoke-test:
+    needs: [deploy-production]
+    uses: github-actions/load-testing/.github/workflows/run-k6.yml@v1
+    secrets: inherit
+    with:
+      app: "{YOUR_APP_NAME}"
+      path: ".load-tests/smoke.js"
+      mode: cloud
+      environment: "euw1-plt-prod-1"
+      cloud-project-id: 12345
+      profile: "production-uk"

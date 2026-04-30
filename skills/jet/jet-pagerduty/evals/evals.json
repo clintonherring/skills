@@ -1,0 +1,17 @@
+{
+  "skill_name": "jet-pagerduty",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Who's on-call right now for the Checkout team?",
+      "expected_output": "Uses curl against the PagerDuty REST API to look up the on-call schedule or escalation policy for the Checkout team, and displays the current on-call person(s) with their name(s) and contact info.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "List all open P1 and P2 incidents and resolve the ones assigned to me.",
+      "expected_output": "Uses curl to list open incidents from the PagerDuty API, filters for P1/P2 priority using jq, identifies which are assigned to the current user, and resolves them via PUT requests to the incidents endpoint.",
+      "files": []
+    }
+  ]
+}

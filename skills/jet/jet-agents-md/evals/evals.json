@@ -1,0 +1,313 @@
+{
+  "skill_name": "jet-agents-md",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I've got a Kotlin Spring Boot service at ~/projects/order-service. It uses Clean Architecture and Kafka. Can you create an agents.md for it?",
+      "expected_output": "An agents.md file saved to the repo root covering project overview, architecture (with folder structure), coding conventions, and testing strategy — with language-specific content specific to Kotlin/Spring Boot/Clean Architecture, plus appropriate questions asked when details aren't discoverable from the repo.",
+      "files": [],
+      "assertions": [
+        {
+          "name": "four-sections-present",
+          "description": "agents.md contains all four required sections: Project Overview, Architecture & Structure, Coding Conventions, Testing Strategy",
+          "type": "content_check"
+        },
+        {
+          "name": "language-specific-content",
+          "description": "The content is specific to the discovered stack (Kotlin/Spring Boot/Clean Architecture) — not generic placeholder text. Actual library names, framework patterns, and language idioms appear.",
+          "type": "content_check"
+        },
+        {
+          "name": "asks-before-assuming",
+          "description": "If the repo isn't accessible or details are unclear, the skill asks clarifying questions rather than fabricating specific details",
+          "type": "behavior_check"
+        },
+        {
+          "name": "correct-mode-triggered",
+          "description": "The skill correctly enters Create mode without asking the user to choose (intent is clear from the prompt)",
+          "type": "behavior_check"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "We just added a new payments module to our NestJS monorepo. The payments module uses Stripe and has its own PostgreSQL schema. Can you update our agents.md to include it?",
+      "expected_output": "The skill enters Manage mode, asks what the existing agents.md says about the monorepo structure and where to find it, explores or asks about the new payments module, and produces targeted additions rather than rewriting the whole file.",
+      "files": [],
+      "assertions": [
+        {
+          "name": "manage-mode-triggered",
+          "description": "Skill correctly enters Manage mode (targeted update) rather than Create mode (full rewrite)",
+          "type": "behavior_check"
+        },
+        {
+          "name": "asks-about-existing-file",
+          "description": "Skill asks where the existing agents.md is or requests it, rather than creating from scratch",
+          "type": "behavior_check"
+        },
+        {
+          "name": "stripe-and-postgres-mentioned",
+          "description": "The updated content specifically references Stripe and PostgreSQL as new dependencies of the payments module",
+          "type": "content_check"
+        },
+        {
+          "name": "targeted-update-not-full-rewrite",
+          "description": "The skill produces additions/modifications rather than a complete replacement of the file",
+          "type": "behavior_check"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "We have a monorepo with three Kotlin services: order-service, payment-service, and notification-service. There's no agents.md anywhere yet. Can you help me set one up?",
+      "expected_output": "The skill detects this is a monorepo, proposes a two-level hierarchy (root + per-service), asks clarifying questions about shared conventions and service specifics, and produces at minimum a root agents.md covering shared conventions plus outlines or stubs for the service-level files. Should NOT produce a single massive file trying to cover all three services.",
+      "files": [],
+      "assertions": [
+        {
+          "name": "proposes-hierarchy",
+          "description": "Skill proposes or creates a two-level structure (root + service-level) rather than one flat file",
+          "type": "behavior_check"
+        },
+        {
+          "name": "root-covers-shared-not-service-specific",
+          "description": "Root agents.md documents shared conventions/tooling and references service files — does NOT try to be a monolithic document covering all service details",
+          "type": "content_check"
+        },
+        {
+          "name": "asks-about-shared-vs-service-specific",
+          "description": "Skill asks questions to distinguish what is shared across services vs what is service-specific before generating",
+          "type": "behavior_check"
+        },
+        {
+          "name": "three-services-acknowledged",
+          "description": "All three services (order, payment, notification) are referenced in the output",
+          "type": "content_check"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "I'm building a Go HTTP service for managing restaurant menus — items, prices, availability. It uses PostgreSQL and Redis for caching. No agents.md exists yet. Can you create one?",
+      "expected_output": "The skill creates an agents.md with Go-specific conventions: error wrapping patterns, context propagation, interface placement, testing with testify, and the actual folder structure (cmd/, handler/, service/, store/ or equivalent). Should reference Go-specific tooling and not assume a framework if one isn't mentioned.",
+      "files": [],
+      "assertions": [
+        {
+          "name": "go-specific-conventions",
+          "description": "The output references Go-specific patterns: error wrapping, context.Context propagation, or interface placement conventions — not generic or wrong-language patterns",
+          "type": "content_check"
+        },
+        {
+          "name": "postgresql-and-redis-mentioned",
+          "description": "The agents.md specifically mentions PostgreSQL and Redis as the data infrastructure",
+          "type": "content_check"
+        },
+        {
+          "name": "asks-or-discovers-stack",
+          "description": "The skill either explores the repo or asks about the Go framework/query library in use rather than assuming",
+          "type": "behavior_check"
+        },
+        {
+          "name": "root-file-under-200-lines",
+          "description": "The generated root agents.md does not exceed 200 lines",
+          "type": "content_check"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "I have a Node.js service that consumes events from Kafka, transforms them, and publishes to SNS. We use Avro schemas with a Confluent schema registry, and Cloud Events for the envelope format. Events are defined in a shared schemas/ folder. Can you create an AGENTS.md?",
+      "expected_output": "The skill creates an AGENTS.md that documents the messaging architecture prominently: Kafka consumer patterns, SNS publishing, Avro schema location, schema registry URL/conventions, Cloud Events envelope format, and event naming conventions. Should ask about idempotency requirements, DLQ handling, and schema evolution rules.",
+      "files": [],
+      "assertions": [
+        {
+          "name": "messaging-architecture-documented",
+          "description": "The output documents the messaging flow: Kafka consumption, SNS publishing, and the relationship between them — not just mentioning them in a stack list",
+          "type": "content_check"
+        },
+        {
+          "name": "schema-conventions-covered",
+          "description": "Avro schemas, schema registry, and the schemas/ folder location are documented with conventions (naming, evolution rules, or a pointer to ask about them)",
+          "type": "content_check"
+        },
+        {
+          "name": "cloud-events-envelope-mentioned",
+          "description": "Cloud Events is referenced as the event envelope format",
+          "type": "content_check"
+        },
+        {
+          "name": "asks-about-idempotency-or-dlq",
+          "description": "The skill asks about consumer idempotency requirements, DLQ handling, or retry policies — these can't be inferred from the prompt alone",
+          "type": "behavior_check"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "I've got a React/Next.js frontend at ~/projects/customer-portal. It uses Zustand for state, React Query for server state, Tailwind CSS, and has Playwright e2e tests. Can you set up a CLAUDE.md for it?",
+      "expected_output": "The skill creates a CLAUDE.md (not AGENTS.md — user asked for CLAUDE.md) with frontend-specific conventions: state management rules (Zustand vs React Query separation), component patterns, Tailwind usage, Playwright test conventions. Should ask about accessibility requirements and component library usage.",
+      "files": [],
+      "assertions": [
+        {
+          "name": "claude-md-filename",
+          "description": "Output file is named CLAUDE.md, not AGENTS.md — matching the user's request and Claude Code convention",
+          "type": "content_check"
+        },
+        {
+          "name": "state-management-separation",
+          "description": "Documents the Zustand (local state) vs React Query (server state) separation as a convention",
+          "type": "content_check"
+        },
+        {
+          "name": "testing-with-playwright",
+          "description": "Playwright e2e tests are documented with conventions (file location, naming, or run commands)",
+          "type": "content_check"
+        },
+        {
+          "name": "asks-about-a11y-or-components",
+          "description": "The skill asks about accessibility standards or component library/design system usage — these are common frontend concerns not mentioned in the prompt",
+          "type": "behavior_check"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "prompt": "I'm working on a Python FastAPI service — it handles user authentication via Keycloak, uses SQLAlchemy with Alembic migrations, and pytest for testing. We also run Semgrep in CI. Can you create an agents.md?",
+      "expected_output": "The skill creates an agents.md with Python-specific conventions: FastAPI route patterns, SQLAlchemy model/repository patterns, Alembic migration naming, pytest fixtures and test structure. Should document Keycloak as the identity provider and Semgrep as the SAST tool in CI.",
+      "files": [],
+      "assertions": [
+        {
+          "name": "python-specific-patterns",
+          "description": "Output contains Python-specific patterns: FastAPI dependency injection, SQLAlchemy session management, or pytest fixtures — not generic web framework patterns",
+          "type": "content_check"
+        },
+        {
+          "name": "keycloak-identity-documented",
+          "description": "Keycloak is documented as the identity provider with at least a mention of how tokens are validated or where auth config lives",
+          "type": "content_check"
+        },
+        {
+          "name": "semgrep-in-ci-mentioned",
+          "description": "Semgrep is documented as a security scanning tool that runs in CI",
+          "type": "content_check"
+        },
+        {
+          "name": "alembic-migrations-covered",
+          "description": "Alembic migrations are documented — at minimum the migration command or naming convention",
+          "type": "content_check"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "prompt": "We have a .NET 8 service — OrderService.sln with projects: OrderService.Domain, OrderService.Application, OrderService.Infrastructure, and OrderService.Api. Uses MediatR for CQRS, Entity Framework Core with Fluent API, and xUnit for tests. Can you create an AGENTS.md?",
+      "expected_output": "The skill detects a layered .NET service from the .sln structure, proposes a hierarchy (root + per-project sub-files), and produces .NET-specific content: MediatR handler patterns, EF Core conventions, xUnit test structure. Should recognize the project names encode Clean Architecture layers.",
+      "files": [],
+      "assertions": [
+        {
+          "name": "sln-structure-detected",
+          "description": "The skill recognizes the .sln project structure as encoding architectural layers and documents the layer responsibilities",
+          "type": "content_check"
+        },
+        {
+          "name": "proposes-layer-hierarchy",
+          "description": "Skill proposes or creates per-layer AGENTS.md files (not just a single root file) because the projects have meaningfully different conventions",
+          "type": "behavior_check"
+        },
+        {
+          "name": "dotnet-specific-content",
+          "description": "Output contains .NET-specific patterns: MediatR handlers, EF Core Fluent API, or xUnit conventions — not generic ORM/CQRS patterns",
+          "type": "content_check"
+        },
+        {
+          "name": "dependency-direction-documented",
+          "description": "The dependency direction rule is documented (Domain has no outward dependencies, Infrastructure depends on Domain, etc.)",
+          "type": "content_check"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "prompt": "Can you help me improve the agent guidance for my project?",
+      "expected_output": "The skill recognizes the intent is ambiguous — could be Create or Manage. Uses the question tool to ask the user which mode they need before proceeding. Does NOT assume Create or Manage.",
+      "files": [],
+      "assertions": [
+        {
+          "name": "asks-for-mode",
+          "description": "The skill uses the question tool to ask the user whether they want to Create or Manage, rather than assuming one",
+          "type": "behavior_check"
+        },
+        {
+          "name": "does-not-start-exploring-immediately",
+          "description": "The skill does NOT begin repo exploration or file generation before clarifying the mode",
+          "type": "behavior_check"
+        },
+        {
+          "name": "question-tool-used",
+          "description": "The mode question is asked via the question tool with structured options, not as inline text",
+          "type": "behavior_check"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "prompt": "I have a TypeScript monorepo. There's already an AGENTS.md at the root, plus I see copies in .amazonq/rules/AGENTS.md and .cursor/rules/agents.md. Can you help me update the guidance after we migrated from REST to GraphQL?",
+      "expected_output": "The skill enters Manage mode, detects the harness copies, and uses the question tool to ask what to do with them (sync/delete/leave). Makes the REST→GraphQL updates to the root AGENTS.md first, then handles harness copies based on the user's choice.",
+      "files": [],
+      "assertions": [
+        {
+          "name": "harness-copies-detected",
+          "description": "The skill acknowledges the .amazonq/rules/ and .cursor/rules/ copies and asks about them",
+          "type": "behavior_check"
+        },
+        {
+          "name": "question-tool-for-harness-copies",
+          "description": "The skill uses the question tool with sync/delete/leave options for the harness copies, not inline text",
+          "type": "behavior_check"
+        },
+        {
+          "name": "root-updated-first",
+          "description": "The root AGENTS.md is treated as source of truth and updated before any harness copies",
+          "type": "behavior_check"
+        },
+        {
+          "name": "graphql-migration-reflected",
+          "description": "The updated content reflects the REST→GraphQL migration in API conventions",
+          "type": "content_check"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "prompt": "I have a Java Spring Boot service with Hexagonal Architecture. It uses Kafka with Avro schemas, Keycloak for auth, Quartz for scheduled jobs, Vault for secrets, an Artifactory private registry, PostgreSQL with Flyway migrations, and OpenTelemetry for tracing. We run Wiz and SonarQube in CI. Create an AGENTS.md for it.",
+      "expected_output": "The skill creates an AGENTS.md covering all mentioned integrations. The root file must stay under 200 lines despite the complexity — it should document key rules briefly and push detail into sub-files. Should cover: messaging (Kafka/Avro), security (Keycloak, Vault, Wiz, SonarQube), scheduling (Quartz), platform (Artifactory), data (PostgreSQL/Flyway), observability (OpenTelemetry).",
+      "files": [],
+      "assertions": [
+        {
+          "name": "root-under-200-lines",
+          "description": "The root AGENTS.md does not exceed 200 lines, despite the complex stack",
+          "type": "content_check"
+        },
+        {
+          "name": "detail-pushed-to-subfiles",
+          "description": "The skill proposes or creates sub-files for detailed conventions rather than cramming everything into the root",
+          "type": "behavior_check"
+        },
+        {
+          "name": "all-integrations-referenced",
+          "description": "All mentioned integrations appear somewhere in the output (root or sub-files): Kafka, Avro, Keycloak, Quartz, Vault, Artifactory, PostgreSQL, Flyway, OpenTelemetry, Wiz, SonarQube",
+          "type": "content_check"
+        },
+        {
+          "name": "scheduling-documented",
+          "description": "Quartz scheduled jobs are documented with conventions (job registration, idempotency, or schedule config location)",
+          "type": "content_check"
+        },
+        {
+          "name": "security-scanning-documented",
+          "description": "Wiz and SonarQube are documented as CI security tools, not just listed in a stack section",
+          "type": "content_check"
+        }
+      ]
+    }
+  ]
+}

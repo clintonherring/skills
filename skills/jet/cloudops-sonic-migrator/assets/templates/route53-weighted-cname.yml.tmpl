@@ -1,0 +1,37 @@
+# Route53 weighted CNAME records for CloudOps-EKS → Sonic Runtime traffic split.
+# See references/07-traffic-split.md for the full procedure and weight schedule.
+#
+# File locations in IFA/route53:
+#   Staging internal: non-production/records/eu-west-1.staging.jet-internal.com-private.yml
+#   Staging external: non-production/records/eu-west-1.staging.jet-external.com.yml
+#   Production internal: production/records/eu-west-1.production.jet-internal.com-private.yml
+#   Production external: production/records/eu-west-1.production.jet-external.com.yml
+#
+# Placeholders:
+#   {{RECORD_NAME}}         — full DNS record name (e.g., app.eu-west-1.production.jet-internal.com)
+#   {{CLOUDOPS_CNAME}}      — existing CloudOps CNAME target (e.g., app.ns.p.eks.tkwy-prod.io)
+#   {{SONIC_CNAME}}         — Sonic Runtime E-record (e.g., app.project.pdv-5.eu-west-1.production.jet-internal.com)
+#   {{APP_NAME}}            — application name for identifier suffix
+
+# CloudOps entry (existing — change weight from flat record to weighted)
+- name: "{{RECORD_NAME}}"
+  type: "CNAME"
+  ttl: "30"
+  records: "{{CLOUDOPS_CNAME}}"
+  weight: 100
+  identifier: cloudops-{{APP_NAME}}
+
+# Sonic Runtime entry (new — starts at weight 0)
+- name: "{{RECORD_NAME}}"
+  type: "CNAME"
+  ttl: "30"
+  records: "{{SONIC_CNAME}}"
+  weight: 0
+  identifier: oneeks-{{APP_NAME}}
+
+# Gradual traffic shift schedule:
+#   Deploy + verify → weight 0/100
+#   Canary (1-2 days) → weight 1/99
+#   10% (3-5 days) → weight 10/90
+#   50% (1 week) → weight 50/50
+#   Full (30+ days before decommission) → weight 100/0

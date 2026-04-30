@@ -1,0 +1,21 @@
+{
+  "name": "slides-cli",
+  "version": "1.0.0",
+  "module": "src/cli.ts",
+  "license": "MIT",
+  "type": "module",
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "scripts": {
+    "dev": "bun --hot ./src/cli.ts",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "commander": "^14.0.2",
+    "googleapis": "^169.0.0"
+  }
+}

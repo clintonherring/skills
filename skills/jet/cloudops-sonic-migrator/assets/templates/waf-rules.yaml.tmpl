@@ -1,0 +1,19 @@
+# WAF rules for brand domain protection.
+# Only needed when service has external brand domain endpoints going through Cloudflare.
+# File location: IFA/cloudflareplatformproduction (or staging variant)
+#
+# Placeholders:
+#   {{BRAND_DOMAIN}}    — brand domain hostname
+#   {{RULE_NAME}}       — descriptive WAF rule name
+#   {{ALLOWED_PATHS}}   — comma-separated list of allowed API paths
+#
+# Note: WAF rules are typically inherited from the existing CloudOps configuration.
+# During migration, verify that existing WAF rules still apply correctly when
+# traffic is routed to Sonic Runtime. The WAF rules themselves usually don't
+# need changes — they operate at the Cloudflare edge before reaching either platform.
+#
+# If the existing service has WAF rules in cloudflareplatformproduction:
+#   1. Identify existing rules: grep -r "{{BRAND_DOMAIN}}" /tmp/cloudflareplatformproduction/
+#   2. Verify rules reference the domain, not the origin server
+#   3. No changes needed if rules are domain-based (most are)
+#   4. If rules reference origin IPs/hostnames, update to include Sonic Runtime origins

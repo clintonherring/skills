@@ -1,0 +1,5 @@
+helmDefaults:
+  kubeContext: {{ .Environment.Name }}
+  wait: true
+  atomic: true
+  createNamespace: false

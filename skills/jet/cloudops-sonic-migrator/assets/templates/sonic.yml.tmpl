@@ -1,0 +1,54 @@
+# Sonic Pipeline configuration template.
+# See sonic-pipeline skill for full schema reference.
+# Placeholders:
+#   {{APP_NAME}}          — application name from PlatformMetadata
+#   {{PROJECT_ID}}        — Sonic Runtime project (= namespace)
+#   {{TEAM_NAME}}         — owning team name from PlatformMetadata
+#   {{VAULT_ROLE}}        — Vault role (usually same as PROJECT_ID)
+#   {{VAULT_SECRET_PATH}} — Vault secret path for Artifactory credentials
+#   {{SLACK_CHANNEL_ID}}  — Slack channel ID for deploy notifications
+#   {{ENVIRONMENT_QA}}    — QA cluster (e.g., euw1-pdv-qa-2)
+#   {{ENVIRONMENT_STG}}   — Staging cluster (e.g., euw1-pdv-stg-5)
+#   {{ENVIRONMENT_PRD}}   — Production cluster (e.g., euw1-pdv-prd-5)
+#   {{RUNTIME}}           — runtime type: dotnet, go, java-maven, java-gradle, python
+#   {{RUNTIME_VERSION}}   — runtime version (e.g., 21 for Java, 9.0 for dotnet)
+#   {{WORKLOAD_NAME}}     — workload resource name
+#   {{APP_TYPE}}          — api or worker
+apiVersion: justeattakeaway.com/sonic-spec/0.0.2
+
+metadata:
+  metadataId: "{{APP_NAME}}"
+  project: "{{PROJECT_ID}}"
+  team: "{{TEAM_NAME}}"
+  vaultRole: "{{VAULT_ROLE}}"
+  vaultSecretPath: {{VAULT_SECRET_PATH}}
+  deployNotifications:
+    default: "{{SLACK_CHANNEL_ID}}"
+
+environments:
+  qa:
+    - "{{ENVIRONMENT_QA}}"
+  stg:
+    - "{{ENVIRONMENT_STG}}"
+  prd:
+    - "{{ENVIRONMENT_PRD}}"
+
+workloads:
+  apiVersion: justeattakeaway.com/workloads/0.0.2
+  resources:
+    {{WORKLOAD_NAME}}:
+      type: service
+
+  artifacts:
+    {{WORKLOAD_NAME}}:
+      appType: {{APP_TYPE}}
+      runtime: {{RUNTIME}}
+      runtimeVersion: {{RUNTIME_VERSION}}
+      tests:
+        - type: unit
+
+  # Uncomment if e2e or acceptance tests exist:
+  # deployments:
+  #   {{WORKLOAD_NAME}}:
+  #     tests:
+  #       - type: e2e

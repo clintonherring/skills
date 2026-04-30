@@ -1,0 +1,40 @@
+{
+  "skill_name": "jet-opencode-notifier",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I keep missing when OpenCode finishes. Can you set up native macOS notifications so I get a desktop alert when tasks complete or need input? I use Ghostty.",
+      "expected_output": "Guides the user through opencode-notifier setup, asks for notification system (recommends Ghostty), and configures the plugin and notifier config for macOS/Ghostty.",
+      "files": [],
+      "expectations": [
+        "Asks which notification system the user wants",
+        "Recommends Ghostty for Ghostty users",
+        "Uses @mohak34/opencode-notifier@beta in opencode.jsonc",
+        "Creates or updates opencode-notifier.json with notificationSystem set"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Set up opencode-notifier for me on macOS. I don't use Ghostty, just iTerm. I want reliable notifications even if the icon is Script Editor.",
+      "expected_output": "Chooses osascript as notification system, updates plugin config, and explains the Script Editor notification permission if needed.",
+      "files": [],
+      "expectations": [
+        "Asks which notification system the user wants",
+        "Recommends osascript for reliability when Ghostty is not used",
+        "Uses @mohak34/opencode-notifier@beta in opencode.jsonc",
+        "Mentions Script Editor notifications for macOS"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "I want OpenCode to ping me on Linux when a session completes. Can you set up opencode-notifier and tell me how to install notification support?",
+      "expected_output": "Sets up opencode-notifier plugin, asks for notification system, and provides Linux libnotify install guidance.",
+      "files": [],
+      "expectations": [
+        "Asks which notification system the user wants",
+        "Mentions libnotify installation on Linux",
+        "Uses @mohak34/opencode-notifier@beta in opencode.jsonc"
+      ]
+    }
+  ]
+}

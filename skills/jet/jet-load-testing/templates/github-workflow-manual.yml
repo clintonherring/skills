@@ -1,0 +1,53 @@
+# GitHub Actions Workflow: Manual Load Test Trigger
+#
+# This workflow allows manual triggering of k6 load tests via the GitHub Actions UI.
+# Users can select the profile and environment before running the test.
+#
+# Usage:
+#   1. Go to Actions tab in GitHub
+#   2. Select "run-k6-test" workflow
+#   3. Click "Run workflow"
+#   4. Select profile and environment from dropdowns
+#   5. Click "Run workflow" button
+#
+# Documentation: https://backstage.eu-west-1.production.jet-internal.com/docs/default/concept/load-testing/getting-started/triggering-tests/
+
+name: run-k6-test
+
+on:
+  workflow_dispatch:
+    inputs:
+      profile:
+        description: "Profile to use for the test"
+        type: choice
+        required: true
+        options:
+          - staging-uk
+          - staging-i18n
+          - production-uk
+          - production-i18n
+      environment:
+        description: "Environment to run the test against"
+        type: choice
+        required: true
+        options:
+          - euw1-plt-staging-1
+          - euw1-plt-prod-1
+
+jobs:
+  run-k6-test:
+    uses: github-actions/load-testing/.github/workflows/run-k6.yml@v1
+    secrets: inherit
+    with:
+      # REQUIRED: Update these values for your service
+      app: "{YOUR_APP_NAME}"                    # App name as per PlatformMetadata
+      path: ".load-tests/load.js"               # Relative path to your test script
+      mode: cloud                               # Execution mode: cloud or cloudresultsonly
+      cloud-project-id: 12345                   # Your k6 Cloud project ID
+      
+      # User-selected inputs from workflow_dispatch
+      environment: ${{ inputs.environment }}
+      profile: ${{ inputs.profile }}
+      
+      # OPTIONAL: Team-specific Slack notifications
+      # slack-channel-id: "C08K49U007N"         # Your team's Slack channel ID

@@ -1,0 +1,36 @@
+# DNS record formats per Spec 003 + Sonic Runtime.
+# APP_NAME = application name from PlatformMetadata (validated in Phase 1).
+# PROJECT_ID = Sonic Runtime project (= namespace), used as-is — no prefix/suffix.
+# ENV_COMPONENT = summarized env-alias, e.g. pdv-5 (env-function + partition-id only).
+#
+# See references/05-dns-and-networking.md for the full record format reference.
+#
+# Note: jet-external.com does NOT appear in VirtualService hosts.
+# External API traffic is proxied through SmartGateway to the internal NG-record,
+# so the Istio ingress only sees jet-internal.com host headers.
+# Brand domains ARE included — they hit the ingress directly via Cloudflare.
+#
+# CONSISTENCY RULE (Section 5.8):
+# Every domain listed below must match EXACTLY across three layers:
+#   1. DNS record name (Route53 / domain-routing)
+#   2. helm-core customRules hostname (for R-records, G-records, brand domains)
+#   3. VirtualService hosts (this file's domains list)
+# Run Section 5.8 validation before creating PRs to detect mismatches.
+domains:
+  # E-record (always included):
+  - {{APP_NAME}}.{{PROJECT_ID}}.{{ENV_COMPONENT}}.{{REGION}}.{{ENV_TYPE}}.jet-internal.com
+  # NG-record (recommended for cross-project communication):
+  # - {{APP_NAME}}.{{PROJECT_ID}}.{{ENV_TYPE}}.jet-internal.com
+  #
+  # R-record (only if Q4b = Yes, regional record needed):
+  # - {{APP_NAME}}.{{REGION}}.{{ENV_TYPE}}.jet-internal.com
+  #
+  # For brand domains (EXPOSURE_TYPE = brand-domain):
+  # - {{SERVICE_SUBDOMAIN}}.{{BRAND_DOMAIN}}
+env_vars:
+  ENVIRONMENT: "{{ENV_TYPE}}"
+
+# Vault configuration (per-environment, if secret paths differ across envs)
+# vault_secret_path: {{VAULT_SECRET_PATH}}
+#   Legacy (KV v1): secret/{{APP_NAME}}
+#   OneSecrets (KV v2): {{PROJECT_ID}}/data/{{APP_NAME}}

@@ -1,0 +1,42 @@
+# Weighted CNAME records for DNS-based traffic split (SRE-EKS → Sonic Runtime).
+# Generate one pair of records per environment that uses R-records or G-records.
+#
+# Template placeholders:
+#   {{SERVICE_NAME_SAFE}} — Service name, safe for terraform resource names (alphanumeric + underscores)
+#   {{ZONE_REF}}          — Terraform data source reference for the Route53 zone
+#   {{DNS_RECORD}}        — Full DNS record name (e.g., myservice.euw1.production.jet-internal.com)
+#   {{SONIC_ENDPOINT}}    — Sonic Runtime CNAME target
+#   {{SRE_EKS_ENDPOINT}}  — SRE-EKS CNAME target
+#   {{ENV_TYPE}}           — Environment type: qa, staging, or production
+#
+# When R-records or G-records are used, generate this template for EACH environment
+# (qa, staging, production). Each environment has its own zone file in the IFA/route53 repo.
+# Explore the repo structure to find the correct zone file per environment.
+
+resource "aws_route53_record" "{{SERVICE_NAME_SAFE}}_{{ENV_TYPE}}_sonic" {
+  zone_id = data.aws_route53_zone.{{ZONE_REF}}.zone_id
+  name    = "{{DNS_RECORD}}"
+  type    = "CNAME"
+  ttl     = 60
+
+  weighted_routing_policy {
+    weight = 0  # Sonic Runtime — start at 0, increase gradually
+  }
+
+  set_identifier = "sonic-runtime"
+  records        = ["{{SONIC_ENDPOINT}}"]
+}
+
+resource "aws_route53_record" "{{SERVICE_NAME_SAFE}}_{{ENV_TYPE}}_sre_eks" {
+  zone_id = data.aws_route53_zone.{{ZONE_REF}}.zone_id
+  name    = "{{DNS_RECORD}}"
+  type    = "CNAME"
+  ttl     = 60
+
+  weighted_routing_policy {
+    weight = 100  # SRE-EKS — start at 100, decrease gradually
+  }
+
+  set_identifier = "sre-eks"
+  records        = ["{{SRE_EKS_ENDPOINT}}"]
+}

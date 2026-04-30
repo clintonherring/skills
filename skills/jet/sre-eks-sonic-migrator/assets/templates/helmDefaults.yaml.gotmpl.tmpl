@@ -1,0 +1,6 @@
+helmDefaults:
+  kubeContext: {{ .Environment.Name }}
+  wait: true
+  waitForJobs: true
+  atomic: true
+  createNamespace: false

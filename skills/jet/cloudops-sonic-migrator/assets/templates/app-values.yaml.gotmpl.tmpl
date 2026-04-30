@@ -1,0 +1,86 @@
+# APP_NAME = application name from PlatformMetadata (validated in Phase 1).
+# PROJECT_ID = Sonic Runtime project (= namespace), used as-is — no prefix/suffix.
+# Domains are defined per-environment in state_values/{env}.yaml.
+# See references/05b-dns-reference.md for the DNS record format reference.
+application:
+  name: {{APP_NAME}}
+  tier: {{ requiredEnv "TIER" | default "{{TIER}}" }}
+  version: {{ requiredEnv "APP_VERSION" | default "latest" }}
+  repository: github.je-labs.com/{{ORG}}/{{REPO}}
+
+deployment:
+  image: {{DOCKER_REGISTRY}}/{{DOCKER_REPO}}/{{SERVICE_NAME}}:{{ requiredEnv "APP_VERSION" | default "latest" }}
+  resources:
+    requests:
+      cpu: {{CPU_REQUEST}}
+      memory: {{MEMORY_REQUEST}}
+    limits:
+      memory: {{MEMORY_LIMIT}}
+  ports:
+    - containerPort: {{ .Values.port }}
+      name: http
+  readinessProbe:
+    httpGet:
+      path: {{HEALTH_PATH}}
+      port: {{ .Values.port }}
+    initialDelaySeconds: 5
+    periodSeconds: 10
+  livenessProbe:
+    httpGet:
+      path: {{HEALTH_PATH}}
+      port: {{ .Values.port }}
+    initialDelaySeconds: 15
+    periodSeconds: 20
+  env:
+    {{- range $key, $val := .Values.env_vars }}
+    - name: {{ $key }}
+      value: {{ $val | quote }}
+    {{- end }}
+
+# --- Vault Sidecar Injection ---
+# Configure based on VAULT_STRATEGY determined in Phase 4 Q4.
+# See references/06-vault-secrets-migration.md for all annotation patterns.
+# The Vault agent sidecar connects to LOCAL cluster Vault — no vault.hashicorp.com/service needed.
+# Vault role = PROJECT_ID (Kubernetes auth role created by cps/projects).
+#
+# For VAULT_STRATEGY = onesecrets (KV v2 — project's own OneSecrets mount):
+# podAnnotations:
+#   vault.hashicorp.com/agent-inject: "true"
+#   vault.hashicorp.com/agent-run-as-user: "1337"
+#   vault.hashicorp.com/role: "{{PROJECT_ID}}"
+#   vault.hashicorp.com/agent-inject-template-secrets.json: |
+#     {{`{{- with secret "{{PROJECT_ID}}/data/{{APP_NAME}}" }}`}}
+#     {{`{{ .Data.data | toUnescapedJSON }}`}}
+#     {{`{{- end }}`}}
+#
+# Alternative: basic-application chart's vault.environmentSecrets (recommended):
+# vault:
+#   environmentSecrets:
+#     role: ""  # defaults to namespace (= PROJECT_ID)
+#     secrets:
+#       - secretPath: {{PROJECT_ID}}/{{APP_NAME}}/secrets
+#         isKV1: false
+#         envs:
+#           - key: secret_key
+#             env: SECRET_ENV_VAR
+
+virtualservices:
+  - hosts:
+    {{- range .Values.domains }}
+      - {{ . }}
+    {{- end }}
+    gateways:
+      - istio-gateways/igw-{{PROJECT_ID}}
+    http:
+      - route:
+          - destination:
+              host: {{SERVICE_NAME}}
+              port:
+                number: {{ .Values.port }}
+
+# IMPORTANT: The scaling section below is a minimal placeholder.
+# Before using this template, read the basic-application chart's values.yaml
+# to determine the correct scaling configuration for the current chart version.
+# The chart may use HPA, KEDA ScaledObject, or another mechanism depending on version.
+# Fetch from: gh repo clone github.je-labs.com/helm-charts/basic-application
+{{SCALING_CONFIG}}

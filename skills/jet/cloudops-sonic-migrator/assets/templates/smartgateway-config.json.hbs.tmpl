@@ -1,0 +1,31 @@
+{
+  "name": "{{SERVICE_DISPLAY_NAME}}",
+  "host": "{{NG_RECORD}}",
+  "port": 443,
+  "protocol": "https",
+  "paths": [
+    {
+      "incoming": "{{INCOMING_PATH}}",
+      "outgoing": "{{OUTGOING_PATH}}"
+    }
+  ]
+}
+
+{{!--
+SmartGateway (Kong) route configuration for external-facing APIs.
+Only needed when DNS discovery confirmed external internet traffic through SmartGateway.
+NOT needed for brand domains used internally only.
+
+CRITICAL:
+  - host MUST be the NG-record (not E-record)
+  - port MUST be 443
+  - protocol MUST be "https"
+
+Placeholders:
+  {{SERVICE_DISPLAY_NAME}}  — human-readable service name for the route
+  {{NG_RECORD}}             — NG-record: {APP_NAME}.{PROJECT_ID}.{ENV_TYPE}.jet-internal.com
+  {{INCOMING_PATH}}         — external path (e.g., "/api/v1/partners")
+  {{OUTGOING_PATH}}         — internal path (e.g., "/api/v1/partners")
+
+Review channel: #help-http-integrations
+--}}

@@ -1,0 +1,62 @@
+{
+  "skill_name": "jet-slides",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Create a short presentation about Q1 2026 Logistics performance. Include a cover slide, an executive summary with 3 key takeaways (on-time delivery improved by 4%, courier satisfaction up 12 points, average delivery time down to 28 minutes), a data slide showing quarterly metrics, and a closing slide. My name is Sarah Chen and I'm a Senior PM.",
+      "expected_output": "A Google Slides presentation cloned from the JET template with approximately 5-7 slides: Logistics cover page, executive summary, data/metrics slide, and a closing slide on JET Orange. All placeholder text replaced with actual content. Returns a shareable link.",
+      "files": [],
+      "expectations": [
+        "The presentation is created by cloning template 1M-8jgsBKitaL6pkVg_78DcoFm__9_MoEmmkpazKkv9k",
+        "The Logistics cover page (slide index 3, objectId g329ad47a42a_0_362) is kept; other cover pages are deleted",
+        "Template-internal slides (13, 28-34, 157-160, 161-175) are deleted",
+        "The executive summary slide (index 40) is used for key takeaways",
+        "A data or graph slide is used for quarterly metrics",
+        "The presentation starts with a cover slide and ends with a closing/thanks slide",
+        "Placeholder text like 'Month Year', 'Name Surname', 'Lorem ipsum' is replaced with actual content",
+        "A shareable Google Slides URL is returned to the user",
+        "The content uses active voice and JET brand tone (no banned words like 'cheap', 'fast food')",
+        "All text uses sentence case (not Title Case) — only first word and proper nouns capitalised",
+        "The author name 'Sarah Chen' appears on the cover slide"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Make me a research readout deck. The project was 'Partner Onboarding UX Audit' for the Partner UX team. We interviewed 15 restaurant partners across 4 markets (UK, NL, DE, ES). Key findings: 1) Partners find the menu upload process confusing (8/15 needed support calls), 2) Verification takes too long — average 5 days vs promised 48 hours, 3) Partners love the real-time order dashboard. Include some partner quotes. I'm Alex Rivera, UX Researcher.",
+      "expected_output": "A research readout presentation with 10-15 slides: Partner UX cover, contents page, project context with methodology, executive summary, findings sections with dividers, quote slides with partner quotes, highs and lows, recommendations, and closing slide. All on-brand.",
+      "files": [],
+      "expectations": [
+        "The presentation is created by cloning the JET template",
+        "The Partner UX cover page (slide index 1, objectId g31669fcce71_0_0) is kept",
+        "A project context slide (37, 38, or 39) is used to describe the methodology",
+        "An executive summary slide (40) is used for key takeaways",
+        "Quote slides (43 or 44) are used for partner quotes",
+        "The Highs (56) and/or The Lows (55) slides are used for findings",
+        "Three-point or insights slides (50, 51, or 52) are used for key findings",
+        "The deck follows a logical structure with section dividers between major sections",
+        "Divider slides separate major sections",
+        "The content avoids market-specific colour issues (Turmeric avoided for Spain)",
+        "All text uses sentence case (not Title Case) — only first word and proper nouns capitalised",
+        "Template-internal slides are deleted from the final presentation"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "I need a quick 5-slide deck about a new feature we're launching: 'Smart Reorder' for the Customer UX team. It lets customers reorder their last meal with one tap. Just need a cover, what it is, why it matters, timeline, and a thank you slide. Keep it punchy. I'm Jordan Lee, Product Designer.",
+      "expected_output": "A concise 5-slide presentation: Customer UX cover, feature description slide, value proposition slide, timeline/roadmap, and closing. Short and punchy copy in JET brand voice.",
+      "files": [],
+      "expectations": [
+        "The presentation is created by cloning the JET template",
+        "The Customer UX cover page (slide index 0, objectId g329ad47a42a_0_0) is kept",
+        "The presentation has approximately 5 slides (not bloated with unnecessary slides)",
+        "A timeline or roadmap slide (47, 68, 151, or 152) is included",
+        "A closing/thanks slide (85 or 176) is included",
+        "The presentation follows a logical structure with appropriate slide types",
+        "Copy is concise and punchy as requested",
+        "All text uses sentence case (not Title Case) — only first word and proper nouns capitalised",
+        "All template-internal slides are deleted",
+        "A shareable URL is returned"
+      ]
+    }
+  ]
+}

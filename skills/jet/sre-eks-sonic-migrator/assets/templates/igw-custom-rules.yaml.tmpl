@@ -1,0 +1,34 @@
+# Add under the igw-{{PROJECT_ID}} gateway section in cps/helm-core
+# File: clusters/{cluster}/releases/istio-gateways.yaml.gotmpl
+#
+# IMPORTANT — Same Ingress Requirement:
+# customRules MUST be on the SAME ingress as the project's igw-<project> wildcard rules.
+# Each ingress in istio-gateways.yaml.gotmpl creates a separate AWS ALB.
+# R-records and G-records CNAME to the E-record, which resolves to the wildcard's ALB.
+# Placing customRules on a different ingress = different ALB = CNAME chain delivers
+# traffic to the wrong ALB and routing fails silently.
+#
+# APP_NAME = application name from PlatformMetadata (validated in Phase 1).
+# PROJECT_ID = Sonic Runtime project (= namespace), used as-is — no prefix/suffix.
+#
+# customRules are needed for any hostname on the Istio ingress beyond E-record and NG-record:
+# - E-records and NG-records are auto-provisioned via igw-<project> wildcard — no customRules needed.
+# - Regional records (R-records) and brand domains need customRules.
+# - jet-external.com does NOT need customRules — SmartGateway proxies to the internal NG-record.
+#
+# Always fetch the current file structure from the repo before generating:
+#   gh repo clone github.je-labs.com/cps/helm-core /tmp/helm-core
+#   Explore clusters/ directory for existing customRules patterns.
+
+# For regional records (Q4b = Yes):
+# R-record format: <APP_NAME>.<region>.<env-type>.jet-internal.com
+customRules:
+  - hosts:
+      - {{APP_NAME}}.{{REGION}}.{{ENV_TYPE}}.jet-internal.com
+    defaultGateway: igw-{{PROJECT_ID}}
+
+# For brand domains (EXPOSURE_TYPE = brand-domain):
+# Brand domain traffic hits the Istio ingress directly via Cloudflare.
+#  - hosts:
+#      - {{SERVICE_SUBDOMAIN}}.{{BRAND_DOMAIN}}
+#    defaultGateway: igw-{{PROJECT_ID}}

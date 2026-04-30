@@ -1,0 +1,26 @@
+bases:
+  - bases/helmDefaults.yaml.gotmpl
+  - bases/repositories.yaml.gotmpl
+
+environments:
+  {{ENVIRONMENT_QA}}:
+    values:
+      - state_values/defaults.yaml
+      - state_values/{{ENVIRONMENT_QA}}.yaml
+  {{ENVIRONMENT_STG}}:
+    values:
+      - state_values/defaults.yaml
+      - state_values/{{ENVIRONMENT_STG}}.yaml
+  {{ENVIRONMENT_PRD}}:
+    values:
+      - state_values/defaults.yaml
+      - state_values/{{ENVIRONMENT_PRD}}.yaml
+
+---
+releases:
+  - name: {{SERVICE_NAME}}
+    chart: sre/basic-application
+    version: {{CHART_VERSION}} # use minor version to allow patch updates without changing helmfile
+    namespace: {{NAMESPACE}}
+    values:
+      - values/{{SERVICE_NAME}}.yaml.gotmpl
