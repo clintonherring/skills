@@ -2,7 +2,7 @@
 # Inspired by OpenViking's context database paradigm
 #
 # Usage:
-#   .\skill-manager.ps1 list [category]     - List skills (all|anthropic|jet|custom)
+#   .\skill-manager.ps1 list [category]     - List skills (all|anthropic|cursor|jet|custom)
 #   .\skill-manager.ps1 sync                - Pull latest from source locations
 #   .\skill-manager.ps1 status              - Show modified skills vs source
 #   .\skill-manager.ps1 add-example <skill> <name> - Create example template in a custom skill
@@ -20,10 +20,12 @@ param(
 )
 
 $SkillsRoot = $PSScriptRoot
-$Categories = @("anthropic","jet","custom")
+$Categories = @("anthropic","cursor","jet","custom")
 
 # Source locations (ordered by priority)
 $Sources = @(
+    "$env:USERPROFILE\.cursor\skills",
+    "$env:USERPROFILE\.cursor\skills-cursor",
     "$env:USERPROFILE\.agents\skills",
     "C:\.agents\skills"
 )
@@ -161,12 +163,12 @@ $(Get-Date -Format "yyyy-MM-dd")
 Skill Manager - Local skill repository management
 
 Usage:
-  .\skill-manager.ps1 list [category]          List skills (all|anthropic|jet|custom)
+  .\skill-manager.ps1 list [category]          List skills (all|anthropic|cursor|jet|custom)
   .\skill-manager.ps1 sync                     Pull latest from source locations
   .\skill-manager.ps1 status                   Show modified skills and example counts
   .\skill-manager.ps1 add-example <skill> <name>  Create example template
 
-Categories: anthropic, jet, custom
+Categories: anthropic, cursor, jet, custom
 
 Conversational triggers (in OpenCode):
   "new pi example"      -> Captures a PI investigation as a reference

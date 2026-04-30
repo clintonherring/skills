@@ -2,275 +2,452 @@
     "categories":  {
                        "custom":  [
                                       {
-                                          "abstract":  "Investigate and root-cause production incidents at JET by correlating infrastructure changes, Datadog observability, GitHub PRs, AWS events, and Wiz security findings.",
-                                          "path":  "skills://custom/jet-pi-troubleshooter",
-                                          "name":  "jet-pi-troubleshooter"
+                                          "path":  "skills://custom/android-ui-m3",
+                                          "name":  "android-ui-m3",
+                                          "abstract":  "Design and build Android UI following Material 3 layout principles, glassmorphism, and modern map-app patterns. Use w..."
                                       },
                                       {
-                                          "abstract":  "Review Jira tickets in Review status assigned to the current user, verify work was done correctly via PRs/DNS/logs, and close or provide feedback.",
+                                          "path":  "skills://custom/jet-pi-troubleshooter",
+                                          "name":  "jet-pi-troubleshooter",
+                                          "abstract":  "Investigate and root-cause production incidents (PIs) at JET by correlating infrastructure changes, Datadog observabi..."
+                                      },
+                                      {
+                                          "path":  "skills://custom/opensar-brand",
+                                          "name":  "opensar-brand",
+                                          "abstract":  "Applies OpenSAR brand identity (colors, typography, spacing, components) to web frontends and artifacts. Based on Mod..."
+                                      },
+                                      {
+                                          "path":  "skills://custom/opensar-nocodb",
+                                          "name":  "opensar-nocodb",
+                                          "abstract":  "Browse and manage database records via NocoDB MCP servers. Covers two bases -- OpenSAR (default, cloud_sample + opens..."
+                                      },
+                                      {
                                           "path":  "skills://custom/ticket-reviewer",
-                                          "name":  "ticket-reviewer"
+                                          "name":  "ticket-reviewer",
+                                          "abstract":  "Review Jira tickets that are in Review status assigned to the current user. Use this skill whenever the user asks to ..."
+                                      }
+                                  ],
+                       "cursor":  [
+                                      {
+                                          "path":  "skills://cursor/babysit",
+                                          "name":  "babysit",
+                                          "abstract":  "Keep a PR merge-ready by triaging comments, resolving clear conflicts, and fixing CI in a loop."
+                                      },
+                                      {
+                                          "path":  "skills://cursor/canvas",
+                                          "name":  "canvas",
+                                          "abstract":  "A Cursor Canvas is a live React app that the user can open beside the chat. You MUST use a canvas when the agent prod..."
+                                      },
+                                      {
+                                          "path":  "skills://cursor/create-hook",
+                                          "name":  "create-hook",
+                                          "abstract":  "Create Cursor hooks. Use when you want to create a hook, write hooks.json, add hook scripts, or automate behavior aro..."
+                                      },
+                                      {
+                                          "path":  "skills://cursor/create-rule",
+                                          "name":  "create-rule",
+                                          "abstract":  "Create Cursor rules for persistent AI guidance. Use when you want to create a rule, add coding standards, set up proj..."
+                                      },
+                                      {
+                                          "path":  "skills://cursor/create-skill",
+                                          "name":  "create-skill",
+                                          "abstract":  "Guides users through creating effective Agent Skills for Cursor. Use when you want to create, write, or author a new ..."
+                                      },
+                                      {
+                                          "path":  "skills://cursor/create-subagent",
+                                          "name":  "create-subagent",
+                                          "abstract":  "Create custom subagents for specialized AI tasks. Use when you want to create a new type of subagent, set up task-spe..."
+                                      },
+                                      {
+                                          "path":  "skills://cursor/migrate-to-skills",
+                                          "name":  "migrate-to-skills",
+                                          "abstract":  "Convert \u0027Applied intelligently\u0027 Cursor rules (.cursor/rules/*.mdc) and slash commands (.cursor/commands/*.md) to Agen..."
+                                      },
+                                      {
+                                          "path":  "skills://cursor/shell",
+                                          "name":  "shell",
+                                          "abstract":  "Runs the rest of a /shell request as a literal shell command. Use only when the user explicitly invokes /shell and wa..."
+                                      },
+                                      {
+                                          "path":  "skills://cursor/split-to-prs",
+                                          "name":  "split-to-prs",
+                                          "abstract":  "Split current work into small reviewable PRs. Use when the user asks to split a chat, set of changes, branch, or PR."
+                                      },
+                                      {
+                                          "path":  "skills://cursor/statusline",
+                                          "name":  "statusline",
+                                          "abstract":  "Configure a custom status line in the CLI. Use when the user mentions status line, statusline, statusLine, CLI status..."
+                                      },
+                                      {
+                                          "path":  "skills://cursor/update-cli-config",
+                                          "name":  "update-cli-config",
+                                          "abstract":  "View and modify Cursor CLI configuration settings in ~/.cursor/cli-config.json. Use when the user wants to change CLI..."
+                                      },
+                                      {
+                                          "path":  "skills://cursor/update-cursor-settings",
+                                          "name":  "update-cursor-settings",
+                                          "abstract":  "Modify Cursor/VSCode user settings in settings.json. Use when you want to change editor settings, preferences, config..."
                                       }
                                   ],
                        "anthropic":  [
                                          {
-                                             "abstract":  "Creating algorithmic art using p5.js with seeded randomness and interactive parameter exploration. Use this when users r",
+                                             "path":  "skills://anthropic/adapt",
+                                             "name":  "adapt",
+                                             "abstract":  "Adapt designs to work across different screen sizes, devices, contexts, or platforms. Ensures consistent experience a..."
+                                         },
+                                         {
                                              "path":  "skills://anthropic/algorithmic-art",
-                                             "name":  "algorithmic-art"
+                                             "name":  "algorithmic-art",
+                                             "abstract":  "Creating algorithmic art using p5.js with seeded randomness and interactive parameter exploration. Use this when user..."
                                          },
                                          {
-                                             "abstract":  "Applies Anthropic\u0027s official brand colors and typography to any sort of artifact that may benefit from having Anthropic\u0027",
+                                             "path":  "skills://anthropic/animate",
+                                             "name":  "animate",
+                                             "abstract":  "Review a feature and enhance it with purposeful animations, micro-interactions, and motion effects that improve usabi..."
+                                         },
+                                         {
+                                             "path":  "skills://anthropic/audit",
+                                             "name":  "audit",
+                                             "abstract":  "Perform comprehensive audit of interface quality across accessibility, performance, theming, and responsive design. G..."
+                                         },
+                                         {
+                                             "path":  "skills://anthropic/bolder",
+                                             "name":  "bolder",
+                                             "abstract":  "Amplify safe or boring designs to make them more visually interesting and stimulating. Increases impact while maintai..."
+                                         },
+                                         {
+                                             "path":  "skills://anthropic/bootstrap-studio-bsdesign",
+                                             "name":  "bootstrap-studio-bsdesign",
+                                             "abstract":  "Read, edit, and build Bootstrap Studio .bsdesign project files programmatically. Use when the user mentions .bsdesign..."
+                                         },
+                                         {
                                              "path":  "skills://anthropic/brand-guidelines",
-                                             "name":  "brand-guidelines"
+                                             "name":  "brand-guidelines",
+                                             "abstract":  "Applies Anthropic\u0027s official brand colors and typography to any sort of artifact that may benefit from having Anthrop..."
                                          },
                                          {
-                                             "abstract":  "Create beautiful visual art in .png and .pdf documents using design philosophy. You should use this skill when the user ",
                                              "path":  "skills://anthropic/canvas-design",
-                                             "name":  "canvas-design"
+                                             "name":  "canvas-design",
+                                             "abstract":  "Create beautiful visual art in .png and .pdf documents using design philosophy. You should use this skill when the us..."
                                          },
                                          {
-                                             "abstract":  "\"Build, debug, and optimize Claude API / Anthropic SDK apps. Apps built with this skill should include prompt caching. A",
+                                             "path":  "skills://anthropic/clarify",
+                                             "name":  "clarify",
+                                             "abstract":  "Improve unclear UX copy, error messages, microcopy, labels, and instructions. Makes interfaces easier to understand a..."
+                                         },
+                                         {
                                              "path":  "skills://anthropic/claude-api",
-                                             "name":  "claude-api"
+                                             "name":  "claude-api",
+                                             "abstract":  "\"Build, debug, and optimize Claude API / Anthropic SDK apps. Apps built with this skill should include prompt caching..."
                                          },
                                          {
-                                             "abstract":  "Guide users through a structured workflow for co-authoring documentation. Use when user wants to write documentation, pr",
+                                             "path":  "skills://anthropic/colorize",
+                                             "name":  "colorize",
+                                             "abstract":  "Add strategic color to features that are too monochromatic or lack visual interest. Makes interfaces more engaging an..."
+                                         },
+                                         {
+                                             "path":  "skills://anthropic/context-tiering",
+                                             "name":  "context-tiering",
+                                             "abstract":  "Tiered context management system for projects. Reduces token consumption by organizing project knowledge into L0 (abs..."
+                                         },
+                                         {
+                                             "path":  "skills://anthropic/cost-optimized-routing",
+                                             "name":  "cost-optimized-routing",
+                                             "abstract":  "Optimizes token cost by routing tasks to the cheapest effective agent. Classifies work into phases (explore, plan, bu..."
+                                         },
+                                         {
+                                             "path":  "skills://anthropic/critique",
+                                             "name":  "critique",
+                                             "abstract":  "Evaluate design effectiveness from a UX perspective. Assesses visual hierarchy, information architecture, emotional r..."
+                                         },
+                                         {
+                                             "path":  "skills://anthropic/delight",
+                                             "name":  "delight",
+                                             "abstract":  "Add moments of joy, personality, and unexpected touches that make interfaces memorable and enjoyable to use. Elevates..."
+                                         },
+                                         {
+                                             "path":  "skills://anthropic/distill",
+                                             "name":  "distill",
+                                             "abstract":  "Strip designs to their essence by removing unnecessary complexity. Great design is simple, powerful, and clean."
+                                         },
+                                         {
                                              "path":  "skills://anthropic/doc-coauthoring",
-                                             "name":  "doc-coauthoring"
+                                             "name":  "doc-coauthoring",
+                                             "abstract":  "Guide users through a structured workflow for co-authoring documentation. Use when user wants to write documentation,..."
                                          },
                                          {
-                                             "abstract":  "\"Use this skill whenever the user wants to create, read, edit, or manipulate Word documents (.docx files). Triggers incl",
                                              "path":  "skills://anthropic/docx",
-                                             "name":  "docx"
+                                             "name":  "docx",
+                                             "abstract":  "\"Use this skill whenever the user wants to create, read, edit, or manipulate Word documents (.docx files). Triggers i..."
                                          },
                                          {
-                                             "abstract":  "Create distinctive, production-grade frontend interfaces with high design quality. Use this skill when the user asks to ",
+                                             "path":  "skills://anthropic/extract",
+                                             "name":  "extract",
+                                             "abstract":  "Extract and consolidate reusable components, design tokens, and patterns into your design system. Identifies opportun..."
+                                         },
+                                         {
                                              "path":  "skills://anthropic/frontend-design",
-                                             "name":  "frontend-design"
+                                             "name":  "frontend-design",
+                                             "abstract":  "Create distinctive, production-grade frontend interfaces with high design quality. Use this skill when the user asks ..."
                                          },
                                          {
-                                             "abstract":  "Guide for creating high-quality MCP (Model Context Protocol) servers that enable LLMs to interact with external services",
+                                             "path":  "skills://anthropic/harden",
+                                             "name":  "harden",
+                                             "abstract":  "Improve interface resilience through better error handling, i18n support, text overflow handling, and edge case manag..."
+                                         },
+                                         {
                                              "path":  "skills://anthropic/mcp-builder",
-                                             "name":  "mcp-builder"
+                                             "name":  "mcp-builder",
+                                             "abstract":  "Guide for creating high-quality MCP (Model Context Protocol) servers that enable LLMs to interact with external servi..."
                                          },
                                          {
-                                             "abstract":  "Use this skill whenever the user wants to do anything with PDF files. This includes reading or extracting text/tables fr",
+                                             "path":  "skills://anthropic/normalize",
+                                             "name":  "normalize",
+                                             "abstract":  "Normalize design to match your design system and ensure consistency"
+                                         },
+                                         {
+                                             "path":  "skills://anthropic/onboard",
+                                             "name":  "onboard",
+                                             "abstract":  "Design or improve onboarding flows, empty states, and first-time user experiences. Helps users get started successful..."
+                                         },
+                                         {
+                                             "path":  "skills://anthropic/optimize",
+                                             "name":  "optimize",
+                                             "abstract":  "Improve interface performance across loading speed, rendering, animations, images, and bundle size. Makes experiences..."
+                                         },
+                                         {
                                              "path":  "skills://anthropic/pdf",
-                                             "name":  "pdf"
+                                             "name":  "pdf",
+                                             "abstract":  "Use this skill whenever the user wants to do anything with PDF files. This includes reading or extracting text/tables..."
                                          },
                                          {
-                                             "abstract":  "\"Use this skill any time a .pptx file is involved in any way — as input, output, or both. This includes: creating slid",
+                                             "path":  "skills://anthropic/polish",
+                                             "name":  "polish",
+                                             "abstract":  "Final quality pass before shipping. Fixes alignment, spacing, consistency, and detail issues that separate good from ..."
+                                         },
+                                         {
                                              "path":  "skills://anthropic/pptx",
-                                             "name":  "pptx"
+                                             "name":  "pptx",
+                                             "abstract":  "\"Use this skill any time a .pptx file is involved in any way — as input, output, or both. This includes: creating s..."
                                          },
                                          {
-                                             "abstract":  "Create new skills, modify and improve existing skills, and measure skill performance. Use when users want to create a sk",
+                                             "path":  "skills://anthropic/quieter",
+                                             "name":  "quieter",
+                                             "abstract":  "Tone down overly bold or visually aggressive designs. Reduces intensity while maintaining design quality and impact."
+                                         },
+                                         {
                                              "path":  "skills://anthropic/skill-creator",
-                                             "name":  "skill-creator"
+                                             "name":  "skill-creator",
+                                             "abstract":  "Create new skills, modify and improve existing skills, and measure skill performance. Use when users want to create a..."
                                          },
                                          {
-                                             "abstract":  "Rules and best-practice guidelines for reviewing an agent skill\u0027s SKILL.md, focused on required frontmatter validation a",
                                              "path":  "skills://anthropic/skill-reviewer",
-                                             "name":  "skill-reviewer"
+                                             "name":  "skill-reviewer",
+                                             "abstract":  "Rules and best-practice guidelines for reviewing an agent skill\u0027s SKILL.md, focused on required frontmatter validatio..."
                                          },
                                          {
-                                             "abstract":  "Knowledge and utilities for creating animated GIFs optimized for Slack. Provides constraints, validation tools, and anim",
                                              "path":  "skills://anthropic/slack-gif-creator",
-                                             "name":  "slack-gif-creator"
+                                             "name":  "slack-gif-creator",
+                                             "abstract":  "Knowledge and utilities for creating animated GIFs optimized for Slack. Provides constraints, validation tools, and a..."
                                          },
                                          {
-                                             "abstract":  "Toolkit for styling artifacts with a theme. These artifacts can be slides, docs, reportings, HTML landing pages, etc. Th",
+                                             "path":  "skills://anthropic/teach-impeccable",
+                                             "name":  "teach-impeccable",
+                                             "abstract":  "One-time setup that gathers design context for your project and saves it to your AI config file. Run once to establis..."
+                                         },
+                                         {
                                              "path":  "skills://anthropic/theme-factory",
-                                             "name":  "theme-factory"
+                                             "name":  "theme-factory",
+                                             "abstract":  "Toolkit for styling artifacts with a theme. These artifacts can be slides, docs, reportings, HTML landing pages, etc...."
                                          },
                                          {
-                                             "abstract":  "Suite of tools for creating elaborate, multi-component claude.ai HTML artifacts using modern frontend web technologies (",
-                                             "path":  "skills://anthropic/web-artifacts-builder",
-                                             "name":  "web-artifacts-builder"
-                                         },
-                                         {
-                                             "abstract":  "Toolkit for interacting with and testing local web applications using Playwright. Supports verifying frontend functional",
                                              "path":  "skills://anthropic/webapp-testing",
-                                             "name":  "webapp-testing"
+                                             "name":  "webapp-testing",
+                                             "abstract":  "Toolkit for interacting with and testing local web applications using Playwright. Supports verifying frontend functio..."
                                          },
                                          {
-                                             "abstract":  "\"Use this skill any time a spreadsheet file is the primary input or output. This means any task where the user wants to:",
+                                             "path":  "skills://anthropic/web-artifacts-builder",
+                                             "name":  "web-artifacts-builder",
+                                             "abstract":  "Suite of tools for creating elaborate, multi-component claude.ai HTML artifacts using modern frontend web technologie..."
+                                         },
+                                         {
                                              "path":  "skills://anthropic/xlsx",
-                                             "name":  "xlsx"
+                                             "name":  "xlsx",
+                                             "abstract":  "\"Use this skill any time a spreadsheet file is the primary input or output. This means any task where the user wants ..."
                                          }
                                      ],
                        "jet":  [
                                    {
-                                       "abstract":  "\"Migrate services from CloudOps-EKS to Sonic Runtime (OneEKS). Interactive skill that analyzes a service repository on C",
                                        "path":  "skills://jet/cloudops-sonic-migrator",
-                                       "name":  "cloudops-sonic-migrator"
+                                       "name":  "cloudops-sonic-migrator",
+                                       "abstract":  ""
                                    },
                                    {
-                                       "abstract":  "A set of resources to help me write all kinds of internal communications, using the formats that my company likes to use",
                                        "path":  "skills://jet/internal-comms",
-                                       "name":  "internal-comms"
+                                       "name":  "internal-comms",
+                                       "abstract":  ""
                                    },
                                    {
-                                       "abstract":  "Creates and manages agent guidance files (AGENTS.md, CLAUDE.md) for any codebase. Use this skill when a developer wants ",
                                        "path":  "skills://jet/jet-agents-md",
-                                       "name":  "jet-agents-md"
+                                       "name":  "jet-agents-md",
+                                       "abstract":  ""
                                    },
                                    {
-                                       "abstract":  "Evaluate AGENTS.md or CLAUDE.md files for repo agentic readiness. Use when the user asks for an assessment of the agenti",
                                        "path":  "skills://jet/jet-assess-agent-guidance-files",
-                                       "name":  "jet-assess-agent-guidance-files"
+                                       "name":  "jet-assess-agent-guidance-files",
+                                       "abstract":  ""
                                    },
                                    {
-                                       "abstract":  "JET (Just Eat Takeaway) AWS operational tasks including SSO authentication (orga and acas portals), profile selection, E",
                                        "path":  "skills://jet/jet-aws",
-                                       "name":  "jet-aws"
+                                       "name":  "jet-aws",
+                                       "abstract":  ""
                                    },
                                    {
-                                       "abstract":  "AWS Athena query execution and data exploration via the AWS CLI. Use this skill when running SQL queries against Athena,",
                                        "path":  "skills://jet/jet-aws-athena",
-                                       "name":  "jet-aws-athena"
+                                       "name":  "jet-aws-athena",
+                                       "abstract":  ""
                                    },
                                    {
-                                       "abstract":  "BigQuery data exploration, querying, and optimization. Use when working with BigQuery data, writing BQ SQL queries, expl",
                                        "path":  "skills://jet/jet-bq",
-                                       "name":  "jet-bq"
+                                       "name":  "jet-bq",
+                                       "abstract":  ""
                                    },
                                    {
-                                       "abstract":  "",
                                        "path":  "skills://jet/jet-code-swarm",
-                                       "name":  "jet-code-swarm"
+                                       "name":  "jet-code-swarm",
+                                       "abstract":  ""
                                    },
                                    {
-                                       "abstract":  "JET (Just Eat Takeaway) company development standards, internal documentation, and resources. Use this skill when workin",
                                        "path":  "skills://jet/jet-company-standards",
-                                       "name":  "jet-company-standards"
+                                       "name":  "jet-company-standards",
+                                       "abstract":  ""
                                    },
                                    {
-                                       "abstract":  "Interact with Datadog\u0027s observability platform using the pup CLI (https://github.com/datadog-labs/pup). Use when the use",
                                        "path":  "skills://jet/jet-datadog",
-                                       "name":  "jet-datadog"
+                                       "name":  "jet-datadog",
+                                       "abstract":  ""
                                    },
                                    {
-                                       "abstract":  "",
                                        "path":  "skills://jet/jet-datahub",
-                                       "name":  "jet-datahub"
+                                       "name":  "jet-datahub",
+                                       "abstract":  ""
                                    },
                                    {
-                                       "abstract":  "Use this skill when the user asks for an epic summary, epic overview, or wants to know what tickets are in a Jira epic. ",
                                        "path":  "skills://jet/jet-epic-summary",
-                                       "name":  "jet-epic-summary"
+                                       "name":  "jet-epic-summary",
+                                       "abstract":  ""
                                    },
                                    {
-                                       "abstract":  "\"Discovers and maps event-driven architecture across JET (Just Eat Takeaway) internal services, requiring access to JET ",
                                        "path":  "skills://jet/jet-event-discovery",
-                                       "name":  "jet-event-discovery"
+                                       "name":  "jet-event-discovery",
+                                       "abstract":  ""
                                    },
                                    {
-                                       "abstract":  "",
                                        "path":  "skills://jet/jet-feasibility-panel",
-                                       "name":  "jet-feasibility-panel"
+                                       "name":  "jet-feasibility-panel",
+                                       "abstract":  ""
                                    },
                                    {
-                                       "abstract":  "",
                                        "path":  "skills://jet/jet-figma-ui-builder",
-                                       "name":  "jet-figma-ui-builder"
+                                       "name":  "jet-figma-ui-builder",
+                                       "abstract":  ""
                                    },
                                    {
-                                       "abstract":  "",
                                        "path":  "skills://jet/jet-github-actions",
-                                       "name":  "jet-github-actions"
+                                       "name":  "jet-github-actions",
+                                       "abstract":  ""
                                    },
                                    {
-                                       "abstract":  "Skill for interacting with Google Sheets within JET company Google accounts. Read tables, append rows, update cells by k",
                                        "path":  "skills://jet/jet-google-sheets",
-                                       "name":  "jet-google-sheets"
+                                       "name":  "jet-google-sheets",
+                                       "abstract":  ""
                                    },
                                    {
-                                       "abstract":  "Validate whether a JET repository meets the InnerSource certification requirements, or validate a PlatformMetadata PR fo",
                                        "path":  "skills://jet/jet-innersource-certification",
-                                       "name":  "jet-innersource-certification"
+                                       "name":  "jet-innersource-certification",
+                                       "abstract":  ""
                                    },
                                    {
-                                       "abstract":  "",
                                        "path":  "skills://jet/jet-jira-repo-finder",
-                                       "name":  "jet-jira-repo-finder"
+                                       "name":  "jet-jira-repo-finder",
+                                       "abstract":  ""
                                    },
                                    {
-                                       "abstract":  "",
                                        "path":  "skills://jet/jet-k8s-debugger",
-                                       "name":  "jet-k8s-debugger"
+                                       "name":  "jet-k8s-debugger",
+                                       "abstract":  ""
                                    },
                                    {
-                                       "abstract":  "Load and performance testing at Just Eat Takeaway.com using k6. Use this skill when writing, managing, or maintaining lo",
                                        "path":  "skills://jet/jet-load-testing",
-                                       "name":  "jet-load-testing"
+                                       "name":  "jet-load-testing",
+                                       "abstract":  ""
                                    },
                                    {
-                                       "abstract":  "\"Migrate .NET 8+ services from JustSayingStack (the old fluent SNS/SQS wrapper library) to plain JustSaying with explici",
                                        "path":  "skills://jet/jet-migrate-justsayingstack-to-justsaying",
-                                       "name":  "jet-migrate-justsayingstack-to-justsaying"
+                                       "name":  "jet-migrate-justsayingstack-to-justsaying",
+                                       "abstract":  ""
                                    },
                                    {
-                                       "abstract":  "Query JET\u0027s Operational Data Lake (ODL) via AWS Athena to investigate production incidents, track deployments, look up t",
                                        "path":  "skills://jet/jet-odl-athena",
-                                       "name":  "jet-odl-athena"
+                                       "name":  "jet-odl-athena",
+                                       "abstract":  ""
                                    },
                                    {
-                                       "abstract":  "Set up and configure opencode-notifier for native desktop notifications in OpenCode. Use this skill when the user wants ",
                                        "path":  "skills://jet/jet-opencode-notifier",
-                                       "name":  "jet-opencode-notifier"
+                                       "name":  "jet-opencode-notifier",
+                                       "abstract":  ""
                                    },
                                    {
-                                       "abstract":  "Use this skill instead of going to PagerDuty directly when working in the JET environment. Covers all PagerDuty work at ",
                                        "path":  "skills://jet/jet-pagerduty",
-                                       "name":  "jet-pagerduty"
+                                       "name":  "jet-pagerduty",
+                                       "abstract":  ""
                                    },
                                    {
-                                       "abstract":  "",
                                        "path":  "skills://jet/jet-pi-summary",
-                                       "name":  "jet-pi-summary"
+                                       "name":  "jet-pi-summary",
+                                       "abstract":  ""
                                    },
                                    {
-                                       "abstract":  "",
                                        "path":  "skills://jet/jet-report",
-                                       "name":  "jet-report"
+                                       "name":  "jet-report",
+                                       "abstract":  ""
                                    },
                                    {
-                                       "abstract":  "Generate comprehensive runbooks for JET (Just Eat Takeaway.com) applications and services. Use when creating documentati",
                                        "path":  "skills://jet/jet-runbook",
-                                       "name":  "jet-runbook"
+                                       "name":  "jet-runbook",
+                                       "abstract":  ""
                                    },
                                    {
-                                       "abstract":  "Generate Google Slides presentations for JET (Just Eat Takeaway.com) using brand templates, visual identity, and brand v",
                                        "path":  "skills://jet/jet-slides",
-                                       "name":  "jet-slides"
+                                       "name":  "jet-slides",
+                                       "abstract":  ""
                                    },
                                    {
-                                       "abstract":  "\"Read-only analysis and complexity scoring tool for Sonic Runtime (OneEKS) migrations. Scores complexity (0-100), estima",
                                        "path":  "skills://jet/sonic-migration-analyzer",
-                                       "name":  "sonic-migration-analyzer"
+                                       "name":  "sonic-migration-analyzer",
+                                       "abstract":  ""
                                    },
                                    {
-                                       "abstract":  "\"Use this skill when asked to configure or modify Sonic Pipeline for an application — defining workloads, artifacts, d",
                                        "path":  "skills://jet/sonic-pipeline",
-                                       "name":  "sonic-pipeline"
+                                       "name":  "sonic-pipeline",
+                                       "abstract":  ""
                                    },
                                    {
-                                       "abstract":  "Troubleshoot unhealthy applications running on Sonic Runtime (OneEKS). Use when investigating pod failures, application ",
                                        "path":  "skills://jet/sonic-runtime-troubleshooter",
-                                       "name":  "sonic-runtime-troubleshooter"
+                                       "name":  "sonic-runtime-troubleshooter",
+                                       "abstract":  ""
                                    },
                                    {
-                                       "abstract":  "\"Migrate services from SRE-EKS to Sonic Runtime (OneEKS). Interactive skill that analyzes a service repository on SRE-EK",
                                        "path":  "skills://jet/sre-eks-sonic-migrator",
-                                       "name":  "sre-eks-sonic-migrator"
+                                       "name":  "sre-eks-sonic-migrator",
+                                       "abstract":  ""
                                    },
                                    {
-                                       "abstract":  "Wiz cloud security platform integration for retrieving and analyzing vulnerability findings and security issues. Use thi",
                                        "path":  "skills://jet/wiz-skill",
-                                       "name":  "wiz-skill"
+                                       "name":  "wiz-skill",
+                                       "abstract":  ""
                                    }
                                ]
                    },
-    "total":  53
+    "total":  88
 }
