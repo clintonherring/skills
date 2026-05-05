@@ -23,6 +23,7 @@ description: >-
 Before starting any investigation:
 1. **Check `examples/`** for past PI investigations with similar symptoms or affected services
 2. **Apply `learnings.md`** patterns -- known root causes, common correlations, shortcuts
+3. **Search past Jira tickets** for similar issues -- the fix may already be documented in comments or linked retro tickets
 
 After completing an investigation:
 - The user may say **"new pi example"** to capture this PI as a reference for future investigations
@@ -34,7 +35,7 @@ Systematically investigate production incidents by correlating five evidence str
 2. **Datadog observability** -- error logs, metrics spikes, events during the incident window
 3. **GitHub PR history** -- recent infrastructure and application changes in key repositories
 4. **AWS events** -- CloudTrail console changes, CloudWatch alarms, Route53 record modifications
-5. **Wiz security** -- vulnerabilities, misconfigurations, and security issues on affected resources
+5. **Wiz security** -- vulnerabilities, misconfigurations, security issues on affected resources, and **resource lookups** (find which account/region any resource -- by name, IP, hostname, ARN, etc. -- belongs to via the cloud resource graph)
 
 The goal is to move from "something is broken" to "this specific change caused it" as fast as possible.
 
@@ -124,6 +125,29 @@ Then search for matching PI tickets:
 acli jira workitem search --jql "project = PI AND summary ~ '<keywords>' AND created >= '-7d'" --json --fields="summary,status,created"
 ```
 
+### Phase 1.5: Check for Prior Art
+
+Before diving into deep investigation, search for past tickets with similar symptoms or affected components. Someone may have already diagnosed and fixed the same issue.
+
+```bash
+# Search for past PIs affecting the same component
+acli jira workitem search --jql "project = PI AND text ~ '<component-name>' AND created >= '-365d'" --json --fields="summary,status,created,customfield_12520,resolution"
+
+# Search for past PIs with similar symptoms
+acli jira workitem search --jql "project = PI AND summary ~ '<symptom-keyword>' AND created >= '-180d'" --json --fields="summary,status,created,customfield_12520"
+
+# Search retro/follow-up tickets that may contain the fix
+acli jira workitem search --jql "text ~ '<component-name>' AND type in ('Task', 'Story') AND text ~ 'retro' AND created >= '-365d'" --json --fields="summary,status,description"
+```
+
+Look for:
+- **RCA field** (`customfield_12520`) on resolved PIs -- contains the root cause analysis
+- **Comments** on past PIs -- often contain step-by-step fix instructions
+- **Linked tickets** -- retro tickets and follow-up tasks describe what was done to fix and prevent recurrence
+- **Resolution** -- "Done" or "Fixed" PIs for the same component tell you the fix worked
+
+If you find a matching past PI, **read its comments and linked tickets in full** before proceeding. The fix may be directly reusable, or the past investigation may reveal a recurring pattern that points you to the root cause faster.
+
 ### Phase 2: Recursive Investigation Loop
 
 This is the core of the investigation. You iterate between Datadog, GitHub, and AWS until you can pinpoint the exact change that caused the failure. Each iteration should narrow the search.
@@ -190,7 +214,7 @@ aws cloudwatch get-metric-statistics \
 **Wiz -- check for security issues on affected components:**
 ```bash
 # See toolkit/wiz.md for the correct path to wiz_api.sh on this machine
-source C:/.agents/skills/wiz-skill/scripts/wiz_api.sh
+source "C:/Users/ClintonHerring/Documents/ai/skills/jet/wiz-skill/scripts/wiz_api.sh"
 
 # Search for the affected service's Wiz project
 wiz_search_projects "<component-name>"
@@ -294,10 +318,10 @@ aws cloudwatch get-metric-statistics \
 
 **Wiz → find where resources live and what they connect to:**
 
-When you have a service or resource name but need to know which AWS account, region, or VPC it's in -- or what it depends on -- Wiz's cloud resource graph has this.
+When you have a service name, resource name, IP address, hostname, or any other identifier and need to know which AWS account, region, or VPC it's in -- or what it depends on -- Wiz's cloud resource graph has this. Use Wiz as a universal resource lookup tool during investigations.
 
 ```bash
-# Find a resource and its account/region (use the entity type that fits: VIRTUAL_MACHINE, SERVERLESS, CONTAINER, ENDPOINT, DATABASE, etc.)
+# Find a resource by name and its account/region (use the entity type that fits: VIRTUAL_MACHINE, SERVERLESS, CONTAINER, ENDPOINT, DATABASE, etc.)
 wiz_query 'query {
   graphSearch(query: {type: [VIRTUAL_MACHINE, SERVERLESS, CONTAINER, ENDPOINT, DATABASE], 
     where: {name: {CONTAINS: ["<resource-name>"]}}}, first: 5) {
@@ -305,6 +329,15 @@ wiz_query 'query {
   }
 }' '{}'
 # Look for subscriptionExternalId (AWS account ID), subscriptionName, region in the properties
+
+# Find a resource by IP address
+wiz_query 'query {
+  graphSearch(query: {type: [VIRTUAL_MACHINE, CONTAINER, ENDPOINT, NETWORK_INTERFACE], 
+    where: {ipAddress: {EQUALS: ["<ip-address>"]}}}, first: 5) {
+    nodes { entities { id name type properties } }
+  }
+}' '{}'
+# Returns the resource name, AWS account (subscriptionExternalId), region, and VPC
 
 # Find what the resource connects to (databases, queues, buckets, endpoints)
 wiz_query 'query {
@@ -330,12 +363,14 @@ Only continue digging if the evidence so far doesn't clearly connect a change to
 | NXDOMAIN for a specific hostname | Route53 PRs + CloudTrail `ChangeResourceRecordSets` for that zone |
 | Access denied with a specific role ARN | CloudTrail `PutRolePolicy`/`DeleteRolePolicy` + jet-aws-sso PRs |
 | Connection refused to a specific IP | Security group changes in CloudTrail + aws-infrastructure PRs |
+| Unknown IP or resource in logs/errors | Wiz graph search -- identify the resource, its account, region, and connections |
 | ProxySQL error with a Vault username | Vault audit logs, Puppet run history, ProxySQL config PRs |
 | Error spike at a specific time | All CI workflow runs across candidate repos at that exact time |
 | CloudTrail shows a change but no matching PR | Manual console change -- check `userIdentity` for who did it |
 | PR diff matches but apply time doesn't align | Check for other PRs on the same Terraform state -- drift from competing applies |
 | Unexplained access/auth failure | Wiz -- check for misconfigurations or security policy changes on the resource |
 | Resource behaving unexpectedly | Wiz graph search -- check what it connects to, look for security issues on dependencies |
+| Same component has failed before | Search past PI tickets for that component -- read RCA fields and comments for prior fixes |
 
 **Datadog -- refine with narrower queries as you learn more:**
 ```bash
@@ -448,6 +483,17 @@ Build a timeline combining all evidence. Every entry should cite its source.
 - SmartPipelines recreating old DNS records after migration
 **Key Datadog query**: `*NXDOMAIN* OR *no such host* OR *connection refused*`
 
+### DNS Weighted Routing Migration Failures
+**Symptoms**: Downstream 404s or 5xx errors from a service that was previously working; errors appear in a **different service** than the one being changed; multiple consumers affected simultaneously
+**Check first**: IFA/route53 PRs changing `weighted_routing_policy` weights between `l-je` (ELB) and `oneeks` (Istio)
+**Common causes**:
+- OneEKS (Istio) endpoint not serving full API surface -- missing VirtualService routes cause 404s when traffic shifts
+- Weight change takes effect immediately (unlike pod rollouts) -- 50% of traffic fails at once
+- PR author lacking `IFA/route53` write permissions slows revert (Atlantis permission check)
+**Key Datadog query**: `status:error AND @StatusCode:"NotFound" AND @Uri:*<service-domain>*`
+**Key investigation step**: Trace the `Uri` field in downstream error logs to identify the actual affected service, then search `IFA/route53` for recent weight changes to that service's domain
+**See**: `examples/dns-weighted-routing-coq-404.md`
+
 ### Database Connection Failures
 **Symptoms**: "Access denied", ProxySQL errors, connection pool exhaustion
 **Check first**: ProxySQL config changes (Puppet repos), Vault lease expiry
@@ -483,6 +529,75 @@ Build a timeline combining all evidence. Every entry should cite its source.
 > **See**: `examples/abac-rds-iam-auth.md` for the full step-by-step investigation pattern including IAM Policy Simulator usage, Identity Center ABAC checks, and permission set discovery.
 
 **Quick summary**: When IAM policies use `${aws:PrincipalTag/<tagName>}`, the tag must be passed via Identity Center ABAC. If ABAC is not configured, the variable resolves to empty and policies silently fail. Use IAM Policy Simulator to confirm, then check `describe-instance-access-control-attribute-configuration` in mgmt account `778305418618`.
+
+### S3 Replication Tracing
+**Symptoms**: Files missing or stale in a destination bucket, replication lag, data not arriving
+**Investigation approach**: Destination bucket → bucket policy (find source account + role) → Wiz (find source bucket in that account) → confirm replication config → check data events or fall back to object timestamps.
+**Key insight**: S3 replication events are data events, not management events — CloudTrail `lookup-events` won't find them. Fall back to `s3 ls` timestamps (LastModified = replication completion time).
+**See**: `examples/s3-replication-tracing.md` for the full multi-tool walkthrough.
+
+### Cross-Account & Cross-Tool Investigation
+
+Investigations rarely stay in one tool or one account. The general pattern is:
+
+```
+  Jira (PI ticket)
+    → symptoms, affected components, timeline
+    → component name → Backstage/PlatformMetadata → repo, team, account
+         │
+  Wiz (resource graph)
+    → "I have a name/ARN/IP, which account is it in?"
+    → subscriptionExternalId = AWS account ID
+    → tags: jet:team, jet:repo, jet:environment
+    → dependencies: what databases, buckets, queues does it connect to?
+         │
+  AWS (CloudTrail, CloudWatch, S3, IAM)
+    → now you know WHICH account to query
+    → if no SSO profile → ask user for temp credentials
+    → CloudTrail for mutations, CloudWatch for metrics/alarms
+         │
+  Datadog (logs, metrics, traces)
+    → correlate error onset with CloudTrail timestamps
+    → trace identifiers (hostnames, ARNs, IPs) from errors back to AWS/Wiz
+         │
+  GitHub (PRs, CI runs, code search)
+    → match identifiers to PR diffs
+    → check CI apply timestamps (not merge times)
+```
+
+**When you hit an account you can't access:**
+
+1. **Check `~/.aws/config`** first: `Select-String -Path "$env:USERPROFILE\.aws\config" -Pattern "<account-id>"`
+2. **If no profile**, ask the user: "I need access to account `<account-id>`. Can you provide temporary credentials from the AWS SSO portal?"
+3. **Set temp creds:**
+```powershell
+$env:AWS_ACCESS_KEY_ID="<key>"
+$env:AWS_SECRET_ACCESS_KEY="<secret>"
+$env:AWS_SESSION_TOKEN="<token>"
+$env:AWS_DEFAULT_REGION="eu-west-1"
+aws sts get-caller-identity  # always verify first
+```
+4. Temp credentials expire (~1 hour). If `ExpiredToken`, ask for fresh creds.
+
+**When Wiz auth expires:**
+```powershell
+wizcli.exe auth --use-device-code
+# Auth file: C:\Users\ClintonHerring\AppData\Local\Wiz\auth.json
+```
+
+**When Datadog needs the EU site:**
+```bash
+export DD_SITE=datadoghq.eu
+```
+
+**The key principle**: Use each tool for what it's best at, and pass identifiers between them:
+| Tool | Best for | Gives you |
+|------|----------|-----------|
+| **Jira** (acli) | Incident context, affected components, timeline | Component names, symptom descriptions, timestamps |
+| **Wiz** | Resource discovery, account mapping, dependencies | Account IDs, regions, tags, dependency graphs |
+| **AWS** (CLI) | Confirming state changes, reading configs, CloudTrail | Who changed what, when, from where |
+| **Datadog** (pup) | Error patterns, metrics, log analysis | Error onset times, affected services, error identifiers |
+| **GitHub** (gh) | Code/config changes, CI apply timestamps | PR diffs, apply times, who authored the change |
 
 ### Security / Misconfiguration
 **Symptoms**: Unexpected resource behavior, access patterns changing, compliance-driven service disruption
@@ -535,6 +650,10 @@ All IFA repositories: `https://github.je-labs.com/orgs/IFA/repositories`
 - **"Works with one profile, broken with another" is a policy comparison problem**: When the same action works with one SSO profile but not another, immediately compare their managed policies. A profile with `AdministratorAccess` bypasses all resource-scoped and tag-based restrictions, masking underlying misconfigurations that affect least-privilege profiles.
 - **"Missing" ≠ "never existed" — always check CloudTrail for deletion**: When a configuration is missing (e.g., `ResourceNotFoundException` from an AWS describe call), do NOT assume it was never created. Immediately query CloudTrail in the owning account for `Delete*` events on that resource. The pattern is: (1) confirm the config is missing, (2) search CloudTrail for creation and deletion events, (3) identify who deleted it, when, and from where (console vs CLI vs Terraform). This distinguishes accidental deletion from never-configured, which changes the remediation path entirely. For Identity Center ABAC: search for `DeleteInstanceAccessControlAttributeConfiguration` and `CreateInstanceAccessControlAttributeConfiguration` in management account `778305418618`.
 - **Correlate with Datadog error onset**: When you find a CloudTrail mutation event, check Datadog for errors that started at the same time. For IAM/auth issues, search Flex Logs for `AccessDenied`, `AuthorizationError`, or connection failures in the affected services. The error onset time should match the CloudTrail event timestamp, confirming causation.
+- **S3 data events are invisible by default**: Replication, PutObject, GetObject events are S3 data events, not management events. `cloudtrail lookup-events` won't find them. Check `get-event-selectors` on each trail. Fall back to `s3 ls` timestamps.
+- **Resource policies reveal cross-account relationships**: S3 bucket policies, IAM trust policies, and KMS key policies all contain cross-account principal ARNs. When you need to trace a relationship (replication source, cross-account access), read the resource policy first — it tells you who is allowed to do what from where.
+- **Pass identifiers between tools**: The investigation flow is cyclical. An ARN from CloudTrail → Wiz to find the account → AWS CLI to check config → Datadog to correlate errors → GitHub to find the change. Each tool gives you something the others need.
+- **Search past tickets before going deep**: Many issues are recurring. Search Jira for past PIs on the same component or with similar symptoms. The RCA field, comments, and linked retro tickets often contain the exact fix. A 2-minute JQL search can save an hour of investigation.
 
 ## IFA Confluence Reference
 
