@@ -18,24 +18,12 @@ description: >-
 
 # PI Troubleshooter
 
-## Self-Improving Context
-
-Before starting any investigation:
-1. **Check `examples/`** for past PI investigations with similar symptoms or affected services
-2. **Apply `learnings.md`** patterns -- known root causes, common correlations, shortcuts
-3. **Search past Jira tickets** for similar issues -- the fix may already be documented in comments or linked retro tickets
-
-After completing an investigation:
-- The user may say **"new pi example"** to capture this PI as a reference for future investigations
-
----
-
 Systematically investigate production incidents by correlating five evidence streams:
 1. **Jira ticket data** -- timeline, impacted components, comments, linked tickets
 2. **Datadog observability** -- error logs, metrics spikes, events during the incident window
 3. **GitHub PR history** -- recent infrastructure and application changes in key repositories
 4. **AWS events** -- CloudTrail console changes, CloudWatch alarms, Route53 record modifications
-5. **Wiz security** -- vulnerabilities, misconfigurations, security issues on affected resources, and **resource lookups** (find which account/region any resource -- by name, IP, hostname, ARN, etc. -- belongs to via the cloud resource graph)
+5. **Wiz security** -- vulnerabilities, misconfigurations, and security issues on affected resources
 
 The goal is to move from "something is broken" to "this specific change caused it" as fast as possible.
 
@@ -47,7 +35,35 @@ Load these skills before starting (they provide the tools you need):
 - **jet-aws** -- for AWS CLI operations (CloudTrail, CloudWatch, Route53 lookups)
 - **wiz-skill** -- for Wiz security issues, vulnerabilities, and cloud resource graph
 
-If a tool is not on PATH, check `toolkit/` for Windows-specific locations and setup instructions.
+Ensure `acli` is on PATH. If not found, check `C:\Users\ClintonHerring` or ask the user where it's installed and add it:
+```bash
+$env:PATH = "C:\Users\ClintonHerring;$env:PATH"
+```
+
+### AWS SSO Authentication
+
+All AWS profiles share a single SSO portal. If any `aws` command fails with an expired token or authorization error, re-authenticate by running:
+```bash
+aws sso login --profile clinton-idm-node
+```
+This opens a browser for Okta authentication. Once completed, all AWS profiles are usable (the SSO session is shared across the single portal `d-93676bf05c.awsapps.com`). Run this proactively at the start of any investigation that will need AWS access (CloudTrail, CloudWatch, EKS, etc.).
+
+### Wiz Authentication
+
+The Wiz auth file is stored at `C:\Users\ClintonHerring\AppData\Local\Wiz\auth.json` (NOT the default `~/.wiz/auth.json`). When using the wiz_api.sh script, you must set the `WIZ_AUTH_FILE` environment variable:
+```bash
+export WIZ_AUTH_FILE="C:/Users/ClintonHerring/AppData/Local/Wiz/auth.json"
+```
+
+To authenticate (opens browser for device code flow):
+```bash
+wizcli auth --use-device-code
+```
+
+Since the wiz_api.sh script requires Git Bash (not PowerShell), run Wiz queries via a temp script or use:
+```bash
+& "C:\Program Files\Git\bin\bash.exe" <script.sh>
+```
 
 ## Investigation Workflow
 
@@ -125,29 +141,6 @@ Then search for matching PI tickets:
 acli jira workitem search --jql "project = PI AND summary ~ '<keywords>' AND created >= '-7d'" --json --fields="summary,status,created"
 ```
 
-### Phase 1.5: Check for Prior Art
-
-Before diving into deep investigation, search for past tickets with similar symptoms or affected components. Someone may have already diagnosed and fixed the same issue.
-
-```bash
-# Search for past PIs affecting the same component
-acli jira workitem search --jql "project = PI AND text ~ '<component-name>' AND created >= '-365d'" --json --fields="summary,status,created,customfield_12520,resolution"
-
-# Search for past PIs with similar symptoms
-acli jira workitem search --jql "project = PI AND summary ~ '<symptom-keyword>' AND created >= '-180d'" --json --fields="summary,status,created,customfield_12520"
-
-# Search retro/follow-up tickets that may contain the fix
-acli jira workitem search --jql "text ~ '<component-name>' AND type in ('Task', 'Story') AND text ~ 'retro' AND created >= '-365d'" --json --fields="summary,status,description"
-```
-
-Look for:
-- **RCA field** (`customfield_12520`) on resolved PIs -- contains the root cause analysis
-- **Comments** on past PIs -- often contain step-by-step fix instructions
-- **Linked tickets** -- retro tickets and follow-up tasks describe what was done to fix and prevent recurrence
-- **Resolution** -- "Done" or "Fixed" PIs for the same component tell you the fix worked
-
-If you find a matching past PI, **read its comments and linked tickets in full** before proceeding. The fix may be directly reusable, or the past investigation may reveal a recurring pattern that points you to the root cause faster.
-
 ### Phase 2: Recursive Investigation Loop
 
 This is the core of the investigation. You iterate between Datadog, GitHub, and AWS until you can pinpoint the exact change that caused the failure. Each iteration should narrow the search.
@@ -159,13 +152,50 @@ Always set Datadog to the EU site:
 export DD_SITE=datadoghq.eu
 ```
 
+#### Blast Radius Check: App-Level vs Platform-Level?
+
+**Before diving into any specific service**, determine whether the incident is isolated to one service or affecting many. This single query can save hours of misdirected investigation:
+
+```bash
+# Count errors by service across the ENTIRE cluster during the incident window
+pup logs aggregate \
+  --query="status:error" \
+  --from="<incident-start-minus-30min>" \
+  --to="<incident-end-plus-30min>" \
+  --compute="count" \
+  --group-by="service" \
+  --storage=flex
+```
+
+**Interpret the results:**
+- **1-2 services spiking** → app-level issue. Proceed with the service-specific investigation below.
+- **Many unrelated services spiking simultaneously** → **shared infrastructure issue**. The root cause is NOT in any individual application. Pivot immediately to shared layers:
+  - **Helm charts**: `helm-charts/basic-application` -- the shared chart used by most OneEKS services. Check recent releases/tags.
+  - **Istio/service mesh**: Istio control plane issues, VirtualService CRD changes.
+  - **Cluster-level events**: Node scaling, cluster upgrades, KEDA/Kyverno policy changes.
+  - **Shared dependencies**: DNS (Route53), shared databases, message brokers.
+  - **Platform announcements**: Check `#announce-platform` and `#announce-oneeks` Slack channels for known issues.
+
+Use the Datadog Orchestration Explorer to confirm blast radius across a shared component:
+```bash
+# Check if many pods share the same failing Helm chart version
+pup logs aggregate \
+  --query="status:error AND label#helm.sh/chart:<chart-name-and-version>" \
+  --from="<start>" --to="<end>" \
+  --compute="count" \
+  --group-by="service" \
+  --storage=flex
+```
+
+This check is critical because PI tickets are usually filed by the team that notices the problem first, naming only *their* services. The root cause often lies in a shared layer that affects everyone. (See PI-34282 worked example below.)
+
 #### Start Broad: Get the Initial Picture
 
 Run these in parallel to see what's going on:
 
 **Datadog -- error landscape:**
 ```bash
-# Broad error count by service during incident window
+# Broad error count by service during incident window (also serves as blast radius check above)
 pup logs aggregate \
   --query="status:error" \
   --from="<incident-start-minus-30min>" \
@@ -213,8 +243,7 @@ aws cloudwatch get-metric-statistics \
 
 **Wiz -- check for security issues on affected components:**
 ```bash
-# See toolkit/wiz.md for the correct path to wiz_api.sh on this machine
-source "C:/Users/ClintonHerring/Documents/ai/skills/jet/wiz-skill/scripts/wiz_api.sh"
+source C:/.agents/skills/wiz-skill/scripts/wiz_api.sh
 
 # Search for the affected service's Wiz project
 wiz_search_projects "<component-name>"
@@ -318,10 +347,10 @@ aws cloudwatch get-metric-statistics \
 
 **Wiz → find where resources live and what they connect to:**
 
-When you have a service name, resource name, IP address, hostname, or any other identifier and need to know which AWS account, region, or VPC it's in -- or what it depends on -- Wiz's cloud resource graph has this. Use Wiz as a universal resource lookup tool during investigations.
+When you have a service or resource name but need to know which AWS account, region, or VPC it's in -- or what it depends on -- Wiz's cloud resource graph has this.
 
 ```bash
-# Find a resource by name and its account/region (use the entity type that fits: VIRTUAL_MACHINE, SERVERLESS, CONTAINER, ENDPOINT, DATABASE, etc.)
+# Find a resource and its account/region (use the entity type that fits: VIRTUAL_MACHINE, SERVERLESS, CONTAINER, ENDPOINT, DATABASE, etc.)
 wiz_query 'query {
   graphSearch(query: {type: [VIRTUAL_MACHINE, SERVERLESS, CONTAINER, ENDPOINT, DATABASE], 
     where: {name: {CONTAINS: ["<resource-name>"]}}}, first: 5) {
@@ -329,15 +358,6 @@ wiz_query 'query {
   }
 }' '{}'
 # Look for subscriptionExternalId (AWS account ID), subscriptionName, region in the properties
-
-# Find a resource by IP address
-wiz_query 'query {
-  graphSearch(query: {type: [VIRTUAL_MACHINE, CONTAINER, ENDPOINT, NETWORK_INTERFACE], 
-    where: {ipAddress: {EQUALS: ["<ip-address>"]}}}, first: 5) {
-    nodes { entities { id name type properties } }
-  }
-}' '{}'
-# Returns the resource name, AWS account (subscriptionExternalId), region, and VPC
 
 # Find what the resource connects to (databases, queues, buckets, endpoints)
 wiz_query 'query {
@@ -363,14 +383,12 @@ Only continue digging if the evidence so far doesn't clearly connect a change to
 | NXDOMAIN for a specific hostname | Route53 PRs + CloudTrail `ChangeResourceRecordSets` for that zone |
 | Access denied with a specific role ARN | CloudTrail `PutRolePolicy`/`DeleteRolePolicy` + jet-aws-sso PRs |
 | Connection refused to a specific IP | Security group changes in CloudTrail + aws-infrastructure PRs |
-| Unknown IP or resource in logs/errors | Wiz graph search -- identify the resource, its account, region, and connections |
 | ProxySQL error with a Vault username | Vault audit logs, Puppet run history, ProxySQL config PRs |
 | Error spike at a specific time | All CI workflow runs across candidate repos at that exact time |
 | CloudTrail shows a change but no matching PR | Manual console change -- check `userIdentity` for who did it |
 | PR diff matches but apply time doesn't align | Check for other PRs on the same Terraform state -- drift from competing applies |
 | Unexplained access/auth failure | Wiz -- check for misconfigurations or security policy changes on the resource |
 | Resource behaving unexpectedly | Wiz graph search -- check what it connects to, look for security issues on dependencies |
-| Same component has failed before | Search past PI tickets for that component -- read RCA fields and comments for prior fixes |
 
 **Datadog -- refine with narrower queries as you learn more:**
 ```bash
@@ -472,8 +490,6 @@ Build a timeline combining all evidence. Every entry should cite its source.
 
 ## Investigation Patterns by Symptom Type
 
-> **Note**: These patterns are enhanced over time. When a new PI reveals a novel pattern, add it to `examples/` and update this section with a summary + reference. Check `examples/` for detailed step-by-step investigation patterns beyond what's summarised here.
-
 ### DNS Issues
 **Symptoms**: Service unreachable, NXDOMAIN, "cannot resolve hostname"
 **Check first**: IFA/route53 PRs, IFA/domain-routing PRs, IFA/cloudflareplatformproduction PRs
@@ -482,17 +498,6 @@ Build a timeline combining all evidence. Every entry should cite its source.
 - Negative DNS caching extending outage beyond the actual record gap
 - SmartPipelines recreating old DNS records after migration
 **Key Datadog query**: `*NXDOMAIN* OR *no such host* OR *connection refused*`
-
-### DNS Weighted Routing Migration Failures
-**Symptoms**: Downstream 404s or 5xx errors from a service that was previously working; errors appear in a **different service** than the one being changed; multiple consumers affected simultaneously
-**Check first**: IFA/route53 PRs changing `weighted_routing_policy` weights between `l-je` (ELB) and `oneeks` (Istio)
-**Common causes**:
-- OneEKS (Istio) endpoint not serving full API surface -- missing VirtualService routes cause 404s when traffic shifts
-- Weight change takes effect immediately (unlike pod rollouts) -- 50% of traffic fails at once
-- PR author lacking `IFA/route53` write permissions slows revert (Atlantis permission check)
-**Key Datadog query**: `status:error AND @StatusCode:"NotFound" AND @Uri:*<service-domain>*`
-**Key investigation step**: Trace the `Uri` field in downstream error logs to identify the actual affected service, then search `IFA/route53` for recent weight changes to that service's domain
-**See**: `examples/dns-weighted-routing-coq-404.md`
 
 ### Database Connection Failures
 **Symptoms**: "Access denied", ProxySQL errors, connection pool exhaustion
@@ -513,91 +518,40 @@ Build a timeline combining all evidence. Every entry should cite its source.
 **Key Datadog query**: `*connection timed out* OR *connection refused* OR *network unreachable*`
 
 ### IAM / Authentication Failures
-**Symptoms**: 403 errors, "access denied" to AWS resources, SSO failures, RDS IAM auth failures
-**Check first**: IFA/jet-aws-sso PRs, IFA/aws-sso-legacy-takeaway PRs, CloudTrail IAM events, Wiz issues on the affected resource
+**Symptoms**: 403 errors, "access denied" to AWS resources, SSO failures
+**Check first**: IFA/jet-aws-sso PRs, CloudTrail IAM events, Wiz issues on the affected resource
 **Common causes**:
 - SSO permission set changes
 - IAM policy modifications
 - IRSA (IAM Roles for Service Accounts) configuration changes
 - Security policy enforcement (Wiz-detected misconfigurations leading to automated remediation)
-- **ABAC / session tag misconfiguration** -- IAM policies referencing `${aws:PrincipalTag/*}` variables that never resolve because Identity Center ABAC attribute mapping is missing or broken (see ABAC investigation pattern below)
-- **One SSO profile works, another doesn't** -- often means the working profile has a broad managed policy (e.g., `AdministratorAccess`) that bypasses tag-based or resource-scoped restrictions entirely
 **Key Datadog query**: `*AccessDenied* OR *403* OR *not authorized* OR *AssumeRole*`
 
-#### ABAC / Session Tag Investigation Pattern
+### ZScaler / Cloudflare / Network-Layer Access Issues
+**Symptoms**: Intermittent Cloudflare timeout errors, "connection timed out" from Cloudflare, internal tools inaccessible for some users but not others, issues that come and go randomly
+**Check first**: ZScaler ZPA app-segment and app-connector configuration, Cloudflare origin settings in IFA/cloudflareplatformproduction, Route53 CNAME chains
+**Common causes**:
+- **ZPA App Connector DNS misconfiguration**: ZPA Server Groups load-balance across multiple App Connector Groups (e.g., production `-p-` and disaster recovery `-d-`). If one group has incorrect `/etc/resolv.conf` entries, requests hitting that group fail DNS resolution while the other group works fine -- producing intermittent failures that look random. (See PI-34099.)
+- **Stale Cloudflare origins after decommissioning**: When backend services like WAPS are decommissioned, Cloudflare CNAME records may still point to the dead origin. The service may appear to work intermittently if ZScaler sometimes resolves via internal DNS (bypassing Cloudflare) and sometimes via Cloudflare (hitting the dead origin).
+- **ZScaler DNS caching**: After Route53 fixes, ZScaler/ZPA may hold stale DNS records. This is not simple TTL caching -- it's related to how ZPA app-connectors handle CNAME resolution via Windows DNS servers on the connector host. Machine reboots or ZScaler service restarts may be needed.
+- **App-segment-specific DNS hiding**: ZPA app-segments with bespoke configurations can hide the CNAME chain from standard `dig` lookups. You need to query using the resolver used by the ZScaler app-connector to see the real resolution chain.
+**Key investigation approach**: Datadog will likely show **nothing** for these incidents because the affected services are internal web apps accessed via browsers that don't emit application logs. The failure is in the DNS/networking layer between the user and the service. Instead, check:
+1. Jira ticket comments and Slack threads for the real investigation details
+2. ZScaler ZPA admin console for app-connector and app-segment configuration
+3. Route53 for CNAME chains that pass through Cloudflare
+4. IFA/cloudflareplatformproduction for origin configurations pointing to decommissioned services
+**Key Datadog query**: Usually returns nothing -- this is itself a diagnostic signal (see Tips)
 
-> **See**: `examples/abac-rds-iam-auth.md` for the full step-by-step investigation pattern including IAM Policy Simulator usage, Identity Center ABAC checks, and permission set discovery.
-
-**Quick summary**: When IAM policies use `${aws:PrincipalTag/<tagName>}`, the tag must be passed via Identity Center ABAC. If ABAC is not configured, the variable resolves to empty and policies silently fail. Use IAM Policy Simulator to confirm, then check `describe-instance-access-control-attribute-configuration` in mgmt account `778305418618`.
-
-### S3 Replication Tracing
-**Symptoms**: Files missing or stale in a destination bucket, replication lag, data not arriving
-**Investigation approach**: Destination bucket → bucket policy (find source account + role) → Wiz (find source bucket in that account) → confirm replication config → check data events or fall back to object timestamps.
-**Key insight**: S3 replication events are data events, not management events — CloudTrail `lookup-events` won't find them. Fall back to `s3 ls` timestamps (LastModified = replication completion time).
-**See**: `examples/s3-replication-tracing.md` for the full multi-tool walkthrough.
-
-### Cross-Account & Cross-Tool Investigation
-
-Investigations rarely stay in one tool or one account. The general pattern is:
-
-```
-  Jira (PI ticket)
-    → symptoms, affected components, timeline
-    → component name → Backstage/PlatformMetadata → repo, team, account
-         │
-  Wiz (resource graph)
-    → "I have a name/ARN/IP, which account is it in?"
-    → subscriptionExternalId = AWS account ID
-    → tags: jet:team, jet:repo, jet:environment
-    → dependencies: what databases, buckets, queues does it connect to?
-         │
-  AWS (CloudTrail, CloudWatch, S3, IAM)
-    → now you know WHICH account to query
-    → if no SSO profile → ask user for temp credentials
-    → CloudTrail for mutations, CloudWatch for metrics/alarms
-         │
-  Datadog (logs, metrics, traces)
-    → correlate error onset with CloudTrail timestamps
-    → trace identifiers (hostnames, ARNs, IPs) from errors back to AWS/Wiz
-         │
-  GitHub (PRs, CI runs, code search)
-    → match identifiers to PR diffs
-    → check CI apply timestamps (not merge times)
-```
-
-**When you hit an account you can't access:**
-
-1. **Check `~/.aws/config`** first: `Select-String -Path "$env:USERPROFILE\.aws\config" -Pattern "<account-id>"`
-2. **If no profile**, ask the user: "I need access to account `<account-id>`. Can you provide temporary credentials from the AWS SSO portal?"
-3. **Set temp creds:**
-```powershell
-$env:AWS_ACCESS_KEY_ID="<key>"
-$env:AWS_SECRET_ACCESS_KEY="<secret>"
-$env:AWS_SESSION_TOKEN="<token>"
-$env:AWS_DEFAULT_REGION="eu-west-1"
-aws sts get-caller-identity  # always verify first
-```
-4. Temp credentials expire (~1 hour). If `ExpiredToken`, ask for fresh creds.
-
-**When Wiz auth expires:**
-```powershell
-wizcli.exe auth --use-device-code
-# Auth file: C:\Users\ClintonHerring\AppData\Local\Wiz\auth.json
-```
-
-**When Datadog needs the EU site:**
-```bash
-export DD_SITE=datadoghq.eu
-```
-
-**The key principle**: Use each tool for what it's best at, and pass identifiers between them:
-| Tool | Best for | Gives you |
-|------|----------|-----------|
-| **Jira** (acli) | Incident context, affected components, timeline | Component names, symptom descriptions, timestamps |
-| **Wiz** | Resource discovery, account mapping, dependencies | Account IDs, regions, tags, dependency graphs |
-| **AWS** (CLI) | Confirming state changes, reading configs, CloudTrail | Who changed what, when, from where |
-| **Datadog** (pup) | Error patterns, metrics, log analysis | Error onset times, affected services, error identifiers |
-| **GitHub** (gh) | Code/config changes, CI apply timestamps | PR diffs, apply times, who authored the change |
+### Shared Infrastructure / Helm Chart Failures
+**Symptoms**: Multiple unrelated services failing simultaneously, canary deployments stuck or failing, `invalidSpec` errors in pod events, rollout failures across teams
+**Check first**: `helm-charts/basic-application` releases/tags, Argo Rollouts status, Istio control plane, cluster node events, `#announce-platform` / `#announce-oneeks` Slack channels
+**Common causes**:
+- **Helm chart regression**: A new release of `basic-application` (the shared Helm chart) introduces a spec error that breaks all canary deployments. Pods fail with `invalidSpec` or similar CRD validation errors. (See PI-34282.)
+- **Istio/service mesh update**: Control plane upgrade or sidecar injection changes cause widespread networking failures.
+- **Cluster-level event**: Node pool scaling, Kubernetes version upgrade, KEDA operator update, Kyverno policy change.
+- **Shared dependency outage**: A database, message broker, or external API used by many services goes down simultaneously.
+**Key diagnostic**: Run the blast radius check (Phase 2) first. If 5+ unrelated services spike errors at the same time, stop investigating individual services and focus on shared layers.
+**Key Datadog query**: `*invalidSpec* OR *FailedCreate* OR *rollout* OR *canary*` grouped by service; also check Orchestration Explorer with `label#helm.sh/chart:<chart-version>`
 
 ### Security / Misconfiguration
 **Symptoms**: Unexpected resource behavior, access patterns changing, compliance-driven service disruption
@@ -608,14 +562,6 @@ export DD_SITE=datadoghq.eu
 - Security group / network policy tightened due to a Wiz finding
 **Key Wiz query**: `wiz_list_issues --project-name "<component>" --status OPEN,IN_PROGRESS,RESOLVED --severity CRITICAL,HIGH --limit 25` (include RESOLVED to see recently-fixed issues that may have caused disruption)
 
-### RDS IAM Authentication Failures
-
-> **See**: `examples/rds-iam-auth-failure.md` for the full pattern including check-first list, common causes, key repos, and Datadog queries.
-
-**Symptoms**: "Access denied" when connecting to RDS with IAM auth, `generate-db-auth-token` succeeds but connection fails, works with one SSO profile but not another
-**Quick checks**: IAM Policy Simulator, Identity Center ABAC config, Terraform DB user provisioning, SSO policy repos
-**Key Datadog query**: `*rds-db:connect* OR *Access denied* OR *authentication* AND service:<db-related-service>`
-
 ## Key IFA Repositories Reference
 
 | Repository | Purpose | Check for |
@@ -625,16 +571,13 @@ export DD_SITE=datadoghq.eu
 | `IFA/cloudflareplatformproduction` | Cloudflare production config | CDN/WAF/DNS proxy issues |
 | `IFA/cloudflareplatformstaging` | Cloudflare staging config | Staging DNS issues |
 | `IFA/aws-infrastructure` | Core AWS infra (VPCs, TGWs, SGs) | Networking issues |
-| `IFA/jet-aws-sso` | AWS SSO / IAM config (JET) | Auth/permission failures, ABAC policies |
-| `IFA/aws-sso-legacy-takeaway` | AWS SSO / IAM config (legacy Takeaway) | Auth/permission failures, ABAC policies |
+| `IFA/jet-aws-sso` | AWS SSO / IAM config | Auth/permission failures |
 | `IFA/puppet7-control-*` | Puppet config management | ProxySQL, server config |
-| `Data-Infrastructure-Platform-Services/tkwy-aws-datastores` | RDS cluster definitions, DB user provisioning (Terraform) | RDS IAM auth failures, missing DB users |
+| `helm-charts/basic-application` | Shared Helm chart for OneEKS services | Canary/rollout failures across multiple services |
 
 All IFA repositories: `https://github.je-labs.com/orgs/IFA/repositories`
 
 ## Tips
-
-> **Note**: Tips are accumulated from real PI investigations. When a new investigation reveals a reusable insight, add it here and create a detailed example in `examples/` if the pattern is complex enough to warrant step-by-step instructions.
 
 - **Timing is everything**: The most powerful signal is a change that was merged/applied minutes before the first error. Always sort PRs by merge time and compare with Datadog error timestamps.
 - **Negative DNS caching**: A 2-minute DNS gap can cause a 30-minute outage. When DNS is involved, the duration of the record being missing is NOT the duration of the outage.
@@ -644,16 +587,10 @@ All IFA repositories: `https://github.je-labs.com/orgs/IFA/repositories`
 - **Terraform apply != PR merge**: In IaC repos, the infrastructure change happens at `terraform apply` time during CI, which can be well before the PR is merged -- or the PR may never be merged at all. A partial apply on an unmerged PR can cause an outage, and a subsequent apply on a different PR can silently revert the change, making the root cause hard to trace from diffs alone. Always check CI run history and apply logs.
 - **Vault credentials**: Username patterns like `v-kubernetes-*` indicate Vault-issued dynamic credentials. If these get "access denied", the issue is usually at the ProxySQL layer, not the database.
 - **Wiz as a resource map**: Wiz knows which AWS accounts, regions, and subscriptions resources live in. When you have a service name but don't know which account to query CloudTrail or CloudWatch in, use Wiz graph search to find the resource and read its `subscriptionExternalId` (AWS account ID), `subscriptionName`, and `region`. Wiz also maps dependencies -- what databases, queues, buckets, and endpoints a service connects to -- which helps identify blast radius and trace failures across service boundaries.
-- **IAM Policy Simulator is your best friend for auth issues**: When debugging "access denied" or "implicit deny" problems, use `aws iam simulate-principal-policy` against the exact role ARN. It tells you which statement matched or didn't, and critically, which `MissingContextValues` (like session tags) the policy expected but didn't receive. This is often faster than reading policy JSON and guessing.
-- **ABAC might not be configured**: If IAM policies use `${aws:PrincipalTag/*}` variables, those tags must be propagated via Identity Center ABAC attribute mapping. If ABAC was never enabled on the Identity Center instance, ALL such policies are silently broken. The management account for Identity Center is `778305418618`. Check with `describe-instance-access-control-attribute-configuration`.
-- **IaC gaps are a root cause category**: Some critical AWS configurations (like Identity Center ABAC attribute mappings) are not managed as code in any repo. When you can't find the config in GitHub, it may only exist in the AWS console -- and may have been accidentally deleted or never created. Always check whether the config you're investigating is actually IaC-managed before assuming a PR caused the change.
-- **"Works with one profile, broken with another" is a policy comparison problem**: When the same action works with one SSO profile but not another, immediately compare their managed policies. A profile with `AdministratorAccess` bypasses all resource-scoped and tag-based restrictions, masking underlying misconfigurations that affect least-privilege profiles.
-- **"Missing" ≠ "never existed" — always check CloudTrail for deletion**: When a configuration is missing (e.g., `ResourceNotFoundException` from an AWS describe call), do NOT assume it was never created. Immediately query CloudTrail in the owning account for `Delete*` events on that resource. The pattern is: (1) confirm the config is missing, (2) search CloudTrail for creation and deletion events, (3) identify who deleted it, when, and from where (console vs CLI vs Terraform). This distinguishes accidental deletion from never-configured, which changes the remediation path entirely. For Identity Center ABAC: search for `DeleteInstanceAccessControlAttributeConfiguration` and `CreateInstanceAccessControlAttributeConfiguration` in management account `778305418618`.
-- **Correlate with Datadog error onset**: When you find a CloudTrail mutation event, check Datadog for errors that started at the same time. For IAM/auth issues, search Flex Logs for `AccessDenied`, `AuthorizationError`, or connection failures in the affected services. The error onset time should match the CloudTrail event timestamp, confirming causation.
-- **S3 data events are invisible by default**: Replication, PutObject, GetObject events are S3 data events, not management events. `cloudtrail lookup-events` won't find them. Check `get-event-selectors` on each trail. Fall back to `s3 ls` timestamps.
-- **Resource policies reveal cross-account relationships**: S3 bucket policies, IAM trust policies, and KMS key policies all contain cross-account principal ARNs. When you need to trace a relationship (replication source, cross-account access), read the resource policy first — it tells you who is allowed to do what from where.
-- **Pass identifiers between tools**: The investigation flow is cyclical. An ARN from CloudTrail → Wiz to find the account → AWS CLI to check config → Datadog to correlate errors → GitHub to find the change. Each tool gives you something the others need.
-- **Search past tickets before going deep**: Many issues are recurring. Search Jira for past PIs on the same component or with similar symptoms. The RCA field, comments, and linked retro tickets often contain the exact fix. A 2-minute JQL search can save an hour of investigation.
+- **Datadog silence is a signal**: If Datadog returns zero logs for an affected service, that's diagnostic information -- it likely means the failure is in the network/DNS/proxy layer *before* traffic reaches the application. Internal web tools (Invoicing Management, Customer Management, Payment Management, etc.) often don't emit logs to Datadog at all. When you see this pattern, pivot immediately to Jira comments, ZScaler/ZPA configuration, Cloudflare settings, and Route53 CNAME chains instead of trying more Datadog queries.
+- **Intermittent failures suggest load-balanced infrastructure**: When users report random success/failure for the same service, think about what sits in the path that load-balances: ZPA App Connector Groups (round-robin across production and DR connectors), Cloudflare edge nodes, internal DNS servers. If one member of a pool is misconfigured, you get intermittent failures proportional to the pool ratio.
+- **Decommissioning creates time bombs**: When a backend service (WAPS, old LBs, etc.) is decommissioned, all DNS records, Cloudflare origins, and ZScaler app-segments pointing to it must be audited across all markets. The service may appear to keep working for weeks/months if there are alternative resolution paths, then suddenly break when the alternative path changes.
+- **Blast radius before deep-dive**: PI tickets name only the services the filing team cares about. Always check whether *other* services are failing simultaneously before spending time on the named services' dependencies. Simultaneous 5XX spikes across unrelated services = shared infra layer (Helm chart, Istio, cluster, DNS), not an application dependency. (Lesson from PI-34282.)
 
 ## IFA Confluence Reference
 
@@ -697,3 +634,72 @@ INFOPS Space (homepage: 6135481117)
 │   └── Teleport (6307681922)
 └── Internal (8448409740)
 ```
+
+## Worked Example: PI-34099 -- ZScaler App Connector DNS Failure
+
+This example illustrates an incident where Datadog was a dead end and the root cause was found entirely through Jira comments and ZScaler configuration investigation.
+
+### The Incident
+
+**Summary**: Intermittent Cloudflare timeout errors for agents accessing Invoicing Management, Customer Management, and Payment Management across UK, IE, IT, and ES markets.
+
+**Initial symptoms**: 15 UK agents and 7 IE agents couldn't access Invoicing Management. Cloudflare error pages shown intermittently.
+
+### Investigation Path
+
+**Step 1: Jira ticket** -- Established the timeline and affected services. The ticket identified three components: invoicemanagement, customermanagement, paymentmanagement. Markets: UK, IE, IT.
+
+**Step 2: Datadog** -- Searched for error logs across all three services. **Result: zero logs.** No application errors, no Cloudflare logs, no ZScaler logs in Datadog. This was the key signal -- the failure was in the network layer before traffic reached the applications.
+
+**Step 3: Initial (wrong) hypothesis** -- WAPS decommissioning. The team discovered that Cloudflare origins for these services still pointed to `waps.just-eat.com`, which was decommissioned in April. Route53 records for UK/IT pointed through Cloudflare CDN while ES/IE pointed directly to internal LBs. This seemed like the root cause.
+
+**Step 4: Fix applied but problems continued** -- Route53 records were updated to bypass Cloudflare and point directly to internal endpoints (e.g., `invoicingmanagement.internal.je-apis.com`). However, ZScaler DNS caching prevented immediate resolution. Users needed machine reboots.
+
+**Step 5: The real root cause (from Jira comments)** -- Fredrik Wilandh's investigation revealed that the ZScaler ZPA Server Group `JET-IE-Apps` contained two App Connector Groups:
+- `aws-networks-ew1-p-zac-grp-v2` (production) -- healthy, correct DNS
+- `aws-networks-ew1-d-zac-grp-v2` (disaster recovery) -- **broken `/etc/resolv.conf`**
+
+ZPA load-balances round-robin across both groups. Requests hitting the DR connectors failed DNS resolution; requests hitting production connectors succeeded. This explained the intermittent nature perfectly.
+
+**Fix**: Manually corrected `/etc/resolv.conf` on the affected DR App Connectors. Permanent remediation: migrate app-segments to a Server Group using App Connectors in the Networks production VPC (`10.18.0.0/16`).
+
+### Key Lessons from This Incident
+
+1. **Datadog returning nothing IS the finding** -- don't keep trying more queries. Pivot to other sources.
+2. **Jira comments contain the real RCA** -- the ticket timeline had the initial (incomplete) hypothesis, but the comment from Fredrik had the actual root cause. Always read comments.
+3. **Intermittent = load-balanced infrastructure** -- random success/failure across users pointed to a pool with a broken member.
+4. **The obvious cause wasn't the real cause** -- WAPS decommissioning was a contributing factor (stale Cloudflare config) but the actual trigger was the DR App Connector DNS misconfiguration.
+5. **Scope expands** -- what started as one service (Invoicing Management) in one market (UK) turned out to affect three services across four markets. Always check related services when you find a network-layer root cause.
+
+## Worked Example: PI-34282 -- Shared Helm Chart Breaking All Canary Deployments
+
+This example illustrates a platform-wide incident where the PI ticket named only two services, but the root cause was a shared Helm chart regression affecting all OneEKS applications. It demonstrates why the **blast radius check** must come before service-specific investigation.
+
+### The Incident
+
+**Summary**: AutocompleteAPI and AddressGeocodingAPI returning 5XX errors in production (UK, AU, NZ markets). PI ticket named these two location-services components.
+
+**Incident window**: 2025-05-15, first errors ~08:25 BST, alert at 08:28, PI created 08:40, resolved ~10:30 BST.
+
+### Investigation Path
+
+**Step 1: Jira ticket** -- Established the affected services (autocompleteapi, addressgeocodingapi) and timeline. Comments showed the team initially investigating their own services and their shared dependency, GeodataAPI.
+
+**Step 2: Wrong path -- service-specific deep-dive** -- Investigation anchored on the two named services and their dependency chain. Found that GeodataAPI had a recent PR (#1099, OpenRasta removal) and database connection errors. This looked plausible as a root cause: GeodataAPI down → autocompleteapi/addressgeocodingapi fail. **This was a coincidence, not the cause.**
+
+**Step 3: Blast radius check (should have been Step 2)** -- Querying Datadog errors across ALL services revealed that **many unrelated services** were failing simultaneously: PartnerListingAPI, DishSearchAPI, SmartGateway, and others. These services have no dependency on GeodataAPI. This immediately ruled out an application-level root cause.
+
+**Step 4: Shared infrastructure investigation** -- With the blast radius established, focus shifted to shared layers. The common factor: all affected services were on OneEKS and used the `basic-application` Helm chart. Checking the Helm chart repository revealed:
+- `basic-application` v1.1.29 was released shortly before the incident
+- The chart introduced a spec error that caused `invalidSpec` errors on canary deployments
+- Any service that attempted a canary rollout after the chart update failed
+
+**Step 5: Confirmation** -- Datadog Orchestration Explorer filtered by `label#helm.sh/chart:basic-application-1.1.29` showed widespread pod failures. Platform announcements confirmed the issue. Fix was `basic-application` v1.1.30, released ~10:15 BST.
+
+### Key Lessons from This Incident
+
+1. **Blast radius check FIRST** -- If the first query had been "how many services are erroring?" instead of "what's wrong with autocompleteapi?", the shared-infra root cause would have been obvious within minutes. The PI ticket naming only two services was misleading.
+2. **Simultaneous failures across unrelated services = shared layer** -- AutocompleteAPI, PartnerListingAPI, and DishSearchAPI have no common application dependency. When they all fail at the same time, the cause must be in a layer they all share: Helm chart, Istio, cluster, or DNS.
+3. **Coincidental failures are traps** -- GeodataAPI genuinely had database issues during the same window. This made it look like the root cause for the location-services failures. But correlation is not causation -- the blast radius check disproves this by showing non-location-services also failing.
+4. **Helm charts are shared infrastructure** -- `basic-application` is used by most OneEKS services. A single bad release can break every service that does a canary deployment. Treat Helm chart releases like cluster-level changes.
+5. **Check `#announce-platform` early** -- Platform teams often know about shared-infra issues before individual service teams do. A quick Slack check can short-circuit hours of investigation.

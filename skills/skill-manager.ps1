@@ -3,13 +3,15 @@
 #
 # Usage:
 #   .\skill-manager.ps1 list [category]     - List skills (all|anthropic|cursor|jet|custom)
-#   .\skill-manager.ps1 sync                - Pull latest from source locations
+#   .\skill-manager.ps1 sync                - Pull latest from local source locations
+#   .\skill-manager.ps1 sync-remote          - Pull latest JET skills from github.je-labs.com/ai-platform/skills
 #   .\skill-manager.ps1 status              - Show modified skills vs source
 #   .\skill-manager.ps1 add-example <skill> <name> - Create example template in a custom skill
+#   .\skill-manager.ps1 install             - Copy custom skills + toolkit to .agents/skills/ (activate)
 
 param(
     [Parameter(Position=0)]
-    [ValidateSet("list","sync","status","add-example")]
+    [ValidateSet("list","sync","sync-remote","status","add-example","install")]
     [string]$Command,
 
     [Parameter(Position=1)]
@@ -22,7 +24,29 @@ param(
 $SkillsRoot = $PSScriptRoot
 $Categories = @("anthropic","cursor","jet","custom")
 
-# Source locations (ordered by priority)
+# Remote canonical repos
+$RemoteSources = @{
+    "jet" = @{
+        Host = "github.je-labs.com"
+        Repo = "ai-platform/skills"
+        Branch = "master"
+        Path = "skills"
+    }
+    "anthropic" = @{
+        Host = "github.com"
+        Repo = "anthropics/skills"
+        Branch = "main"
+        Path = "skills"
+    }
+    "custom" = @{
+        Host = "github.com"
+        Repo = "clintonherring/skills"
+        Branch = "main"
+        Path = "skills/custom"
+    }
+}
+
+# Local source locations (for sync from installed copies)
 $Sources = @(
     "$env:USERPROFILE\.cursor\skills",
     "$env:USERPROFILE\.cursor\skills-cursor",
@@ -117,6 +141,85 @@ switch ($Command) {
         }
     }
 
+    "sync-remote" {
+        $filter = if ($Arg1) { @($Arg1) } else { $RemoteSources.Keys }
+        foreach ($cat in $filter) {
+            if (-not $RemoteSources.ContainsKey($cat)) {
+                Write-Host "  [skip] $cat (no remote source configured)" -ForegroundColor DarkGray
+                continue
+            }
+            $remote = $RemoteSources[$cat]
+            $host = $remote.Host
+            $repo = $remote.Repo
+            $branch = $remote.Branch
+            $rpath = $remote.Path
+
+            Write-Host "`nSyncing $cat from $host/$repo ($branch)..." -ForegroundColor Yellow
+
+            # Clone to temp dir
+            $tmpDir = Join-Path $env:TEMP "skill-sync-$cat-$(Get-Random)"
+            try {
+                if ($host -eq "github.com") {
+                    git clone --depth 1 --branch $branch "https://$host/$repo.git" $tmpDir 2>&1 | Out-Null
+                } else {
+                    git clone --depth 1 --branch $branch "https://$host/$repo.git" $tmpDir 2>&1 | Out-Null
+                }
+
+                $srcDir = Join-Path $tmpDir $rpath
+                if (-not (Test-Path $srcDir)) {
+                    Write-Host "  [error] Path '$rpath' not found in repo" -ForegroundColor Red
+                    continue
+                }
+
+                $catDir = Join-Path $SkillsRoot $cat
+                $skillDirs = Get-ChildItem $srcDir -Directory
+
+                $synced = 0
+                foreach ($skill in $skillDirs) {
+                    $destSkill = Join-Path $catDir $skill.Name
+                    if ($cat -eq "custom") {
+                        # For custom skills, don't overwrite examples/ or learnings.md
+                        $srcSkillMd = Join-Path $skill.FullName "SKILL.md"
+                        if (Test-Path $srcSkillMd) {
+                            if (-not (Test-Path $destSkill)) { New-Item -ItemType Directory -Path $destSkill | Out-Null }
+                            Copy-Item $srcSkillMd (Join-Path $destSkill "SKILL.md") -Force
+                            Write-Host "  [sync] $($skill.Name) (SKILL.md only)" -ForegroundColor Green
+                            $synced++
+                        }
+                    } else {
+                        Copy-Item -Recurse -Force $skill.FullName $catDir
+                        Write-Host "  [sync] $($skill.Name)" -ForegroundColor Green
+                        $synced++
+                    }
+                }
+                Write-Host "  Synced $synced skills from $host/$repo" -ForegroundColor Yellow
+            }
+            finally {
+                if (Test-Path $tmpDir) { Remove-Item -Recurse -Force $tmpDir -ErrorAction SilentlyContinue }
+            }
+        }
+    }
+
+    "install" {
+        Write-Host "Installing custom skills and toolkit to .agents/skills/..." -ForegroundColor Yellow
+        $dest = "$env:USERPROFILE\.agents\skills"
+
+        # Copy custom skills
+        Get-ChildItem (Join-Path $SkillsRoot "custom") -Directory | ForEach-Object {
+            Copy-Item -Recurse -Force $_.FullName (Join-Path $dest $_.Name)
+            Write-Host "  [install] $($_.Name)" -ForegroundColor Green
+        }
+
+        # Copy toolkit
+        $toolkitSrc = Join-Path $SkillsRoot "toolkit"
+        if (Test-Path $toolkitSrc) {
+            Copy-Item -Recurse -Force $toolkitSrc (Join-Path $dest "toolkit")
+            Write-Host "  [install] toolkit" -ForegroundColor Green
+        }
+
+        Write-Host "Done. Skills are now active in $dest" -ForegroundColor Yellow
+    }
+
     "add-example" {
         if (-not $Arg1 -or -not $Arg2) {
             Write-Host "Usage: .\skill-manager.ps1 add-example <skill-name> <example-name>" -ForegroundColor Red
@@ -164,11 +267,18 @@ Skill Manager - Local skill repository management
 
 Usage:
   .\skill-manager.ps1 list [category]          List skills (all|anthropic|cursor|jet|custom)
-  .\skill-manager.ps1 sync                     Pull latest from source locations
+  .\skill-manager.ps1 sync                     Pull latest from local installed copies
+  .\skill-manager.ps1 sync-remote [category]   Pull latest from canonical Git repos
   .\skill-manager.ps1 status                   Show modified skills and example counts
   .\skill-manager.ps1 add-example <skill> <name>  Create example template
+  .\skill-manager.ps1 install                  Copy custom skills + toolkit to .agents/skills/
 
 Categories: anthropic, cursor, jet, custom
+
+Remote sources:
+  jet:       github.je-labs.com/ai-platform/skills (master)
+  anthropic: github.com/anthropics/skills (main)
+  custom:    github.com/clintonherring/skills (main)
 
 Conversational triggers (in OpenCode):
   "new pi example"      -> Captures a PI investigation as a reference
