@@ -1,1 +1,5 @@
 client_secret_*.json
+.cursor/memory-state/
+__pycache__/
+*.pyc
+.pytest_cache/

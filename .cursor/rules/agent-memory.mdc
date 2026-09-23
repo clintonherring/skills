@@ -1,0 +1,23 @@
+---
+description: Keep agent memory files current; survive compaction via hooks
+alwaysApply: true
+---
+
+# Agent memory
+
+Repo files are the source of truth across models and Cloud Agents.
+
+## Always
+
+- Treat `memory/NOW.md` as current intent (≤ ~80 lines). Update it when the goal or next action changes.
+- Put durable truths in `memory/facts.md`; put choices in `memory/decisions.md` (newest first).
+- For large work, use `tasks/<slug>/state.md` and put the slug in `tasks/ACTIVE`.
+- Do not rely on Cursor Memories for cross-model or Cloud Agent continuity.
+
+## After compaction
+
+Hooks reinject a budgeted bundle headed **Restored project memory** on the next tool call. Prefer that reinjected NOW over stale chat summary when they disagree.
+
+## When unsure
+
+Read `.cursor/skills/agent-memory/SKILL.md` or run `python3 scripts/memory_doctor.py`.

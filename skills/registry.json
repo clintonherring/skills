@@ -2,6 +2,11 @@
     "categories":  {
                        "custom":  [
                                       {
+                                          "path":  "skills://custom/agent-memory",
+                                          "name":  "agent-memory",
+                                          "abstract":  "Maintain and sync project agent memory (NOW.md, facts, decisions) so intent survives context compaction and model switches."
+                                      },
+                                      {
                                           "path":  "skills://custom/android-ui-m3",
                                           "name":  "android-ui-m3",
                                           "abstract":  "Design and build Android UI following Material 3 layout principles, glassmorphism, and modern map-app patterns. Use w..."

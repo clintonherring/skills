@@ -1,0 +1,17 @@
+{
+  "budget_tokens": 3000,
+  "chars_per_token": 4,
+  "now_max_lines": 80,
+  "state_dir": ".cursor/memory-state",
+  "files": {
+    "now": "memory/NOW.md",
+    "facts": "memory/facts.md",
+    "decisions": "memory/decisions.md"
+  },
+  "nocodb": {
+    "base_url_env": "NOCODB_BASE_URL",
+    "token_env": "NOCODB_TOKEN",
+    "facts_table_env": "NOCODB_FACTS_TABLE",
+    "decisions_table_env": "NOCODB_DECISIONS_TABLE"
+  }
+}

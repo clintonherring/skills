@@ -1,0 +1,10 @@
+table,column,type,notes
+facts,Key,SingleLineText,Stable fact id / name
+facts,Value,LongText,Fact body
+facts,Updated,DateTime,Last update
+facts,Source,SingleLineText,Optional origin (agent, human, import)
+decisions,Decision,LongText,What was decided
+decisions,Rationale,LongText,Why
+decisions,Date,Date,When
+decisions,ConversationId,SingleLineText,Optional Cursor conversation / agent id
+decisions,Project,SingleLineText,Repo or project slug
