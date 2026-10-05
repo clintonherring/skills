@@ -38,7 +38,7 @@ Clinton designs, secures, and operates enterprise and retail-store infrastructur
 | 2022–2024 | Principal Architect | Suitsupply (ZZP sole proprietor, contracted through CGI) | Similar retail architecture role after the CGI staff engagement. Ends 2024 (month not specified). |
 | 2022–present | Principal Architect (ZZP vehicle) | Remoteconsulting.EU | Legal/trading form for later contracts. Own Azure + DigitalOcean hosting/monitoring. C2M2, ITSM design docs, other retail/solar/FS clients as originally stated — do not merge JET or Suitsupply dates into a single undifferentiated “2022–present” client list. |
 | 2021–2022 (8 months) | Principal Architect | CGI | Employed / staff engagement. 1000+ retail stores worldwide, primarily Meraki, including POS and payment terminals. Project-managed hardware deployments for ~150 stores. Rituals landscape via CGI as contractor: store operations, CGI call-centre model, Veducon. Involved with the team migrating store POS from Cowhills toward NewBlack (iPad POS; Mac in back room). |
-| 2006–2021 (15 years) | Infrastructure Architect | Allan Gray | Largest private asset manager in South Africa; ~7 Southern African offices, ~1500 employees. Cisco; Radware WAF/LB; Raytheon proxy; VMware; Azure + AWS from 2016. |
+| 2006–2021 (15 years) | Infrastructure Architect | Allan Gray | Largest private asset manager in South Africa; ~7 Southern African offices, ~1500 employees. Cisco; Radware WAF/LB; Raytheon proxy; VMware; Azure + AWS from 2016. Managed contractors and third-party vendors throughout. |
 | 2006 (1 year) | Systems Engineer | Prudential Portfolio Managers | LAN, WAN, IP telephony, mail. Asterisk IP-PBX; SolarWinds. |
 | 2001–2006 | Systems Engineer | Abvest | Networking, security, IT support; PIX syslog tooling. |
 
@@ -74,6 +74,7 @@ Use only as landscape familiarity from contractor / consulting work — **not** 
 - Jira and Confluence: daily documentation and task management
 - ServiceNow: peripheral involvement in CGI store incident-management rollout, plus CGI-specific ServiceNow training — not a ServiceNow implementer or certified admin
 - Supplier and outsourced-provider engagement (e.g. CGI, Veducon)
+- Contractor and vendor management (15 years at Allan Gray); existing relationships with several Rituals vendors from CGI / ZZP — do not invent unnamed vendor names
 - Platform engineering; AI-assisted / proactive operations ideas (JET context)
 - Apple store-device pattern literacy (iPad POS, back-room Mac, Jamf's place in the stack) — not Jamf specialist
 - VMware; Radware; Raytheon (Allan Gray era)

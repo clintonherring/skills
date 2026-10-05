@@ -17,6 +17,7 @@ User-supplied context for tailoring. Do not invent dates, job titles at Rituals,
 - Worked with CGI's store / call-centre operating model for this environment
 - Has dealt with Veducon (another Rituals provider)
 - Understands store operations and how multi-vendor retail IT hangs together
+- Managed contractors/vendors for 15 years at Allan Gray; already has relationships with several Rituals vendors from CGI/ZZP (name only CGI and Veducon unless the user adds more)
 
 ## Rituals store technology (user knowledge — use carefully)
 

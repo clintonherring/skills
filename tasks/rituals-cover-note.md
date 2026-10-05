@@ -12,7 +12,9 @@ I already know this landscape from the supplier side. As Principal Architect at 
 
 I use Jira and Confluence every day for documentation and task management. When CGI rolled ServiceNow out to stores as the incident-management service I was involved at the edge of that programme and completed CGI’s ServiceNow training — I am not claiming ServiceNow implementation ownership, but I know how that model sits next to store operations.
 
-After CGI I continued as a sole proprietor under contract with CGI as Principal Architect for Suitsupply until 2024. Since November 2024 I have been a platform engineer at Just Eat Takeaway. That platform work, including AI-assisted ways of spotting and fixing operational issues, is how I would help Rituals move from reactive firefighting toward the proactive and predictive technology management described in the role.
+After CGI I continued as a sole proprietor under contract with CGI as Principal Architect for Suitsupply until 2024. I already have working relationships with several of Rituals’ vendors from that CGI and ZZP period. For 15 years at Allan Gray I managed contractors and third-party suppliers in financial services — so I am used to being the architectural owner who holds partners to standard, not only the designer of the stack.
+
+Since November 2024 I have been a platform engineer at Just Eat Takeaway. That platform work, including AI-assisted ways of spotting and fixing operational issues, is how I would help Rituals move from reactive firefighting toward the proactive and predictive technology management described in the role.
 
 I am based in Almere, close to Amsterdam, with a residence permit (arbeid vrij toegestaan, TWV niet vereist), and I am used to owning architecture across engineers, suppliers, and retail stakeholders.
 
