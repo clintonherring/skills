@@ -93,7 +93,7 @@ Do not add Jamf 200, CCNA, CISSP, TOGAF, or other certs unless the user supplies
 
 ## Interests (optional)
 
-UAS pilot and builder; commercial RPL (ZA) and NL operator; SAR ML vision on Azure + DJI. For DJI product/API names, use current [DJI Developer](https://developer.dji.com/) docs.
+UAS pilot and builder; commercial RPL (ZA) and NL operator; SAR ML vision app with DJI, running in Docker on a VPS (not Azure — Azure hosts ZZP infrastructure, a separate thing). For DJI product/API names, use current [DJI Developer](https://developer.dji.com/) docs.
 
 ## Voice
 

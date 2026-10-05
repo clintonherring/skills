@@ -164,4 +164,4 @@ Derived from `Clinton Herring NL ENT ARCH CV.docx`, plus user follow-ups for ret
 - Commercial RPL in South Africa
 - Operator in the Netherlands
 - Keen hiker
-- Developing a SAR ML vision system using Azure infrastructure and the DJI platform to help identify lost hikers
+- Developing a SAR ML vision app with the DJI platform to help identify lost hikers. It runs in Docker on a VPS, **not** on Azure (the original CV said Azure; user corrected this). Azure hosts some of his ZZP / Remoteconsulting.EU infrastructure, which is a separate thing.

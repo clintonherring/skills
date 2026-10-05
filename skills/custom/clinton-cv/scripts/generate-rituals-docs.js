@@ -327,7 +327,7 @@ function buildCv() {
   const additional = [
     sectionHeading("Beyond work"),
     body(
-      "I fly and build multirotor UAS (commercial RPL in South Africa, registered operator in NL). I am a keen hiker and am building a search and rescue vision system on Azure with the DJI platform to help find lost hikers."
+      "I fly and build multirotor UAS (commercial RPL in South Africa, registered operator in NL). I am a keen hiker and am building a search and rescue vision app, running in Docker on a VPS, that works with the DJI platform to help find lost hikers."
     ),
   ];
 
