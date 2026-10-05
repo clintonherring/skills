@@ -65,6 +65,7 @@ const run = (text, opts = {}) =>
 
 function sectionHeading(text) {
   return new Paragraph({
+    keepNext: true,
     heading: HeadingLevel.HEADING_1,
     border: rule,
     spacing: { before: 260, after: 100 },
@@ -76,6 +77,8 @@ function sectionHeading(text) {
 
 function body(text, opts = {}) {
   return new Paragraph({
+    keepNext: !!opts.keepNext,
+    keepLines: true,
     spacing: { after: opts.after ?? 80, before: opts.before ?? 0, line: 276 },
     children: [run(text, { size: opts.size ?? 20, italics: !!opts.italics, color: opts.color ?? INK })],
   });
@@ -84,7 +87,7 @@ function body(text, opts = {}) {
 function bullet(text) {
   return new Paragraph({
     numbering: { reference: "cv-bullets", level: 0 },
-    spacing: { after: 40, line: 276 },
+    spacing: { after: 60, line: 276 },
     children: [run(text)],
   });
 }
@@ -92,31 +95,28 @@ function bullet(text) {
 function labelledBullet(label, text) {
   return new Paragraph({
     numbering: { reference: "cv-bullets", level: 0 },
-    spacing: { after: 40, line: 276 },
-    children: [run(`${label} `, { bold: true }), run(text)],
+    spacing: { after: 70, line: 276 },
+    children: [run(`${label}  `, { bold: true, color: ACCENT }), run(text)],
+  });
+}
+
+function skillLine(label, text) {
+  return new Paragraph({
+    spacing: { after: 50, line: 276 },
+    indent: { left: 1700, hanging: 1700 },
+    tabStops: [{ type: TabStopType.LEFT, position: 1700 }],
+    children: [run(label, { bold: true, color: ACCENT }), run(`\t${text}`)],
   });
 }
 
 function roleHeader(title, org, dates) {
   return new Paragraph({
+    keepNext: true,
     spacing: { before: 160, after: 40 },
     tabStops: [{ type: TabStopType.RIGHT, position: TabStopPosition.MAX }],
     children: [
       run(title, { bold: true, size: 21 }),
       run(`  |  ${org}`, { size: 21, color: ACCENT }),
-      run(`\t${dates}`, { size: 19, color: MUTE }),
-    ],
-  });
-}
-
-function subRoleHeader(title, org, dates) {
-  return new Paragraph({
-    spacing: { before: 100, after: 30 },
-    indent: { left: 180 },
-    tabStops: [{ type: TabStopType.RIGHT, position: TabStopPosition.MAX }],
-    children: [
-      run(title, { bold: true }),
-      run(`  |  ${org}`, { color: ACCENT }),
       run(`\t${dates}`, { size: 19, color: MUTE }),
     ],
   });
@@ -167,7 +167,7 @@ function buildCv() {
     new Paragraph({
       spacing: { after: 60 },
       children: [
-        run("Retail Technology Architect  ·  store infrastructure, standards and supplier governance", {
+        run("Retail Technology Architect  ·  store infrastructure, standards and vendor management", {
           size: 22,
           color: ACCENT,
         }),
@@ -196,124 +196,138 @@ function buildCv() {
   const profile = [
     sectionHeading("Profile"),
     body(
-      "Retail technology architect with 20+ years in infrastructure: 15 years owning network architecture and third-party vendors at South Africa’s largest private asset manager, then multi-vendor retail store estates for two retailers — the Rituals landscape with CGI, and Suitsupply as a CGI sub-contractor. I set the standards, lifecycle and designs that keep Meraki networking, iPad POS, payment terminals and back-office devices supportable, and I hold partners to them. Currently a platform engineer at Just Eat Takeaway, where I root-cause production incidents and build AI-assisted tooling that turns recurring operational issues into structural fixes."
+      "I design, secure and maintain enterprise and retail store infrastructure, with more than 20 years experience aligning IT infrastructure with business needs. I spent 15 years at Allan Gray, the largest private asset manager in South Africa, and since 2021 I have worked in retail: at CGI on the Rituals store estate and then for Suitsupply as a sub-contractor to CGI, so I know the Rituals store environment from the supplier side. Since November 2024 I have been a platform engineer at Just Eat Takeaway, finding the root cause of production incidents and building AI tooling to do that faster.",
+      { after: 60 }
     ),
   ];
 
   const strengths = [
-    sectionHeading("Why this role"),
+    sectionHeading("In short"),
     labelledBullet(
-      "Store architecture ownership.",
-      "Principles, standards and lifecycle for end-to-end store technology: Meraki networking, iPad POS on NewBlack with a back-room Mac, payment terminals, and the MDM/Jamf layer that keeps Apple store devices managed."
+      "Store technology",
+      "I know the Rituals store setup: Meraki networks, iPad POS on NewBlack with a Mac in the back room, payment terminals, and the partners behind it."
     ),
     labelledBullet(
-      "Problem management to structural fix.",
-      "Root-cause analysis of production incidents at Just Eat Takeaway (AWS, Kubernetes, DNS and routing, IAM) and 15 years of third-line escalation at Allan Gray; findings fed back into standards and runbooks."
+      "Rollouts",
+      "At CGI I project managed Meraki rollouts to around 150 stores and helped look after a 1000+ store estate."
     ),
     labelledBullet(
-      "Supplier governance.",
-      "15 years managing contractors and vendor contracts; working relationships with several Rituals partners and a clear view of how they fit together (e.g. Veducon network design, CGI with NewBlack for omnichannel, RSG for in-store rollout and break-fix)."
+      "Vendors",
+      "I managed 3rd party vendors and contractors for 15 years at Allan Gray and know several of the Rituals partners."
     ),
     labelledBullet(
-      "Multi-site retail delivery.",
-      "Network architecture for 1000+ stores worldwide and ~150 store hardware deployments project-managed: design, validation, pilot, handover into support."
+      "Problem management",
+      "At Just Eat Takeaway I find the root cause of production incidents and make sure the fix goes into the standard, not just the ticket."
     ),
     labelledBullet(
-      "ITSM in practice.",
-      "Jira and Confluence daily; ServiceNow store incident-management model (CGI rollout and training); published research on ITSM metrics and the business value of IT."
+      "Tools",
+      "Jira and Confluence every day. ServiceNow from the CGI store rollout. Entra ID for a year at Just Eat Takeaway. Azure and AWS since 2016."
     ),
     labelledBullet(
-      "Cloud, identity and AI-assisted operations.",
-      "Azure (Network Engineer Associate) and AWS since 2016; Entra ID administration for internal users at Just Eat Takeaway; building AI agent tooling that codifies incident investigation and change review."
+      "AI",
+      "I build AI agent tooling for incident investigation and change review, and I have ideas on how to use it in this role."
+    ),
+  ];
+
+  const skills = [
+    sectionHeading("Skills"),
+    skillLine(
+      "Store technology",
+      "Cisco Meraki (certified), iPad POS on NewBlack, payment terminals, back-office Macs, MDM/Jamf (how it fits the estate), multi-site rollouts"
+    ),
+    skillLine("Network & security", "Cisco, NGFW, VPN, proxy, load balancer, WAF, WAN and data centre design, operational security"),
+    skillLine("Cloud & identity", "Azure (Network Engineer Associate), AWS, Kubernetes, Entra ID, Datadog"),
+    skillLine(
+      "Ways of working",
+      "ITIL / ITSM, Jira, Confluence, ServiceNow (store incident management), vendor and contract management, business cases and project documentation, C2M2 security maturity"
     ),
   ];
 
   const experience = [
     sectionHeading("Experience"),
 
-    roleHeader("Self-employed — Principal Architect / Platform Engineer", "Remoteconsulting.EU", "2022 – Present"),
+    roleHeader("Platform Engineer", "Just Eat Takeaway", "Nov 2024 – Present"),
+    bullet(
+      "I work on an AWS and Kubernetes platform. When there is a production incident I trace it through infrastructure changes, Datadog, pull requests and CloudTrail until I have a clear root cause."
+    ),
+    bullet(
+      "I built reusable AI agent skills that capture how we investigate incidents and review changes, so the next person does not start from scratch."
+    ),
+    bullet(
+      "I managed Entra ID for internal users for about a year, until identity (Entra, network access and Okta) was brought together under one department."
+    ),
+    bullet(
+      "I review infrastructure changes (DNS, IAM, access) before they are closed, and I use Jira and Confluence every day for documentation and task management."
+    ),
+
+    roleHeader("Principal Architect", "Suitsupply, as sub-contractor to CGI", "2022 – Oct 2024"),
     body(
-      "Working for myself as a sole proprietor (ZZP). Engagements have included sub-contracting to CGI for Suitsupply, platform engineering at Just Eat Takeaway, and architecture, monitoring and security-maturity (C2M2) work for smaller retail, solar and financial-services clients on my own Azure and DigitalOcean platforms.",
-      { after: 40 }
-    ),
-
-    subRoleHeader("Platform Engineer", "Just Eat Takeaway", "Nov 2024 – Present"),
-    bullet(
-      "Platform engineering on an AWS and Kubernetes estate; investigate production incidents by correlating infrastructure changes, Datadog telemetry, pull-request history and AWS CloudTrail to reach a specific root cause."
+      "I worked for myself as a sole proprietor (ZZP, Remoteconsulting.EU), mostly as a sub-contractor to CGI for Suitsupply. Alongside that I advised smaller retail, solar and financial services clients on design, monitoring and security maturity (C2M2) from my own Azure and Digital Ocean infrastructure.",
+      { after: 40, keepNext: true }
     ),
     bullet(
-      "Built reusable AI agent skills that encode investigation runbooks, incident patterns and change-review checks, so recurring issues are diagnosed faster and fixed structurally rather than repeatedly."
+      "Store technology architecture for Suitsupply, a second international retailer, so my retail experience is not based on Rituals alone."
     ),
     bullet(
-      "Managed Entra ID for internal users for about a year, until identity (Entra, network access, Okta) was consolidated from separate departments into one."
-    ),
-    bullet(
-      "Review infrastructure changes (DNS, IAM, access) against evidence before closure; Jira and Confluence for documentation and task management every day."
-    ),
-
-    subRoleHeader("Principal Architect", "Suitsupply, as sub-contractor to CGI", "2022 – Oct 2024"),
-    bullet(
-      "Store-technology architecture for a second international retailer, so my retail experience is not limited to the Rituals landscape."
-    ),
-    bullet(
-      "Standards, supportability and supplier coordination across store networking and POS-adjacent infrastructure, continuing the CGI store-estate model."
+      "The same kind of work as at CGI: standards, supportability and coordinating suppliers across store networking and the infrastructure around POS."
     ),
 
     roleHeader("Principal Architect", "CGI", "2021 – 2022 (8 months)"),
+    body(
+      "With my fellow team members I was responsible for 1000+ retail stores worldwide, primarily on Meraki network infrastructure with POS and payment terminals connecting to it. Most of the work was design and implementation, with handover to the support teams after.",
+      { after: 40, keepNext: true }
+    ),
+    bullet("I project managed network hardware deployments for approximately 150 stores worldwide."),
     bullet(
-      "With the team, responsible for network architecture across 1000+ retail stores worldwide, primarily Meraki, including POS and payment-terminal connectivity."
+      "I was part of the team that replaced Cowhills with NewBlack POS: iPads on the shop floor with a Mac in the back room."
     ),
     bullet(
-      "Worked inside the Rituals supplier landscape: store operations, the CGI call-centre and support model, and day-to-day coordination with partners such as Veducon."
+      "I worked day to day with the Rituals partners: the CGI call centre and support model, Veducon on network design, and RSG in the stores."
     ),
     bullet(
-      "Part of the team that moved store POS off Cowhills onto NewBlack — iPads on the shop floor with a back-room Mac running POS."
+      "I captured business requirements and wrote business cases, project scope and technical documents for the plan and support teams."
     ),
-    bullet(
-      "Project-managed network hardware deployments for approximately 150 stores; produced requirements, business cases, scope and technical packs for plan and support teams."
-    ),
-    bullet(
-      "Design and implementation through to structured handover into support; completed CGI’s ServiceNow training when ServiceNow was rolled out to stores for incident management."
-    ),
+    bullet("I did CGI’s ServiceNow training when ServiceNow was rolled out to the stores for incident management."),
 
     roleHeader("Infrastructure Architect", "Allan Gray", "2006 – 2021 (15 years)"),
-    bullet(
-      "Owned network architecture for South Africa’s largest private asset manager: seven offices across South Africa, Botswana and Namibia, ~1500 staff; Cisco core, Radware WAF and load balancing, Raytheon proxy, VMware, Azure and AWS from 2016."
+    body(
+      "I was responsible for the networking infrastructure at the largest private asset management company in South Africa: 7 offices in South Africa, Botswana and Namibia and about 1500 employees. I reported to the Group Infrastructure Manager.",
+      { after: 40, keepNext: true }
     ),
+    bullet("I advised on the direction for IT infrastructure and built business cases for projects with my peers."),
+    bullet("I managed the 3rd party vendors and contractors for the full 15 years: contracts, performance and escalations."),
     bullet(
-      "Managed contractors and third-party vendors throughout — contracts, performance and escalation — and set the infrastructure direction and business cases with peers, reporting to the Group Infrastructure Manager."
+      "I implemented security systems based on policy from risk and compliance. Cisco core, Radware WAF and load balancing, Raytheon proxy, VMware, with Azure and AWS from 2016."
     ),
+    bullet("I did monitoring, troubleshooting and 3rd line support for the helpdesk and other departments."),
     bullet(
-      "Translated risk and compliance policy into security controls; monitoring and third-line support for the helpdesk and business departments."
-    ),
-    bullet(
-      "Built an ISP-redundant Cisco AnyConnect VPN in days at the start of the 2020 lockdown so the whole company could work from home; 100% uptime from March 2020."
+      "At the start of the 2020 lockdown I built an ISP redundant Cisco AnyConnect VPN in a very short time so everyone could work from home. It has had 100% uptime since March 2020."
     ),
 
     roleHeader("Systems Engineer", "Prudential Portfolio Managers", "2006 (1 year)"),
     bullet(
-      "All network infrastructure across three branches — LAN, WAN, IP telephony, mail; replaced the PBX with Asterisk and ISP-managed monitoring with SolarWinds."
+      "I was responsible for all network infrastructure (LAN, WAN, IP telephony and mail) across 3 branches. I replaced the PBX with an Asterisk IP telephony system and brought monitoring in-house with SolarWinds."
     ),
 
     roleHeader("Systems Engineer", "Abvest", "2001 – 2006"),
     bullet(
-      "Networking, security and IT support for a 30-person asset manager; wrote in-house tooling to read PIX firewall syslog for connectivity troubleshooting and ACL management."
+      "Networking, security and IT support for a small asset manager of about 30 people. I wrote an in-house system to read syslog from our PIX firewall to troubleshoot connectivity and manage ACLs."
     ),
   ];
 
   const education = [
     sectionHeading("Education, certifications and publication"),
-    bullet("BCom (Hons) Information Systems — University of Cape Town"),
+    bullet("BCom (Hons) Information Systems, University of Cape Town"),
     bullet("Cisco Meraki Solutions Specialist  ·  Microsoft Azure Network Engineer Associate"),
     bullet(
-      "African Journal of Business Management, 2014 — “An exploratory investigation into using ITSM metrics to indicate the business value of IT in a South African financial services company”"
+      "African Journal of Business Management, 2014: “An exploratory investigation into using ITSM metrics to indicate the business value of IT in a South African financial services company”"
     ),
   ];
 
   const additional = [
     sectionHeading("Beyond work"),
     body(
-      "Multirotor UAS pilot and builder (commercial RPL, South Africa; registered operator, Netherlands). Building a search-and-rescue computer-vision system on Azure with the DJI platform to help locate lost hikers."
+      "I fly and build multirotor UAS (commercial RPL in South Africa, registered operator in NL). I am a keen hiker and am building a search and rescue vision app, running in Docker on a VPS, that works with the DJI platform to help find lost hikers."
     ),
   ];
 
@@ -327,7 +341,7 @@ function buildCv() {
         properties: {
           page: { size: A4, margin: { top: 720, right: 760, bottom: 720, left: 760 } },
         },
-        children: [...header, ...profile, ...strengths, ...experience, ...education, ...additional],
+        children: [...header, ...profile, ...strengths, ...skills, ...experience, ...education, ...additional],
       },
     ],
   });
@@ -349,21 +363,21 @@ function buildCoverLetter() {
     p("Almere  ·  +31 6 27517972  ·  Clinton.herring@remoteconsulting.eu  ·  remoteconsulting.eu", { after: 320 }),
     p("Dear Renée and the Retail Technology team,", { after: 200 }),
     p(
-      "I am applying for the Retail Technology IT Architect role. I know the Rituals store landscape from the supplier side, and I have spent the last few years doing exactly the work this role describes: owning store-technology architecture, holding partners to standards, and turning recurring incidents into structural fixes."
+      "I am applying for the Retail Technology IT Architect role. I know the Rituals store environment from the supplier side, and the work in this role is the work I have been doing for the last few years: store technology architecture, keeping partners to the standards, and making sure that when something breaks the fix goes into the standard and not just the ticket."
     ),
     p(
-      "At CGI I worked with the team responsible for network architecture across 1000+ retail stores — Meraki networking, POS and payment terminals, multi-site rollout and handover into support. I was part of the team that moved store POS off Cowhills onto NewBlack, with iPads on the floor and a Mac in the back room. I know how CGI’s call-centre model works with the stores, I have worked with Veducon, and I understand how the wider partner model fits together: Veducon for network design, CGI with NewBlack for omnichannel, RSG for in-store rollout and break-fix. Since 2022 I have worked for myself; part of that work was as a sub-contractor to CGI for another retailer, Suitsupply, until October 2024 — so my retail experience is not limited to one brand."
+      "At CGI I was part of the team responsible for network architecture across 1000+ Rituals stores: Meraki networking, POS and payment terminals, rollouts to many stores at once and handover to support. I was part of the team that replaced Cowhills with NewBlack POS, with iPads on the floor and a Mac in the back room. I know how the CGI call centre works with the stores, I have worked with Veducon, and I know how the partners fit together: Veducon for network design, CGI with NewBlack for omnichannel, RSG for rollouts and break-fix in the stores. From 2022 to October 2024 I worked for myself, and most of that was as a sub-contractor to CGI for another retailer, Suitsupply, so my retail experience is not based on one brand."
     ),
     p(
-      "Before that I spent 15 years at Allan Gray owning network architecture and managing contractors and third-party vendors for South Africa’s largest private asset manager. That is the muscle this role needs when it asks for architecture principles, lifecycle management and supplier adherence rather than one-off designs."
+      "Before that I spent 15 years at Allan Gray, the largest private asset manager in South Africa, where I was responsible for the network architecture and managed the 3rd party vendors and contractors. That is where I learned to set architecture principles, manage the lifecycle of infrastructure and hold suppliers to what they agreed to, rather than doing one-off designs."
     ),
     p(
-      "Since November 2024 I have been a platform engineer at Just Eat Takeaway. I root-cause production incidents across AWS, Kubernetes, DNS and IAM, and I have built AI agent tooling that codifies those investigations so the same problem is not solved twice. I also managed Entra ID for internal users for about a year, until identity was consolidated into a single department. I use Jira and Confluence every day, and I completed CGI’s ServiceNow training when it was rolled out to stores for incident management. On the Apple side I understand how Jamf and MDM fit an iPad-and-Mac store estate; I would describe that as working knowledge rather than Jamf administration, and I would say so in the interview."
+      "Since November 2024 I have been a platform engineer at Just Eat Takeaway. I find the root cause of production incidents across AWS, Kubernetes, DNS and IAM, and I have built AI agent tooling that captures how we investigate so the same problem does not get solved twice. I also managed Entra ID for internal users for about a year, until identity was brought together under one department. I use Jira and Confluence every day, and I did CGI’s ServiceNow training when it was rolled out to the stores for incident management. On the Apple side I know how Jamf and MDM fit an iPad and Mac store estate; I would call that working knowledge rather than Jamf administration, and I would say so in the interview."
     ),
     p(
-      "I live in Almere, close to Amsterdam, so an office-first week is practical. I hold a residence permit with arbeid vrij toegestaan, TWV niet vereist."
+      "I live in Almere, close to Amsterdam, so being in the office most of the week is practical. I have a residence permit with arbeid vrij toegestaan, TWV niet vereist."
     ),
-    p("I would welcome the conversation."),
+    p("I would welcome the chance to talk about the role."),
     p("Kind regards,", { after: 200 }),
     p("Clinton Herring", { bold: true, after: 40 }),
     p("+31 6 27517972  ·  Clinton.herring@remoteconsulting.eu", { after: 40 }),

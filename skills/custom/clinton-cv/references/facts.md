@@ -90,11 +90,12 @@ Derived from `Clinton Herring NL ENT ARCH CV.docx`, plus user follow-ups for ret
 - Similar retail architecture role to the earlier CGI store-estate work
 - Value: a second retailer reference alongside the Rituals landscape
 - Ended 16 October 2024; show as “2022 – Oct 2024” on CVs
+- On the CV this is one top-level entry whose intro sentence carries the self-employed context; the own-client work below is folded into that intro. The CV leads with Just Eat Takeaway, then this entry, then CGI.
 
 ### Self-employed — Remoteconsulting.EU (2022–present, ZZP)
 
 - Design, monitoring, and support for retailers, solar providers, and financial-services clients in Europe, UK, and South Africa
-- Suitsupply (via CGI) and Just Eat Takeaway are the dated client engagements above — do not duplicate them as undated extras
+- Suitsupply (via CGI) and Just Eat Takeaway are the dated client engagements above — do not duplicate them as undated extras, and do not add a separate umbrella “Self-employed” row on the CV
 - Maintains own infrastructure on Azure and DigitalOcean for client hosting and monitoring
 - Maintains infrastructure documentation for governance and compliance on behalf of clients
 - Advises on security maturity using C2M2
@@ -163,4 +164,4 @@ Derived from `Clinton Herring NL ENT ARCH CV.docx`, plus user follow-ups for ret
 - Commercial RPL in South Africa
 - Operator in the Netherlands
 - Keen hiker
-- Developing a SAR ML vision system using Azure infrastructure and the DJI platform to help identify lost hikers
+- Developing a SAR ML vision app with the DJI platform to help identify lost hikers. It runs in Docker on a VPS, **not** on Azure (the original CV said Azure; user corrected this). Azure hosts some of his ZZP / Remoteconsulting.EU infrastructure, which is a separate thing.
