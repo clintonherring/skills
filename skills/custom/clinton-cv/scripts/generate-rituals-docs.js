@@ -196,7 +196,7 @@ function buildCv() {
   const profile = [
     sectionHeading("Profile"),
     body(
-      "Retail technology architect with 20+ years in infrastructure: 15 years owning network architecture and third-party vendors at South Africa’s largest private asset manager, then multi-vendor retail store estates with CGI, Suitsupply and the Rituals supplier landscape. I set the standards, lifecycle and designs that keep Meraki networking, iPad POS, payment terminals and back-office devices supportable, and I hold partners to them. Currently a platform engineer at Just Eat Takeaway, where I root-cause production incidents and build AI-assisted tooling that turns recurring operational issues into structural fixes."
+      "Retail technology architect with 20+ years in infrastructure: 15 years owning network architecture and third-party vendors at South Africa’s largest private asset manager, then multi-vendor retail store estates for two retailers — the Rituals landscape with CGI, and Suitsupply as a CGI sub-contractor. I set the standards, lifecycle and designs that keep Meraki networking, iPad POS, payment terminals and back-office devices supportable, and I hold partners to them. Currently a platform engineer at Just Eat Takeaway, where I root-cause production incidents and build AI-assisted tooling that turns recurring operational issues into structural fixes."
     ),
   ];
 
@@ -231,9 +231,9 @@ function buildCv() {
   const experience = [
     sectionHeading("Experience"),
 
-    roleHeader("Independent Consultant", "Remoteconsulting.EU (own ZZP)", "2022 – Present"),
+    roleHeader("Self-employed — Principal Architect / Platform Engineer", "Remoteconsulting.EU", "2022 – Present"),
     body(
-      "Sole-proprietor vehicle for the engagements below. Also runs own Azure and DigitalOcean monitoring platforms and advises smaller retail, solar and financial-services clients on security maturity (C2M2) and cloud/DC/WAN design under ITSM change control.",
+      "Working for myself as a sole proprietor (ZZP). Engagements have included sub-contracting to CGI for Suitsupply, platform engineering at Just Eat Takeaway, and architecture, monitoring and security-maturity (C2M2) work for smaller retail, solar and financial-services clients on my own Azure and DigitalOcean platforms.",
       { after: 40 }
     ),
 
@@ -251,12 +251,12 @@ function buildCv() {
       "Review infrastructure changes (DNS, IAM, access) against evidence before closure; Jira and Confluence for documentation and task management every day."
     ),
 
-    subRoleHeader("Principal Architect", "Suitsupply (contracted through CGI)", "2022 – Oct 2024"),
+    subRoleHeader("Principal Architect", "Suitsupply, as sub-contractor to CGI", "2022 – Oct 2024"),
     bullet(
-      "Store-technology architecture for an international branded retailer, continuing the CGI store-estate model as a sole proprietor under CGI contract."
+      "Store-technology architecture for a second international retailer, so my retail experience is not limited to the Rituals landscape."
     ),
     bullet(
-      "Standards, supportability and supplier coordination across store networking and POS-adjacent infrastructure."
+      "Standards, supportability and supplier coordination across store networking and POS-adjacent infrastructure, continuing the CGI store-estate model."
     ),
 
     roleHeader("Principal Architect", "CGI", "2021 – 2022 (8 months)"),
@@ -352,7 +352,7 @@ function buildCoverLetter() {
       "I am applying for the Retail Technology IT Architect role. I know the Rituals store landscape from the supplier side, and I have spent the last few years doing exactly the work this role describes: owning store-technology architecture, holding partners to standards, and turning recurring incidents into structural fixes."
     ),
     p(
-      "At CGI I worked with the team responsible for network architecture across 1000+ retail stores — Meraki networking, POS and payment terminals, multi-site rollout and handover into support. I was part of the team that moved store POS off Cowhills onto NewBlack, with iPads on the floor and a Mac in the back room. I know how CGI’s call-centre model works with the stores, I have worked with Veducon, and I understand how the wider partner model fits together: Veducon for network design, CGI with NewBlack for omnichannel, RSG for in-store rollout and break-fix. I continued as Principal Architect for Suitsupply under contract with CGI until October 2024."
+      "At CGI I worked with the team responsible for network architecture across 1000+ retail stores — Meraki networking, POS and payment terminals, multi-site rollout and handover into support. I was part of the team that moved store POS off Cowhills onto NewBlack, with iPads on the floor and a Mac in the back room. I know how CGI’s call-centre model works with the stores, I have worked with Veducon, and I understand how the wider partner model fits together: Veducon for network design, CGI with NewBlack for omnichannel, RSG for in-store rollout and break-fix. Since 2022 I have worked for myself; part of that work was as a sub-contractor to CGI for another retailer, Suitsupply, until October 2024 — so my retail experience is not limited to one brand."
     ),
     p(
       "Before that I spent 15 years at Allan Gray owning network architecture and managing contractors and third-party vendors for South Africa’s largest private asset manager. That is the muscle this role needs when it asks for architecture principles, lifecycle management and supplier adherence rather than one-off designs."

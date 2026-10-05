@@ -5,7 +5,7 @@ Derived from `Clinton Herring NL ENT ARCH CV.docx`, plus user follow-ups for ret
 ## User follow-ups (retail / Rituals / platform)
 
 - Lives in Almere (near Amsterdam), not Enschede.
-- After the CGI staff role, worked as a sole proprietor (ZZP / Remoteconsulting.EU) **under contract with CGI for Suitsupply until 16 October 2024**. Do not list Suitsupply as a direct employer or as an open-ended 2022–present client.
+- After the CGI staff role, **worked for himself** (ZZP / Remoteconsulting.EU). Some of that work was **as a sub-contractor to CGI, working for another retailer, Suitsupply, until 16 October 2024**. Other self-employed work also happened in this period. Suitsupply matters on the CV because it is a second retailer — retail expertise is not based on Rituals alone. Do not list Suitsupply as a direct employer.
 - Just Eat Takeaway: Platform Engineer from **November 2024 to present** (ZZP / Remoteconsulting.EU).
 - CGI staff engagement included Rituals as a customer landscape: store operations familiarity; CGI call-centre model; dealings with provider Veducon.
 - Rituals store pattern (knowledge from that landscape): POS on iPads; Mac in the back room runs NewBlack POS; involved with the team that swapped out Cowhills.
@@ -84,13 +84,14 @@ Derived from `Clinton Herring NL ENT ARCH CV.docx`, plus user follow-ups for ret
 - Jira and Confluence daily
 - Do not invent team names, products, customer metrics, or incident counts
 
-### Principal Architect — Suitsupply (2022–16 October 2024)
+### Principal Architect — Suitsupply, as sub-contractor to CGI (2022–16 October 2024)
 
-- Sole proprietor (ZZP / Remoteconsulting.EU) under contract with CGI
+- Self-employed (ZZP / Remoteconsulting.EU), sub-contracting to CGI
 - Similar retail architecture role to the earlier CGI store-estate work
+- Value: a second retailer reference alongside the Rituals landscape
 - Ended 16 October 2024; show as “2022 – Oct 2024” on CVs
 
-### Principal Architect — Remoteconsulting.EU (2022–present, ZZP vehicle)
+### Self-employed — Remoteconsulting.EU (2022–present, ZZP)
 
 - Design, monitoring, and support for retailers, solar providers, and financial-services clients in Europe, UK, and South Africa
 - Suitsupply (via CGI) and Just Eat Takeaway are the dated client engagements above — do not duplicate them as undated extras
