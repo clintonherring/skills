@@ -1,0 +1,109 @@
+---
+name: clinton-cv
+description: Canonical professional profile and CV content for Clinton Herring (Enterprise Architect / Retail Technology Architect, Operational Security, Enschede / ZZP). Use whenever writing, updating, tailoring, or reviewing a CV, resume, curriculum vitae, bio, LinkedIn About, cover letter, proposal, bid, or "about me" text for Clinton. Also use for Rituals, CGI retail, Suitsupply, Meraki store tech, NewBlack/Cowhills POS, Veducon, Just Eat Takeaway platform engineering, NL ENT ARCH, Remoteconsulting.EU, or work-authorization questions.
+---
+
+# Clinton Herring — CV Content
+
+Source of truth for Clinton's professional facts. Do not invent employers, dates, titles, certifications, publications, or metrics. If a fact is not in this skill, [facts.md](references/facts.md), or a role note under `references/`, omit it or ask.
+
+- Verbatim original upload: [source-cv.md](references/source-cv.md)
+- Structured facts: [facts.md](references/facts.md)
+- Rituals Retail Technology IT Architect application: [rituals-retail-tech-architect.md](references/rituals-retail-tech-architect.md)
+
+When producing a Word CV, follow `skills/anthropic/docx` after assembling content here.
+
+## Identity
+
+- **Name:** Clinton Herring
+- **Default headline:** Enterprise Architect, Operational Security Specialist
+- **Rituals / retail headline:** Retail Technology Architect | Store Infrastructure & Operations
+- **Location:** Enschede, Netherlands
+- **Languages:** Native English
+- **Work status:** Dutch residence permit with *Arbeid vrij toegestaan, TWV niet vereist*; ZZP (sole proprietor)
+- **Company:** Remoteconsulting.EU
+- **Phone:** 0627517972 (+31 6 27517972)
+- **Email:** Clinton.herring@remoteconsulting.eu
+- **Web:** https://www.remoteconsulting.eu
+
+## Snapshot
+
+Clinton designs, secures, and operates enterprise and retail-store infrastructure. BCom (Hons) Information Systems (UCT). 20+ years aligning infrastructure and operations with business outcomes. Published ITSM / business-value research (AJBM, 2014). Azure and AWS since 2016. Principal Architect at CGI for 1000+ retail stores (Meraki, POS, payment terminals). Subsequent retail architecture for Suitsupply and consulting clients; platform engineering with Just Eat Takeaway including AI-enabled operations ideas. Based in Enschede with full work authorization.
+
+## Career (newest first)
+
+| Period | Title | Organisation | Notes |
+|--------|-------|--------------|-------|
+| 2022–present | Principal Architect / Platform Engineer | Remoteconsulting.EU | Retail, solar, and financial-services clients in Europe, UK, and South Africa. Retail architecture for Suitsupply. Platform engineering with Just Eat Takeaway; AI-assisted operations ideas. Own Azure + DigitalOcean hosting/monitoring. C2M2 security-maturity advice. Cloud, DC, and WAN design for ITSM change/governance. |
+| 2021–2022 (8 months) | Principal Architect | CGI | 1000+ retail stores worldwide, primarily Meraki, including POS and payment terminals. Project-managed hardware deployments for ~150 stores. Rituals landscape familiarity via CGI as contractor: store operations, CGI call-centre model, and work with provider Veducon. Involved with the team migrating store POS from Cowhills toward NewBlack (iPad POS; Mac in back room). |
+| 2006–2021 (15 years) | Infrastructure Architect | Allan Gray | Largest private asset manager in South Africa; ~7 Southern African offices, ~1500 employees. Cisco; Radware WAF/LB; Raytheon proxy; VMware; Azure + AWS from 2016. |
+| 2006 (1 year) | Systems Engineer | Prudential Portfolio Managers | LAN, WAN, IP telephony, mail. Asterisk IP-PBX; SolarWinds. |
+| 2001–2006 | Systems Engineer | Abvest | Networking, security, IT support; PIX syslog tooling. |
+
+Correct "Principal" (source CV used "Principle").
+
+## Retail technology knowledge (Rituals-relevant)
+
+Use only as landscape familiarity from contractor / consulting work — **not** as employment by Rituals.
+
+- End-to-end store tech: Meraki, POS, payment terminals, multi-site rollout and handover to support
+- Rituals pattern: iPad POS; back-room Mac running NewBlack POS stack; prior Cowhills platform (Clinton involved in the swap-out team)
+- Apple retail device pattern: understands how Jamf / MDM fits iPad + Mac store setups; **no Jamf certification or deep Jamf admin claim**
+- Multi-vendor model: CGI (contractor / call centre), Veducon, and related store support chains
+- Similar retail architecture role for Suitsupply after CGI
+
+## Proof points
+
+- Cisco AnyConnect ISP-redundant WFH VPN; 100% uptime from March 2020. LinkedIn: https://www.linkedin.com/feed/update/urn:li:activity:6653391138659020800/
+- Azure and AWS workload moves since 2016
+- DC-to-DC then cloud infrastructure moves
+- Frequently recognised as a top performer among peers (no named award on file)
+- ~150 store network hardware deployments project-managed at CGI
+- Cowhills → NewBlack POS transition team involvement (Rituals landscape)
+
+## Skills (do not invent others)
+
+- Retail / store technology architecture (POS, payment terminals, Meraki, multi-site)
+- Network architecture and strong networking fundamentals
+- Operational security; C2M2 maturity advice
+- Cisco: NGFW, VPN, proxy, load balancer, WAF; Meraki
+- Azure and AWS networking / workload placement
+- ITSM / ITIL-aligned change and design documentation; business-outcome measurement
+- Supplier and outsourced-provider engagement (e.g. CGI, Veducon)
+- Platform engineering; AI-assisted / proactive operations ideas (JET context)
+- Apple store-device pattern literacy (iPad POS, back-room Mac, Jamf's place in the stack) — not Jamf specialist
+- VMware; Radware; Raytheon (Allan Gray era)
+- Governance / standards / lifecycle thinking for supportable store estates
+
+## Education, certs, publication
+
+- BCom (Hons) Information Systems, University of Cape Town
+- Cisco Meraki Solutions Specialist
+- Azure Network Engineer Associate
+- AJBM 2014 ITSM metrics / business value of IT paper
+
+Do not add Jamf 200, CCNA, CISSP, TOGAF, or other certs unless the user supplies them.
+
+## Interests (optional)
+
+UAS pilot and builder; commercial RPL (ZA) and NL operator; SAR ML vision on Azure + DJI. For DJI product/API names, use current [DJI Developer](https://developer.dji.com/) docs.
+
+## Voice
+
+Senior practitioner, not marketer. Concrete systems and outcomes. Fix grammar; keep meaning. For NL retail architect roles: lead with store tech, Meraki, POS, suppliers, work authorization; then platform/AI forward look. Spelling: Principal Architect; Remoteconsulting.EU; Allan Gray; CGI; Suitsupply; NewBlack; Cowhills; Veducon; Just Eat Takeaway.
+
+## Tailoring — Rituals Retail Technology IT Architect
+
+1. Read [rituals-retail-tech-architect.md](references/rituals-retail-tech-architect.md).
+2. Headline and profile must signal retail store architecture ownership, standards, lifecycle, and supplier coordination.
+3. Map bullets to JD themes: end-to-end store landscape, Meraki/POS/payments, standardization, lifecycle, problem management, supplier adherence, lab/validation mindset (only claim lab if user confirms — default: testing/validation before deployment from CGI/project practice).
+4. Jamf: ecosystem fit only. Teams Rooms / ServiceNow / Jira / Confluence: omit unless confirmed.
+5. AI: one crisp line on platform engineering + proactive/predictive ops — no invented products.
+6. One–two pages, single-column, scannable bullets. Produce `.docx` via the `docx` skill.
+
+## Do not
+
+- Invent metrics, headcount, revenue, or tool versions
+- Claim Rituals employment, Jamf expertise, or certs not on file
+- Attribute 1000+ stores to Allan Gray (that is CGI / worldwide retail)
+- Drop NL work-authorization language from NL applications
