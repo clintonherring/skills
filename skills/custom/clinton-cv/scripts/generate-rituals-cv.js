@@ -217,17 +217,15 @@ const doc = new Document({
 
         sectionHeading("Profile"),
         body(
-          "Retail technology architect based in Almere. At CGI I worked with the team responsible for network and store connectivity across 1000+ retail locations (Meraki, POS, payment terminals) and operated inside the Rituals supplier landscape — store operations, CGI’s support/call-centre model, and providers such as Veducon. I was involved with the team that moved store POS off Cowhills onto the NewBlack stack (iPad POS with a back-room Mac). As a sole proprietor I then continued as Principal Architect for Suitsupply under contract with CGI until 2024. I already work with several of Rituals’ vendors from that CGI/ZZP period, and I managed contractors and third-party suppliers for 15 years at Allan Gray. Since November 2024 I have been a platform engineer at Just Eat Takeaway, including AI-assisted ways of running and improving operations."
+          "Retail technology architect based in Almere. I take architectural ownership of end-to-end store technology — standards, lifecycle, and supportable design — not just individual components. At CGI I worked with the team responsible for network and store connectivity across 1000+ retail locations (Meraki, POS, payment terminals) and know how Rituals’ multi-vendor model fits together (for example Veducon for network design, CGI/NewBlack for omnichannel POS, RSG for in-store rollout and break-fix). I was involved with the team that moved store POS off Cowhills onto NewBlack (iPad POS with a back-room Mac). As a sole proprietor I continued as Principal Architect for Suitsupply under contract with CGI until 2024. I managed contractors for 15 years at Allan Gray and already work with several of these vendors. Since November 2024 I have been a platform engineer at Just Eat Takeaway, including AI-assisted ways of improving operations."
         ),
 
         sectionHeading("Selected strengths for this role"),
-        bullet("Architectural ownership of end-to-end store technology: networking, POS, payment terminals, and supplier interfaces", "skill-bullets"),
+        bullet("Architectural ownership of end-to-end store technology: principles, standards, lifecycle, and supportable design across networking, POS, and payments", "skill-bullets"),
         bullet("Meraki and Cisco store networking; multi-site rollout, validation, and handover into support", "skill-bullets"),
-        bullet("Retail POS landscape literacy: iPad POS, NewBlack, Cowhills migration, back-room Mac pattern; how Jamf/MDM fits Apple store devices (ecosystem knowledge — not a Jamf specialist)", "skill-bullets"),
-        bullet("Contractor and vendor management: 15 years running third-party suppliers at Allan Gray; existing working relationships with several Rituals vendors from CGI and later ZZP work", "skill-bullets"),
-        bullet("Technology lifecycle, standardisation, and working with outsourced partners (including CGI and Veducon)", "skill-bullets"),
-        bullet("ITSM-minded design and change: Jira and Confluence daily for documentation and task management; published research on ITSM metrics and business value of IT", "skill-bullets"),
-        bullet("ServiceNow: CGI-specific training and peripheral involvement when ServiceNow was rolled out to stores as the incident-management service (not a ServiceNow implementer)", "skill-bullets"),
+        bullet("Retail POS landscape: iPad POS, NewBlack, Cowhills migration, back-room Mac pattern; Jamf/MDM fit for Apple store devices (ecosystem knowledge — not a Jamf specialist)", "skill-bullets"),
+        bullet("Understand how Rituals’ vendor model fits together (e.g. Veducon network design; CGI/NewBlack omnichannel; RSG in-store rollout & break-fix) and hold partners to standard — backed by 15 years managing contractors at Allan Gray", "skill-bullets"),
+        bullet("ITSM-minded design and change: Jira and Confluence daily; ServiceNow store-incident model (CGI training / peripheral involvement — not a ServiceNow implementer); published ITSM business-value research", "skill-bullets"),
         bullet("Platform engineering at Just Eat Takeaway; practical ideas to move store tech toward proactive / AI-assisted operations", "skill-bullets"),
         bullet("Azure networking (Azure Network Engineer Associate); cloud and hybrid infrastructure since 2016", "skill-bullets"),
 
@@ -249,7 +247,7 @@ const doc = new Document({
 
         roleHeader("Principal Architect", "CGI", "2021 – 2022 (8 months)"),
         bullet("With the team, responsible for network architecture supporting 1000+ retail stores worldwide, primarily Meraki, including POS and payment-terminal connectivity."),
-        bullet("Rituals supplier-side experience: store operations, CGI call-centre / support model, and direct dealings with Veducon and other vendors still in that landscape."),
+        bullet("Know how the Rituals multi-vendor store model fits together (examples: Veducon for network expertise/design; CGI with NewBlack for omnichannel POS; RSG for in-store changes, rollouts, and break-fix)."),
         bullet("Involved with the team that swapped store POS from Cowhills to the NewBlack-oriented model (iPads on the shop floor; Mac in the back room running POS)."),
         bullet("Project-managed network hardware deployments for approximately 150 stores; captured requirements, business cases, scope, and technical packs for plan and support teams."),
         bullet("Full lifecycle focus on design and implementation, then structured handover to support — standardisation and supportability over one-off builds."),

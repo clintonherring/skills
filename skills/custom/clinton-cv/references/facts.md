@@ -13,7 +13,9 @@ Derived from `Clinton Herring NL ENT ARCH CV.docx`, plus user follow-ups for ret
 - JET work includes AI-related skills and ideas to lead retail-tech architecture with AI-assisted / proactive operations. Do not invent JET project names.
 - Jira and Confluence: used every day for documentation and task management.
 - ServiceNow: peripherally involved in the CGI rollout of ServiceNow to stores as an incident-management service; received CGI-specific ServiceNow training. Do **not** claim ServiceNow implementation ownership, platform architecture, or certification.
-- Contractor / vendor management: managed contractors and third-party vendors for 15 years at Allan Gray (financial services). Already has working relationships with several Rituals vendors from CGI staff and later ZZP time. Name only vendors the user has named (CGI, Veducon); do not invent other supplier names.
+- Contractor / vendor management: managed contractors and third-party vendors for 15 years at Allan Gray (financial services). Already has working relationships with several Rituals vendors from CGI staff and later ZZP time.
+- Rituals vendor map (user understanding; use as examples of landscape fluency, not as an official org chart): **Veducon** — network expertise and design; **CGI** — omnichannel via NewBlack; **RSG** — in-store changes/rollouts and break-fix. NewBlack is the POS/omnichannel stack (iPad + back-room Mac).
+- Job-spec emphasis: vendor knowledge supports the JD’s supplier-adherence and external-partner problem-management asks; it should **not** dominate the CV over architecture ownership, standards, and lifecycle.
 - See also [rituals-retail-tech-architect.md](rituals-retail-tech-architect.md).
 
 ## Contact and status

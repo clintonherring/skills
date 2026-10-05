@@ -8,15 +8,13 @@ Dear hiring team,
 
 I am applying for the Retail Technology IT Architect role at Rituals.
 
-I already know this landscape from the supplier side. As Principal Architect at CGI I worked on the store technology estate that supports Rituals and similar retail — Meraki networking, POS and payment terminals, multi-site rollout, and handover into support. I understand how CGI’s call-centre model works with the stores, and I have worked with Veducon. I was involved with the team that moved POS off Cowhills onto the NewBlack stack: iPads on the floor, with a Mac in the back room running the POS environment. I know where Jamf sits in that Apple-centred store pattern; I am not positioning myself as a Jamf specialist, but I understand how device management, POS, and networking have to fit together for a supportable store.
+What I bring first is architectural ownership of store technology: standards, lifecycle, and designs that operations can support. At CGI I worked on the store estate that supports Rituals and similar retail — Meraki networking, POS and payment terminals, multi-site rollout, and handover into support. I was involved with the team that moved POS off Cowhills onto NewBlack (iPads on the floor; Mac in the back room). I use Jira and Confluence daily, and when CGI rolled ServiceNow out to stores as incident management I was involved at the edge of that programme and completed CGI’s training.
 
-I use Jira and Confluence every day for documentation and task management. When CGI rolled ServiceNow out to stores as the incident-management service I was involved at the edge of that programme and completed CGI’s ServiceNow training — I am not claiming ServiceNow implementation ownership, but I know how that model sits next to store operations.
+I also understand how Rituals’ vendors fit together — for example Veducon for network design, CGI with NewBlack for omnichannel, and RSG for in-store rollout and break-fix — and I already have working relationships from CGI and later ZZP work. For 15 years at Allan Gray I managed contractors in financial services, so I am used to holding partners to standard, not only designing the stack.
 
-After CGI I continued as a sole proprietor under contract with CGI as Principal Architect for Suitsupply until 2024. I already have working relationships with several of Rituals’ vendors from that CGI and ZZP period. For 15 years at Allan Gray I managed contractors and third-party suppliers in financial services — so I am used to being the architectural owner who holds partners to standard, not only the designer of the stack.
+After CGI I continued as a sole proprietor under contract with CGI as Principal Architect for Suitsupply until 2024. Since November 2024 I have been a platform engineer at Just Eat Takeaway. That platform work, including AI-assisted ways of spotting and fixing operational issues, is how I would help Rituals move toward the proactive and predictive technology management described in the role.
 
-Since November 2024 I have been a platform engineer at Just Eat Takeaway. That platform work, including AI-assisted ways of spotting and fixing operational issues, is how I would help Rituals move from reactive firefighting toward the proactive and predictive technology management described in the role.
-
-I am based in Almere, close to Amsterdam, with a residence permit (arbeid vrij toegestaan, TWV niet vereist), and I am used to owning architecture across engineers, suppliers, and retail stakeholders.
+I am based in Almere, close to Amsterdam, with a residence permit (arbeid vrij toegestaan, TWV niet vereist).
 
 I would welcome the conversation with Renée and the team.
 

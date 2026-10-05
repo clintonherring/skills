@@ -9,15 +9,31 @@ User-supplied context for tailoring. Do not invent dates, job titles at Rituals,
 - Recruiter contact: Renée Havenaar (renee.havenaar@rituals.com) — applications via email are not accepted; use the careers process
 - Office-first: ~80% office / 20% home
 
+## Emphasis guidance (job-spec aligned)
+
+**Lead with:** end-to-end store architecture ownership, standards/guidelines, lifecycle/roadmap, Meraki/POS/payments, problem management → structural improvement, store ops voice.
+
+**Support with (do not dominate):** how Rituals’ vendors fit together, and ability to hold partners to standard. The JD explicitly asks for supplier adherence, working with outsourced providers, and RCA with external partners — so vendor fluency is relevant evidence, not the headline.
+
+**Vendor map (user knowledge — examples only; landscape may change):**
+
+| Vendor | Role in Rituals retail tech (as Clinton understands it) |
+|--------|---------------------------------------------------------|
+| Veducon | Network expertise and design |
+| CGI | Omnichannel (via NewBlack) |
+| RSG | In-store changes / rollouts and break-fix |
+| NewBlack | POS / omnichannel stack (iPad POS; back-room Mac) — delivered in CGI omnichannel context |
+
+Frame as: “I understand how the multi-vendor store model fits together (e.g. Veducon / CGI+NewBlack / RSG)” — not as current employment at those firms, and not as a claim that this is the complete or official Rituals org chart.
+
 ## Why Clinton fits (user's framing)
 
 - Knows Rituals retail technology from contractor / supplier side, not as a Rituals employee
 - Worked as Principal Architect at CGI (Rituals contractor)
 - Similar retail architecture role for Suitsupply as ZZP (Remoteconsulting.EU), contracted through CGI, until 2024
 - Worked with CGI's store / call-centre operating model for this environment
-- Has dealt with Veducon (another Rituals provider)
-- Understands store operations and how multi-vendor retail IT hangs together
-- Managed contractors/vendors for 15 years at Allan Gray; already has relationships with several Rituals vendors from CGI/ZZP (name only CGI and Veducon unless the user adds more)
+- Understands store operations and how multi-vendor retail IT hangs together (Veducon, CGI/NewBlack, RSG as examples)
+- Managed contractors/vendors for 15 years at Allan Gray; already has relationships with several Rituals vendors from CGI/ZZP
 
 ## Rituals store technology (user knowledge — use carefully)
 
@@ -43,9 +59,9 @@ User-supplied context for tailoring. Do not invent dates, job titles at Rituals,
 
 ## Writing guidance for this application
 
-1. Lead with retail store architecture (CGI 1000+ stores, Meraki, POS/payment terminals, Suitsupply, Rituals multi-vendor familiarity).
-2. Name NewBlack, Cowhills migration involvement, Veducon, and CGI call-centre / store model only as experience with that landscape — not as employment by Rituals.
-3. Frame Jamf as ecosystem literacy (Apple POS + back-room Mac + MDM pattern), not as a certified specialty.
-4. Close profile or cover letter with platform-engineering / AI-assisted operations as a forward-looking contribution aligned to Rituals' "proactive and predictive technology management" language.
-5. Keep NL work authorization and **Almere (near Amsterdam)** visible; note ZZP / permit honestly if asked about employment form.
-6. Prefer a clean one–two page CV: short profile, skills mapped to the JD, experience bullets that mirror store tech lifecycle, standards, suppliers, and problem management.
+1. Lead with retail store architecture ownership, standards, lifecycle, Meraki/POS, problem→structure.
+2. One short vendor-landscape proof point (Veducon / CGI+NewBlack / RSG as examples) + Allan Gray contractor management — then move on.
+3. Frame Jamf as ecosystem literacy, not a certified specialty.
+4. Close with platform-engineering / AI-assisted operations aligned to proactive/predictive language.
+5. Keep NL work authorization and **Almere (near Amsterdam)** visible.
+6. Prefer a clean one–two page CV; avoid a vendor directory tone.

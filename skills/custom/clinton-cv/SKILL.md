@@ -73,8 +73,8 @@ Use only as landscape familiarity from contractor / consulting work — **not** 
 - ITSM / ITIL-aligned change and design documentation; business-outcome measurement
 - Jira and Confluence: daily documentation and task management
 - ServiceNow: peripheral involvement in CGI store incident-management rollout, plus CGI-specific ServiceNow training — not a ServiceNow implementer or certified admin
-- Supplier and outsourced-provider engagement (e.g. CGI, Veducon)
-- Contractor and vendor management (15 years at Allan Gray); existing relationships with several Rituals vendors from CGI / ZZP — do not invent unnamed vendor names
+- Supplier and outsourced-provider engagement; Rituals landscape examples: Veducon (network design), CGI/NewBlack (omnichannel POS), RSG (in-store rollout & break-fix)
+- Contractor and vendor management (15 years at Allan Gray); existing relationships with several Rituals vendors from CGI / ZZP — use as supporting proof, not the CV headline
 - Platform engineering; AI-assisted / proactive operations ideas (JET context)
 - Apple store-device pattern literacy (iPad POS, back-room Mac, Jamf's place in the stack) — not Jamf specialist
 - VMware; Radware; Raytheon (Allan Gray era)
