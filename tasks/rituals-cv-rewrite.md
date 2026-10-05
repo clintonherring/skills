@@ -30,9 +30,12 @@ Replace the poorly formatted CV with a scannable two-page A4 CV and a cover lett
 - Microsoft Teams Meeting Rooms
 - Jamf 200 / Jamf administration
 - Store lab ownership
-- Entra ID identity project ownership
+- Entra ID architecture ownership / Okta administration (Entra admin for internal users ~1 year at JET is included)
+
+## Confirmed by user
+- JET bullets accurate and shareable
+- Entra ID: managed for internal users ~1 year until identity consolidated into one department
 
 ## User to confirm before submitting
-- JET bullets (inferred from repo skills) are accurate and shareable
 - Suitsupply end month, if wanted
 - Phone format and whether to add a LinkedIn profile URL

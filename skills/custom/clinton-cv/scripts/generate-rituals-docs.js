@@ -223,8 +223,8 @@ function buildCv() {
       "Jira and Confluence daily; ServiceNow store incident-management model (CGI rollout and training); published research on ITSM metrics and the business value of IT."
     ),
     labelledBullet(
-      "Cloud and AI-assisted operations.",
-      "Azure (Network Engineer Associate) and AWS since 2016; building AI agent tooling that codifies incident investigation and change review."
+      "Cloud, identity and AI-assisted operations.",
+      "Azure (Network Engineer Associate) and AWS since 2016; Entra ID administration for internal users at Just Eat Takeaway; building AI agent tooling that codifies incident investigation and change review."
     ),
   ];
 
@@ -243,6 +243,9 @@ function buildCv() {
     ),
     bullet(
       "Built reusable AI agent skills that encode investigation runbooks, incident patterns and change-review checks, so recurring issues are diagnosed faster and fixed structurally rather than repeatedly."
+    ),
+    bullet(
+      "Managed Entra ID for internal users for about a year, until identity (Entra, network access, Okta) was consolidated from separate departments into one."
     ),
     bullet(
       "Review infrastructure changes (DNS, IAM, access) against evidence before closure; Jira and Confluence for documentation and task management every day."
@@ -355,7 +358,7 @@ function buildCoverLetter() {
       "Before that I spent 15 years at Allan Gray owning network architecture and managing contractors and third-party vendors for South Africa’s largest private asset manager. That is the muscle this role needs when it asks for architecture principles, lifecycle management and supplier adherence rather than one-off designs."
     ),
     p(
-      "Since November 2024 I have been a platform engineer at Just Eat Takeaway. I root-cause production incidents across AWS, Kubernetes, DNS and IAM, and I have built AI agent tooling that codifies those investigations so the same problem is not solved twice. I use Jira and Confluence every day, and I completed CGI’s ServiceNow training when it was rolled out to stores for incident management. On the Apple side I understand how Jamf and MDM fit an iPad-and-Mac store estate; I would describe that as working knowledge rather than Jamf administration, and I would say so in the interview."
+      "Since November 2024 I have been a platform engineer at Just Eat Takeaway. I root-cause production incidents across AWS, Kubernetes, DNS and IAM, and I have built AI agent tooling that codifies those investigations so the same problem is not solved twice. I also managed Entra ID for internal users for about a year, until identity was consolidated into a single department. I use Jira and Confluence every day, and I completed CGI’s ServiceNow training when it was rolled out to stores for incident management. On the Apple side I understand how Jamf and MDM fit an iPad-and-Mac store estate; I would describe that as working knowledge rather than Jamf administration, and I would say so in the interview."
     ),
     p(
       "I live in Almere, close to Amsterdam, so an office-first week is practical. I hold a residence permit with arbeid vrij toegestaan, TWV niet vereist."

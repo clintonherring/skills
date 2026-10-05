@@ -37,7 +37,7 @@ Present 2022–present as one umbrella (Independent Consultant, Remoteconsulting
 | Period | Title | Organisation | Notes |
 |--------|-------|--------------|-------|
 | 2022–present | Independent Consultant (umbrella) | Remoteconsulting.EU (own ZZP) | Sole-proprietor vehicle for the engagements below. Own Azure + DigitalOcean monitoring platforms; C2M2 security-maturity and cloud/DC/WAN design advice for smaller retail, solar, and FS clients. |
-| Nov 2024–present | Platform Engineer | Just Eat Takeaway | AWS + Kubernetes estate. Production-incident root cause by correlating infra changes, Datadog, PR history, CloudTrail (grounded in this repo’s `custom/jet-pi-troubleshooter`). Change review of DNS/IAM/access before closure (`custom/ticket-reviewer`). Built AI agent skills encoding runbooks and incident patterns. Jira/Confluence daily. Do not invent JET product, team, or metric names. |
+| Nov 2024–present | Platform Engineer | Just Eat Takeaway | AWS + Kubernetes estate. Production-incident root cause by correlating infra changes, Datadog, PR history, CloudTrail (grounded in this repo’s `custom/jet-pi-troubleshooter`). Change review of DNS/IAM/access before closure (`custom/ticket-reviewer`). Built AI agent skills encoding runbooks and incident patterns. Managed Entra ID for internal users ~1 year until identity (Entra, network access, Okta) was consolidated into one department. Jira/Confluence daily. Do not invent JET product, team, or metric names. |
 | 2022–2024 | Principal Architect | Suitsupply (ZZP, contracted through CGI) | Store-technology architecture for an international branded retailer, continuing the CGI store-estate model. Ends 2024 (month not specified). |
 | 2021–2022 (8 months) | Principal Architect | CGI | Employed / staff engagement. 1000+ retail stores worldwide, primarily Meraki, including POS and payment terminals. Project-managed hardware deployments for ~150 stores. Rituals landscape via CGI as contractor: store operations, CGI call-centre model, Veducon. Involved with the team migrating store POS from Cowhills toward NewBlack (iPad POS; Mac in back room). |
 | 2006–2021 (15 years) | Infrastructure Architect | Allan Gray | Largest private asset manager in South Africa; ~7 Southern African offices, ~1500 employees. Cisco; Radware WAF/LB; Raytheon proxy; VMware; Azure + AWS from 2016. Managed contractors and third-party vendors throughout. |
@@ -72,6 +72,7 @@ Use only as landscape familiarity from contractor / consulting work — **not** 
 - Operational security; C2M2 maturity advice
 - Cisco: NGFW, VPN, proxy, load balancer, WAF; Meraki
 - Azure and AWS networking / workload placement
+- Entra ID administration for internal users (JET, ~1 year) — not identity architecture ownership or Okta admin
 - ITSM / ITIL-aligned change and design documentation; business-outcome measurement
 - Jira and Confluence: daily documentation and task management
 - ServiceNow: peripheral involvement in CGI store incident-management rollout, plus CGI-specific ServiceNow training — not a ServiceNow implementer or certified admin

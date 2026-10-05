@@ -57,11 +57,28 @@ Frame as: “I understand how the multi-vendor store model fits together (e.g. V
 - Jira / Confluence: daily documentation and task management — include
 - ServiceNow: peripheral involvement in CGI store incident-management rollout + CGI-specific training — include at that depth only; not implementer/admin
 
+## JD → evidence map
+
+| JD ask | Evidence to use |
+|--------|-----------------|
+| Architectural owner of end-to-end store landscape; principles, standards, guidelines | CGI 1000+ stores; Suitsupply; Allan Gray 15-year architecture ownership |
+| Lifecycle / roadmap; new tech designed, tested, validated before deployment | CGI design → implementation → handover; ~150 store deployments |
+| POS, iPads, payment terminals, Meraki | CGI Meraki/POS/payments; Cowhills → NewBlack; iPad + back-room Mac |
+| Analyze recurring incidents → structural improvement; RCA with external partners | JET incident root-cause (AWS, K8s, DNS, IAM); AI skills codifying patterns; Allan Gray 3rd-line |
+| Suppliers adhere to standards; outsourced providers | Allan Gray contractor/vendor management; Veducon / CGI+NewBlack / RSG landscape |
+| Azure AD / Entra ID | Managed Entra ID for JET internal users ~1 year until identity consolidated into one department; Azure Network Engineer Associate. Do not claim Entra architecture ownership or Okta administration. |
+| Apple ecosystem / Jamf | Working knowledge of Jamf/MDM fit; no Jamf 200 |
+| ServiceNow, Jira, Confluence | Jira/Confluence daily; ServiceNow CGI store rollout + training |
+| ITIL incident/problem/change | ITSM publication; ITSM-governed design docs; JET change review |
+| Teams Meeting Rooms | No evidence — omit |
+| Store lab | No evidence — do not claim; can propose in interview |
+| Workshops / challenging suppliers | Allan Gray vendor escalation; CGI stakeholder work |
+
 ## Writing guidance for this application
 
 1. Lead with retail store architecture ownership, standards, lifecycle, Meraki/POS, problem→structure.
-2. One short vendor-landscape proof point (Veducon / CGI+NewBlack / RSG as examples) + Allan Gray contractor management — then move on.
-3. Frame Jamf as ecosystem literacy, not a certified specialty.
-4. Close with platform-engineering / AI-assisted operations aligned to proactive/predictive language.
-5. Keep NL work authorization and **Almere (near Amsterdam)** visible.
-6. Prefer a clean one–two page CV; avoid a vendor directory tone.
+2. One supporting line: how the model fits together (Veducon / CGI+NewBlack / RSG as examples) + Allan Gray contractor management — say it once in the CV, once in the letter.
+3. Jamf: positive working-knowledge phrasing in the CV; the scope limit goes in the cover letter.
+4. JET: use the repo-grounded incident-RCA and AI-skills evidence; it is the strongest match for problem management and “proactive/predictive”.
+5. Keep NL work authorization and **Almere (near Amsterdam)** visible; note office-first fit.
+6. Two A4 pages; one umbrella entry for 2022–present with dated sub-engagements.

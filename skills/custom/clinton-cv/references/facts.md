@@ -80,6 +80,7 @@ Derived from `Clinton Herring NL ENT ARCH CV.docx`, plus user follow-ups for ret
 - Platform engineering on an AWS and Kubernetes estate
 - Evidence in this repo (Clinton-authored skills): `skills/custom/jet-pi-troubleshooter` — root-causes production incidents by correlating Jira timeline, Datadog logs/metrics, GitHub PR history, AWS CloudTrail/Route53, and Wiz; worked examples cover IAM/ABAC auth, RDS IAM auth, DNS weighted-routing 404s, S3 replication tracing. `skills/custom/ticket-reviewer` — reviews Jira tickets (DNS changes, GitHub permissions, KIR change monitoring) against independent evidence before closure.
 - Built AI agent skills that encode runbooks, incident patterns, and change-review checks — this is the concrete “AI-assisted operations” claim
+- Managed Entra ID for internal users for about a year, until identity (Entra, network access, Okta — previously split across departments) was consolidated into a single department. User confirmed JET bullets accurate and shareable.
 - Jira and Confluence daily
 - Do not invent team names, products, customer metrics, or incident counts
 
