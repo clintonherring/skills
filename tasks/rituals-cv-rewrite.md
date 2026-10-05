@@ -35,7 +35,7 @@ Replace the poorly formatted CV with a scannable two-page A4 CV and a cover lett
 ## Confirmed by user
 - JET bullets accurate and shareable
 - Entra ID: managed for internal users ~1 year until identity consolidated into one department
-- Suitsupply ended 13 October 2024 (shown as “2022 – Oct 2024”)
+- Suitsupply ended 16 October 2024 (shown as “2022 – Oct 2024”)
 
 ## User to confirm before submitting
 - Phone format and whether to add a LinkedIn profile URL
