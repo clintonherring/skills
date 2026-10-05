@@ -1,6 +1,6 @@
 ---
 name: clinton-cv
-description: Canonical professional profile and CV content for Clinton Herring (Enterprise Architect / Retail Technology Architect, Operational Security, Enschede / ZZP). Use whenever writing, updating, tailoring, or reviewing a CV, resume, curriculum vitae, bio, LinkedIn About, cover letter, proposal, bid, or "about me" text for Clinton. Also use for Rituals, CGI retail, Suitsupply, Meraki store tech, NewBlack/Cowhills POS, Veducon, Just Eat Takeaway platform engineering, NL ENT ARCH, Remoteconsulting.EU, or work-authorization questions.
+description: Canonical professional profile and CV content for Clinton Herring (Enterprise Architect / Retail Technology Architect, Operational Security, Almere / ZZP). Use whenever writing, updating, tailoring, or reviewing a CV, resume, curriculum vitae, bio, LinkedIn About, cover letter, proposal, bid, or "about me" text for Clinton. Also use for Rituals, CGI retail, Suitsupply, Meraki store tech, NewBlack/Cowhills POS, Veducon, Just Eat Takeaway platform engineering, NL ENT ARCH, Remoteconsulting.EU, or work-authorization questions.
 ---
 
 # Clinton Herring — CV Content
@@ -18,7 +18,7 @@ When producing a Word CV, follow `skills/anthropic/docx` after assembling conten
 - **Name:** Clinton Herring
 - **Default headline:** Enterprise Architect, Operational Security Specialist
 - **Rituals / retail headline:** Retail Technology Architect | Store Infrastructure & Operations
-- **Location:** Enschede, Netherlands
+- **Location:** Almere, Netherlands (near Amsterdam)
 - **Languages:** Native English
 - **Work status:** Dutch residence permit with *Arbeid vrij toegestaan, TWV niet vereist*; ZZP (sole proprietor)
 - **Company:** Remoteconsulting.EU
@@ -28,14 +28,16 @@ When producing a Word CV, follow `skills/anthropic/docx` after assembling conten
 
 ## Snapshot
 
-Clinton designs, secures, and operates enterprise and retail-store infrastructure. BCom (Hons) Information Systems (UCT). 20+ years aligning infrastructure and operations with business outcomes. Published ITSM / business-value research (AJBM, 2014). Azure and AWS since 2016. Principal Architect at CGI for 1000+ retail stores (Meraki, POS, payment terminals). Subsequent retail architecture for Suitsupply and consulting clients; platform engineering with Just Eat Takeaway including AI-enabled operations ideas. Based in Enschede with full work authorization.
+Clinton designs, secures, and operates enterprise and retail-store infrastructure. BCom (Hons) Information Systems (UCT). 20+ years aligning infrastructure and operations with business outcomes. Published ITSM / business-value research (AJBM, 2014). Azure and AWS since 2016. Principal Architect at CGI for 1000+ retail stores (Meraki, POS, payment terminals). Then ZZP (Remoteconsulting.EU) as Principal Architect for Suitsupply under contract with CGI until 2024. Platform Engineer at Just Eat Takeaway from November 2024. Based in Almere with full work authorization.
 
 ## Career (newest first)
 
 | Period | Title | Organisation | Notes |
 |--------|-------|--------------|-------|
-| 2022–present | Principal Architect / Platform Engineer | Remoteconsulting.EU | Retail, solar, and financial-services clients in Europe, UK, and South Africa. Retail architecture for Suitsupply. Platform engineering with Just Eat Takeaway; AI-assisted operations ideas. Own Azure + DigitalOcean hosting/monitoring. C2M2 security-maturity advice. Cloud, DC, and WAN design for ITSM change/governance. |
-| 2021–2022 (8 months) | Principal Architect | CGI | 1000+ retail stores worldwide, primarily Meraki, including POS and payment terminals. Project-managed hardware deployments for ~150 stores. Rituals landscape familiarity via CGI as contractor: store operations, CGI call-centre model, and work with provider Veducon. Involved with the team migrating store POS from Cowhills toward NewBlack (iPad POS; Mac in back room). |
+| Nov 2024–present | Platform Engineer | Just Eat Takeaway (via Remoteconsulting.EU / ZZP) | Platform engineering; AI-assisted operations ideas. Do not invent JET product or project names. |
+| 2022–2024 | Principal Architect | Suitsupply (ZZP sole proprietor, contracted through CGI) | Similar retail architecture role after the CGI staff engagement. Ends 2024 (month not specified). |
+| 2022–present | Principal Architect (ZZP vehicle) | Remoteconsulting.EU | Legal/trading form for later contracts. Own Azure + DigitalOcean hosting/monitoring. C2M2, ITSM design docs, other retail/solar/FS clients as originally stated — do not merge JET or Suitsupply dates into a single undifferentiated “2022–present” client list. |
+| 2021–2022 (8 months) | Principal Architect | CGI | Employed / staff engagement. 1000+ retail stores worldwide, primarily Meraki, including POS and payment terminals. Project-managed hardware deployments for ~150 stores. Rituals landscape via CGI as contractor: store operations, CGI call-centre model, Veducon. Involved with the team migrating store POS from Cowhills toward NewBlack (iPad POS; Mac in back room). |
 | 2006–2021 (15 years) | Infrastructure Architect | Allan Gray | Largest private asset manager in South Africa; ~7 Southern African offices, ~1500 employees. Cisco; Radware WAF/LB; Raytheon proxy; VMware; Azure + AWS from 2016. |
 | 2006 (1 year) | Systems Engineer | Prudential Portfolio Managers | LAN, WAN, IP telephony, mail. Asterisk IP-PBX; SolarWinds. |
 | 2001–2006 | Systems Engineer | Abvest | Networking, security, IT support; PIX syslog tooling. |
@@ -50,7 +52,7 @@ Use only as landscape familiarity from contractor / consulting work — **not** 
 - Rituals pattern: iPad POS; back-room Mac running NewBlack POS stack; prior Cowhills platform (Clinton involved in the swap-out team)
 - Apple retail device pattern: understands how Jamf / MDM fits iPad + Mac store setups; **no Jamf certification or deep Jamf admin claim**
 - Multi-vendor model: CGI (contractor / call centre), Veducon, and related store support chains
-- Similar retail architecture role for Suitsupply after CGI
+- Similar retail architecture role for Suitsupply as ZZP, contracted through CGI, until 2024
 
 ## Proof points
 
@@ -69,6 +71,8 @@ Use only as landscape familiarity from contractor / consulting work — **not** 
 - Cisco: NGFW, VPN, proxy, load balancer, WAF; Meraki
 - Azure and AWS networking / workload placement
 - ITSM / ITIL-aligned change and design documentation; business-outcome measurement
+- Jira and Confluence: daily documentation and task management
+- ServiceNow: peripheral involvement in CGI store incident-management rollout, plus CGI-specific ServiceNow training — not a ServiceNow implementer or certified admin
 - Supplier and outsourced-provider engagement (e.g. CGI, Veducon)
 - Platform engineering; AI-assisted / proactive operations ideas (JET context)
 - Apple store-device pattern literacy (iPad POS, back-room Mac, Jamf's place in the stack) — not Jamf specialist
@@ -97,7 +101,7 @@ Senior practitioner, not marketer. Concrete systems and outcomes. Fix grammar; k
 1. Read [rituals-retail-tech-architect.md](references/rituals-retail-tech-architect.md).
 2. Headline and profile must signal retail store architecture ownership, standards, lifecycle, and supplier coordination.
 3. Map bullets to JD themes: end-to-end store landscape, Meraki/POS/payments, standardization, lifecycle, problem management, supplier adherence, lab/validation mindset (only claim lab if user confirms — default: testing/validation before deployment from CGI/project practice).
-4. Jamf: ecosystem fit only. Teams Rooms / ServiceNow / Jira / Confluence: omit unless confirmed.
+4. Jamf: ecosystem fit only. Jira/Confluence: daily use, state that. ServiceNow: peripheral CGI store-incident rollout + CGI training only — do not claim ownership, admin, or ITSM-platform architecture. Teams Rooms: omit unless confirmed.
 5. AI: one crisp line on platform engineering + proactive/predictive ops — no invented products.
 6. One–two pages, single-column, scannable bullets. Produce `.docx` via the `docx` skill.
 

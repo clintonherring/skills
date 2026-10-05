@@ -13,7 +13,7 @@ User-supplied context for tailoring. Do not invent dates, job titles at Rituals,
 
 - Knows Rituals retail technology from contractor / supplier side, not as a Rituals employee
 - Worked as Principal Architect at CGI (Rituals contractor)
-- Similar retail architecture role for Suitsupply (another retail customer)
+- Similar retail architecture role for Suitsupply as ZZP (Remoteconsulting.EU), contracted through CGI, until 2024
 - Worked with CGI's store / call-centre operating model for this environment
 - Has dealt with Veducon (another Rituals provider)
 - Understands store operations and how multi-vendor retail IT hangs together
@@ -28,16 +28,17 @@ User-supplied context for tailoring. Do not invent dates, job titles at Rituals,
 
 ## AI / platform angle (user-supplied)
 
-- Has been working with Just Eat Takeaway as a platform engineer
+- Platform Engineer at Just Eat Takeaway from November 2024 to present (ZZP / Remoteconsulting.EU)
 - Brings AI-related skills and ideas to make the Retail Technology Architect role more AI-led (proactive / predictive ops, structural improvement from operational signal)
 - Do **not** invent JET project names, metrics, or product claims; keep this as platform-engineering + AI-enabled operations mindset unless the user adds specifics
 
 ## Honest gaps vs job description (do not fake)
 
 - No Jamf 200 certification; no claim of expert Jamf administration
-- No explicit Microsoft Teams Meeting Rooms delivery listed in the source CV
+- Microsoft Teams Meeting Rooms: omit unless confirmed
 - Entra ID / Azure AD: Azure Network Engineer Associate exists; do not invent identity/MDM project ownership
-- ServiceNow / Jira / Confluence: use only if user confirms; ITSM depth is supported by publication and ITSM design/change work
+- Jira / Confluence: daily documentation and task management — include
+- ServiceNow: peripheral involvement in CGI store incident-management rollout + CGI-specific training — include at that depth only; not implementer/admin
 
 ## Writing guidance for this application
 
@@ -45,5 +46,5 @@ User-supplied context for tailoring. Do not invent dates, job titles at Rituals,
 2. Name NewBlack, Cowhills migration involvement, Veducon, and CGI call-centre / store model only as experience with that landscape — not as employment by Rituals.
 3. Frame Jamf as ecosystem literacy (Apple POS + back-room Mac + MDM pattern), not as a certified specialty.
 4. Close profile or cover letter with platform-engineering / AI-assisted operations as a forward-looking contribution aligned to Rituals' "proactive and predictive technology management" language.
-5. Keep NL work authorization and Enschede visible; note ZZP / permit honestly if asked about employment form.
+5. Keep NL work authorization and **Almere (near Amsterdam)** visible; note ZZP / permit honestly if asked about employment form.
 6. Prefer a clean one–two page CV: short profile, skills mapped to the JD, experience bullets that mirror store tech lifecycle, standards, suppliers, and problem management.

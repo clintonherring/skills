@@ -4,11 +4,15 @@ Derived from `Clinton Herring NL ENT ARCH CV.docx`, plus user follow-ups for ret
 
 ## User follow-ups (retail / Rituals / platform)
 
-- After CGI, performed a similar retail architecture role for Suitsupply (place under Remoteconsulting.EU / consulting era unless user gives exact employer-of-record dates).
-- CGI engagement included Rituals as a customer landscape: store operations familiarity; CGI call-centre model; dealings with provider Veducon.
+- Lives in Almere (near Amsterdam), not Enschede.
+- After the CGI staff role, worked as a sole proprietor (ZZP / Remoteconsulting.EU) **under contract with CGI for Suitsupply until 2024**. Do not list Suitsupply as a direct employer or as an open-ended 2022–present client.
+- Just Eat Takeaway: Platform Engineer from **November 2024 to present** (ZZP / Remoteconsulting.EU).
+- CGI staff engagement included Rituals as a customer landscape: store operations familiarity; CGI call-centre model; dealings with provider Veducon.
 - Rituals store pattern (knowledge from that landscape): POS on iPads; Mac in the back room runs NewBlack POS; involved with the team that swapped out Cowhills.
 - Jamf: understands how Jamf fits Apple / iPad POS + back-room Mac retail environments; **no Jamf certification or deep hands-on Jamf admin claim**.
-- Just Eat Takeaway: has been working as a platform engineer; brings AI-related skills and ideas to lead retail-tech architecture with AI-assisted / proactive operations.
+- JET work includes AI-related skills and ideas to lead retail-tech architecture with AI-assisted / proactive operations. Do not invent JET project names.
+- Jira and Confluence: used every day for documentation and task management.
+- ServiceNow: peripherally involved in the CGI rollout of ServiceNow to stores as an incident-management service; received CGI-specific ServiceNow training. Do **not** claim ServiceNow implementation ownership, platform architecture, or certification.
 - See also [rituals-retail-tech-architect.md](rituals-retail-tech-architect.md).
 
 ## Contact and status
@@ -21,7 +25,7 @@ Derived from `Clinton Herring NL ENT ARCH CV.docx`, plus user follow-ups for ret
 | Phone (E.164) | +31 6 27517972 |
 | Email | Clinton.herring@remoteconsulting.eu |
 | Website | https://www.remoteconsulting.eu |
-| Base | Enschede, Netherlands |
+| Base | Almere, Netherlands (near Amsterdam) |
 | Native language | English |
 | Residence permit | Arbeid vrij toegestaan, TWV niet vereist |
 | Legal form | ZZP (sole proprietor) |
@@ -67,9 +71,22 @@ Derived from `Clinton Herring NL ENT ARCH CV.docx`, plus user follow-ups for ret
 
 ## Roles
 
-### Principal Architect — Remoteconsulting.EU (2022–present)
+### Platform Engineer — Just Eat Takeaway (November 2024–present)
+
+- Via Remoteconsulting.EU / ZZP
+- Platform engineering; AI-assisted operations ideas
+- Do not invent team names, products, or metrics
+
+### Principal Architect — Suitsupply (2022–2024)
+
+- Sole proprietor (ZZP / Remoteconsulting.EU) under contract with CGI
+- Similar retail architecture role to the earlier CGI store-estate work
+- Ended 2024 (month not specified)
+
+### Principal Architect — Remoteconsulting.EU (2022–present, ZZP vehicle)
 
 - Design, monitoring, and support for retailers, solar providers, and financial-services clients in Europe, UK, and South Africa
+- Suitsupply (via CGI) and Just Eat Takeaway are the dated client engagements above — do not duplicate them as undated extras
 - Maintains own infrastructure on Azure and DigitalOcean for client hosting and monitoring
 - Maintains infrastructure documentation for governance and compliance on behalf of clients
 - Advises on security maturity using C2M2

@@ -185,7 +185,7 @@ const doc = new Document({
           spacing: { after: 40 },
           border: thinRule,
           children: [
-            new TextRun({ text: "Enschede, Netherlands  ·  ", size: 18, font: "Calibri", color: mute }),
+            new TextRun({ text: "Almere (near Amsterdam)  ·  ", size: 18, font: "Calibri", color: mute }),
             new TextRun({ text: "+31 6 27517972  ·  ", size: 18, font: "Calibri", color: mute }),
             new TextRun({ text: "Clinton.herring@remoteconsulting.eu  ·  ", size: 18, font: "Calibri", color: mute }),
             new ExternalHyperlink({
@@ -217,7 +217,7 @@ const doc = new Document({
 
         sectionHeading("Profile"),
         body(
-          "Retail technology architect with Principal Architect experience for large multi-country store estates. At CGI I worked with the team responsible for network and store connectivity across 1000+ retail locations (Meraki, POS, payment terminals) and operated inside the Rituals supplier landscape — store operations, CGI’s support/call-centre model, and providers such as Veducon. I was involved with the team that moved store POS off Cowhills onto the NewBlack stack (iPad POS with a back-room Mac). Since then I have done similar retail architecture for Suitsupply and platform engineering with Just Eat Takeaway, including AI-assisted ways of running and improving operations. I translate store pain into standards, lifecycle plans, and supportable designs."
+          "Retail technology architect based in Almere. At CGI I worked with the team responsible for network and store connectivity across 1000+ retail locations (Meraki, POS, payment terminals) and operated inside the Rituals supplier landscape — store operations, CGI’s support/call-centre model, and providers such as Veducon. I was involved with the team that moved store POS off Cowhills onto the NewBlack stack (iPad POS with a back-room Mac). As a sole proprietor I then continued as Principal Architect for Suitsupply under contract with CGI until 2024. Since November 2024 I have been a platform engineer at Just Eat Takeaway, including AI-assisted ways of running and improving operations. I translate store pain into standards, lifecycle plans, and supportable designs."
         ),
 
         sectionHeading("Selected strengths for this role"),
@@ -225,16 +225,24 @@ const doc = new Document({
         bullet("Meraki and Cisco store networking; multi-site rollout, validation, and handover into support", "skill-bullets"),
         bullet("Retail POS landscape literacy: iPad POS, NewBlack, Cowhills migration, back-room Mac pattern; how Jamf/MDM fits Apple store devices (ecosystem knowledge — not a Jamf specialist)", "skill-bullets"),
         bullet("Technology lifecycle, standardisation, and working with outsourced partners (CGI, Veducon, and peer providers)", "skill-bullets"),
-        bullet("ITSM-minded design and change documentation; published research on ITSM metrics and business value of IT", "skill-bullets"),
+        bullet("ITSM-minded design and change: Jira and Confluence daily for documentation and task management; published research on ITSM metrics and business value of IT", "skill-bullets"),
+        bullet("ServiceNow: CGI-specific training and peripheral involvement when ServiceNow was rolled out to stores as the incident-management service (not a ServiceNow implementer)", "skill-bullets"),
         bullet("Platform engineering at Just Eat Takeaway; practical ideas to move store tech toward proactive / AI-assisted operations", "skill-bullets"),
         bullet("Azure networking (Azure Network Engineer Associate); cloud and hybrid infrastructure since 2016", "skill-bullets"),
 
         sectionHeading("Experience"),
 
-        roleHeader("Principal Architect / Platform Engineer", "Remoteconsulting.EU", "2022 – Present"),
-        bullet("Advise retailers and other clients on architecture, processes, and implementation of network and store-related infrastructure across Europe, the UK, and South Africa."),
-        bullet("Retail architecture engagement with Suitsupply — similar store-technology ownership pattern to large branded retail (standards, supportability, supplier coordination)."),
-        bullet("Platform engineering with Just Eat Takeaway; apply an AI-informed, continuous-improvement mindset to reliability and operational signal — relevant to Rituals’ move toward proactive and predictive technology management."),
+        roleHeader("Platform Engineer", "Just Eat Takeaway (via Remoteconsulting.EU)", "Nov 2024 – Present"),
+        bullet("Platform engineering under my ZZP company, Remoteconsulting.EU."),
+        bullet("Use Jira and Confluence daily for documentation and task management."),
+        bullet("Bring an AI-informed, continuous-improvement mindset to reliability and operational signal — relevant to Rituals’ move toward proactive and predictive technology management."),
+
+        roleHeader("Principal Architect", "Suitsupply (ZZP, contracted through CGI)", "2022 – 2024"),
+        bullet("Sole proprietor under contract with CGI, delivering a similar retail-architecture role to the earlier CGI store-estate work."),
+        bullet("Standards, supportability, and supplier coordination for a branded retail store-technology landscape."),
+
+        roleHeader("Principal Architect", "Remoteconsulting.EU", "2022 – Present"),
+        bullet("ZZP vehicle for client work: design, monitoring, and support for retail and other clients in Europe, the UK, and South Africa."),
         bullet("Produce design documentation for cloud, DC, and WAN change under ITSM/governance expectations; advise on security maturity (C2M2)."),
         bullet("Operate own Azure and DigitalOcean platforms for client hosting and monitoring; work with stakeholders from small teams to 30+ person support organisations."),
 
@@ -244,6 +252,7 @@ const doc = new Document({
         bullet("Involved with the team that swapped store POS from Cowhills to the NewBlack-oriented model (iPads on the shop floor; Mac in the back room running POS)."),
         bullet("Project-managed network hardware deployments for approximately 150 stores; captured requirements, business cases, scope, and technical packs for plan and support teams."),
         bullet("Full lifecycle focus on design and implementation, then structured handover to support — standardisation and supportability over one-off builds."),
+        bullet("Peripherally involved when CGI rolled ServiceNow out to stores as an incident-management service; completed CGI’s ServiceNow training for that model."),
 
         roleHeader("Infrastructure Architect", "Allan Gray", "2006 – 2021 (15 years)"),
         bullet("Owned networking for South Africa’s largest private asset manager (~7 Southern African offices, ~1500 staff): Cisco core, WAF/load balancing, proxy, VMware, Azure and AWS from 2016."),

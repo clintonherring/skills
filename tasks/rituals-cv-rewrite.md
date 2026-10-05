@@ -15,4 +15,9 @@ Replace poorly formatted CV content with a scannable A4 CV tailored to Rituals, 
 
 ## Honest gaps called out in materials
 - No Jamf 200 / deep Jamf admin claim
-- Teams Rooms, ServiceNow, Jira, Confluence not asserted unless confirmed later
+- Teams Rooms still omitted
+- Jira/Confluence: daily use included
+- ServiceNow: peripheral CGI store-incident rollout + CGI training only
+- Location: Almere (near Amsterdam)
+- JET: Nov 2024–present
+- Suitsupply: ZZP under CGI contract until 2024

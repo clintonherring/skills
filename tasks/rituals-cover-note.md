@@ -10,9 +10,11 @@ I am applying for the Retail Technology IT Architect role at Rituals.
 
 I already know this landscape from the supplier side. As Principal Architect at CGI I worked on the store technology estate that supports Rituals and similar retail — Meraki networking, POS and payment terminals, multi-site rollout, and handover into support. I understand how CGI’s call-centre model works with the stores, and I have worked with Veducon. I was involved with the team that moved POS off Cowhills onto the NewBlack stack: iPads on the floor, with a Mac in the back room running the POS environment. I know where Jamf sits in that Apple-centred store pattern; I am not positioning myself as a Jamf specialist, but I understand how device management, POS, and networking have to fit together for a supportable store.
 
-Since CGI I have done comparable retail architecture for Suitsupply, and I have been working as a platform engineer with Just Eat Takeaway. That platform work, including AI-assisted ways of spotting and fixing operational issues, is how I would help Rituals move from reactive firefighting toward the proactive and predictive technology management described in the role.
+I use Jira and Confluence every day for documentation and task management. When CGI rolled ServiceNow out to stores as the incident-management service I was involved at the edge of that programme and completed CGI’s ServiceNow training — I am not claiming ServiceNow implementation ownership, but I know how that model sits next to store operations.
 
-I am based in Enschede, with a residence permit (arbeid vrij toegestaan, TWV niet vereist), and I am used to owning architecture across engineers, suppliers, and retail stakeholders.
+After CGI I continued as a sole proprietor under contract with CGI as Principal Architect for Suitsupply until 2024. Since November 2024 I have been a platform engineer at Just Eat Takeaway. That platform work, including AI-assisted ways of spotting and fixing operational issues, is how I would help Rituals move from reactive firefighting toward the proactive and predictive technology management described in the role.
+
+I am based in Almere, close to Amsterdam, with a residence permit (arbeid vrij toegestaan, TWV niet vereist), and I am used to owning architecture across engineers, suppliers, and retail stakeholders.
 
 I would welcome the conversation with Renée and the team.
 
