@@ -1,0 +1,11 @@
+{
+  "name": "clinton-cv-scripts",
+  "private": true,
+  "description": "Generates Clinton Herring CV and cover letter .docx files",
+  "scripts": {
+    "rituals": "node generate-rituals-docs.js"
+  },
+  "dependencies": {
+    "docx": "^9.5.0"
+  }
+}
