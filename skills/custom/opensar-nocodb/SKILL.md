@@ -1,23 +1,25 @@
 ---
 name: opensar-nocodb
-description: Browse and manage database records via NocoDB MCP servers. Covers two bases -- OpenSAR (default, cloud_sample + opensar_enhanced) and Tax (opt-in, only when user mentions "tax"). Use when querying, viewing, inserting, updating, or deleting database records, checking device status, managing search parties, verifying wayline data, investigating database issues, or working with tax records.
+description: Browse and manage database records via NocoDB MCP servers. Covers OpenSAR (default), Tax (opt-in), and Agent Memory (opt-in for agent facts/decisions). Use when querying, viewing, inserting, updating, or deleting database records, checking device status, managing search parties, verifying wayline data, investigating database issues, working with tax records, or syncing agent memory.
 ---
 
 # NocoDB Database Access
 
-Two NocoDB bases are available. OpenSAR is the default; Tax is only used when explicitly requested.
+Three NocoDB bases are available. OpenSAR is the default; Tax and Agent Memory are opt-in.
 
 ## Multi-Base Routing
 
 | Base | MCP Server Name | When to Use |
 |------|----------------|-------------|
-| OpenSAR | `NocoDB Base - opensar` | **Default.** Use for ALL queries unless the user explicitly mentions "tax". |
+| OpenSAR | `NocoDB Base - opensar` | **Default.** Use for ALL queries unless the user explicitly mentions "tax" or "agent memory". |
 | Tax | `NocoDB Base - Tax` | **Opt-in only.** Use ONLY when the user says "tax", "tax base", "tax table", or similar. |
+| Agent Memory | `NocoDB Base - Agent Memory` | **Opt-in only.** Use when the user says "agent memory", "memory base", or when syncing `memory/facts.md` / `memory/decisions.md`. |
 
 Routing rules:
-1. If the user does not mention "tax", always use `NocoDB Base - opensar` tools.
+1. If the user does not mention "tax" or "agent memory", always use `NocoDB Base - opensar` tools.
 2. If the user explicitly mentions "tax", use `NocoDB Base - Tax` tools.
-3. If ambiguous, ask the user which base they mean before querying.
+3. If the user explicitly mentions agent memory / memory base / memory facts / memory decisions, use `NocoDB Base - Agent Memory` (or prefer `scripts/nocodb_sync.py` for bulk sync).
+4. If ambiguous, ask the user which base they mean before querying.
 
 ## MCP Servers
 
@@ -131,6 +133,18 @@ The Tax base is a separate NocoDB instance for personal/business tax record mana
 - **Table discovery**: Run `getTablesList` against the Tax server to see available tables. Run `getTableSchema` to inspect columns before querying.
 - **Duplicate detection**: When checking for duplicates, query all records and compare key fields (amounts, dates, descriptions, vendor names, etc.) to identify rows with identical or near-identical values.
 
+## Agent Memory Base (opt-in)
+
+Separate base for durable agent facts and decisions. Complements the repo memory kit (hooks + `memory/*.md`).
+
+- **Server name**: `NocoDB Base - Agent Memory`
+- **When to use**: Only when the user mentions agent memory / memory sync, or when maintaining the memory kit
+- **Tables**: `facts`, `decisions` — column contract in repo root `nocodb/tables.csv`
+- **Preferred bulk sync**: `python3 scripts/nocodb_sync.py check|pull-facts|push-decisions`
+- **Bootstrap tables**: create empty base named `Agent Memory` in the UI, then `python3 scripts/nocodb_bootstrap.py --base-id <id>`
+- **Trap**: NocoDB ignores unknown column names on write (HTTP 200, blank fields). Always `check` first.
+
 ## Additional Resources
 
 - For full column-level schema details, see [reference.md](reference.md)
+- Agent memory setup: [tasks/setup.md](../../../tasks/setup.md)
