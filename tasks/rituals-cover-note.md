@@ -1,25 +1,23 @@
-# Rituals application — cover note draft
+# Rituals application — cover letter (text mirror)
 
-Use with the tailored CV. Keep honest; do not invent Jamf depth or Rituals employment.
+Mirrors `Clinton_Herring_Rituals_Cover_Letter.docx`. Regenerate the .docx from `skills/custom/clinton-cv/scripts/generate-rituals-docs.js`; keep this file in sync.
 
 ---
 
-Dear hiring team,
+Dear Renée and the Retail Technology team,
 
-I am applying for the Retail Technology IT Architect role at Rituals.
+I am applying for the Retail Technology IT Architect role. I know the Rituals store landscape from the supplier side, and I have spent the last few years doing exactly the work this role describes: owning store-technology architecture, holding partners to standards, and turning recurring incidents into structural fixes.
 
-What I bring first is architectural ownership of store technology: standards, lifecycle, and designs that operations can support. At CGI I worked on the store estate that supports Rituals and similar retail — Meraki networking, POS and payment terminals, multi-site rollout, and handover into support. I was involved with the team that moved POS off Cowhills onto NewBlack (iPads on the floor; Mac in the back room). I use Jira and Confluence daily, and when CGI rolled ServiceNow out to stores as incident management I was involved at the edge of that programme and completed CGI’s training.
+At CGI I worked with the team responsible for network architecture across 1000+ retail stores — Meraki networking, POS and payment terminals, multi-site rollout and handover into support. I was part of the team that moved store POS off Cowhills onto NewBlack, with iPads on the floor and a Mac in the back room. I know how CGI’s call-centre model works with the stores, I have worked with Veducon, and I understand how the wider partner model fits together: Veducon for network design, CGI with NewBlack for omnichannel, RSG for in-store rollout and break-fix. I continued as Principal Architect for Suitsupply under contract with CGI until 2024.
 
-I also understand how Rituals’ vendors fit together — for example Veducon for network design, CGI with NewBlack for omnichannel, and RSG for in-store rollout and break-fix — and I already have working relationships from CGI and later ZZP work. For 15 years at Allan Gray I managed contractors in financial services, so I am used to holding partners to standard, not only designing the stack.
+Before that I spent 15 years at Allan Gray owning network architecture and managing contractors and third-party vendors for South Africa’s largest private asset manager. That is the muscle this role needs when it asks for architecture principles, lifecycle management and supplier adherence rather than one-off designs.
 
-After CGI I continued as a sole proprietor under contract with CGI as Principal Architect for Suitsupply until 2024. Since November 2024 I have been a platform engineer at Just Eat Takeaway. That platform work, including AI-assisted ways of spotting and fixing operational issues, is how I would help Rituals move toward the proactive and predictive technology management described in the role.
+Since November 2024 I have been a platform engineer at Just Eat Takeaway. I root-cause production incidents across AWS, Kubernetes, DNS and IAM, and I have built AI agent tooling that codifies those investigations so the same problem is not solved twice. I use Jira and Confluence every day, and I completed CGI’s ServiceNow training when it was rolled out to stores for incident management. On the Apple side I understand how Jamf and MDM fit an iPad-and-Mac store estate; I would describe that as working knowledge rather than Jamf administration, and I would say so in the interview.
 
-I am based in Almere, close to Amsterdam, with a residence permit (arbeid vrij toegestaan, TWV niet vereist).
+I live in Almere, close to Amsterdam, so an office-first week is practical. I hold a residence permit with arbeid vrij toegestaan, TWV niet vereist.
 
-I would welcome the conversation with Renée and the team.
+I would welcome the conversation.
 
 Kind regards,  
 Clinton Herring  
-+31 6 27517972  
-Clinton.herring@remoteconsulting.eu  
-https://www.remoteconsulting.eu
++31 6 27517972 · Clinton.herring@remoteconsulting.eu
