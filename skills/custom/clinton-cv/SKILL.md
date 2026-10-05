@@ -32,13 +32,12 @@ Clinton designs, secures, and operates enterprise and retail-store infrastructur
 
 ## Career (newest first)
 
-Present 2022–present as **self-employed** (Remoteconsulting.EU, ZZP) with dated engagements beneath it. Suitsupply is one of those engagements, done as a **sub-contractor to CGI**; its CV value is that it is a *second retailer*, so retail expertise does not rest on Rituals alone. Do not list three overlapping “2022–present” roles.
+Lead the CV with the current Just Eat Takeaway role (Nov 2024–present) as a top-level entry. The 2022–Oct 2024 period is one top-level entry, **Principal Architect — Suitsupply, as sub-contractor to CGI**, whose intro sentence states that Clinton worked for himself (ZZP, Remoteconsulting.EU) and that Suitsupply was most of that work; its CV value is that it is a *second retailer*, so retail expertise does not rest on Rituals alone. Do not add a separate “Self-employed 2022–present” umbrella row or list overlapping “present” roles.
 
 | Period | Title | Organisation | Notes |
 |--------|-------|--------------|-------|
-| 2022–present | Self-employed — Principal Architect / Platform Engineer | Remoteconsulting.EU (ZZP) | Working for himself. Engagements: Suitsupply via CGI; Just Eat Takeaway; own Azure + DigitalOcean monitoring platforms; C2M2 and cloud/DC/WAN design for smaller retail, solar, and FS clients. |
 | Nov 2024–present | Platform Engineer | Just Eat Takeaway | AWS + Kubernetes estate. Production-incident root cause by correlating infra changes, Datadog, PR history, CloudTrail (grounded in this repo’s `custom/jet-pi-troubleshooter`). Change review of DNS/IAM/access before closure (`custom/ticket-reviewer`). Built AI agent skills encoding runbooks and incident patterns. Managed Entra ID for internal users ~1 year until identity (Entra, network access, Okta) was consolidated into one department. Jira/Confluence daily. Do not invent JET product, team, or metric names. |
-| 2022–Oct 2024 | Principal Architect | Suitsupply, as sub-contractor to CGI | Second retailer reference. Store-technology architecture continuing the CGI store-estate model. Ended 16 October 2024. |
+| 2022–Oct 2024 | Principal Architect | Suitsupply, as sub-contractor to CGI | Self-employed (ZZP, Remoteconsulting.EU); most of the period was the Suitsupply sub-contract. Second retailer reference. Store-technology architecture continuing the CGI store-estate model. Alongside: own Azure + DigitalOcean monitoring platforms; C2M2 and cloud/DC/WAN design for smaller retail, solar, and FS clients. Ended 16 October 2024. |
 | 2021–2022 (8 months) | Principal Architect | CGI | Employed / staff engagement. 1000+ retail stores worldwide, primarily Meraki, including POS and payment terminals. Project-managed hardware deployments for ~150 stores. Rituals landscape via CGI as contractor: store operations, CGI call-centre model, Veducon. Involved with the team migrating store POS from Cowhills toward NewBlack (iPad POS; Mac in back room). |
 | 2006–2021 (15 years) | Infrastructure Architect | Allan Gray | Largest private asset manager in South Africa; ~7 Southern African offices, ~1500 employees. Cisco; Radware WAF/LB; Raytheon proxy; VMware; Azure + AWS from 2016. Managed contractors and third-party vendors throughout. |
 | 2006 (1 year) | Systems Engineer | Prudential Portfolio Managers | LAN, WAN, IP telephony, mail. Asterisk IP-PBX; SolarWinds. |
@@ -98,7 +97,11 @@ UAS pilot and builder; commercial RPL (ZA) and NL operator; SAR ML vision on Azu
 
 ## Voice
 
-Senior practitioner, not marketer. Concrete systems and outcomes. Fix grammar; keep meaning. For NL retail architect roles: lead with store tech, Meraki, POS, suppliers, work authorization; then platform/AI forward look. Spelling: Principal Architect; Remoteconsulting.EU; Allan Gray; CGI; Suitsupply; NewBlack; Cowhills; Veducon; RSG; Just Eat Takeaway.
+Write the way Clinton writes (see [source-cv.md](references/source-cv.md)): **first person, full plain sentences, concrete facts**. "I was responsible for…", "I project managed…", "With my fellow team members I was responsible for…", "I reported to the Group Infrastructure Manager." He gives numbers (7 offices, about 1500 employees, 1000+ stores, approximately 150 stores) and names the products. He says "3rd party vendors", "3rd line support", "day to day", "business cases", "stakeholders".
+
+Avoid résumé-speak he would not use: noun-phrase fragments ("Owned network architecture for…"), and words like *owned, leveraged, codified, structural fix, supplier governance, muscle, drive, spearheaded*. Prefer "managed", "built", "advised on", "worked with", "the fix goes into the standard, not just the ticket". Fix grammar; keep meaning. Spelling: Principal Architect; Remoteconsulting.EU; Allan Gray; CGI; Suitsupply; NewBlack; Cowhills; Veducon; RSG; Just Eat Takeaway.
+
+Layout for scanning (the reader is a recruiter with ~30 seconds): short profile (≤ 90 words) → six one-line "In short" bullets with a bold lead word → compact Skills block (four labelled lines of keywords) → Experience with a one- or two-sentence intro per role and short bullets (one idea each, ≤ ~30 words) → education → one line beyond work. For NL retail architect roles: lead with store tech, Meraki, POS, suppliers, work authorization; then platform/AI forward look.
 
 CV body states what Clinton has; it does not carry “not a specialist” disclaimers. Put honest scope limits (Jamf, ServiceNow) in the cover letter or interview notes, phrased positively (“working knowledge of how Jamf/MDM fits an iPad-and-Mac estate”). Do not address the employer inside CV bullets (“relevant to Rituals’ …”); that belongs in the cover letter. Say each vendor fact once.
 
