@@ -2,20 +2,20 @@
 
 ## Goal
 
-Ship ECC-adapted memory skills + stdlib vault in `clintonherring/skills`, then wire NocoDB **Agent Memory** secrets/env for live sync.
+Keep ECC memory kit healthy: hooks + vault + live NocoDB **Agent Memory** sync.
 
 ## Active task
 
-PR https://github.com/clintonherring/skills/pull/4 (`cursor/ecc-memory-skills-917e`) — open, ready to merge.
+Memory smoke verified on this VM (`nocodb_sync.py check` + `memory_doctor.py` both OK). PR #4 merged.
 
 ## Constraints
 
 - Vault is `ecc.memory.v1` via `python3 scripts/memory_vault.py` (no npm required)
 - Compaction survival still depends on hooks + `memory/NOW.md` reinjection
-- This VM still has no `NOCODB_*` credentials
+- `NOCODB_*` env vars are set; live facts/decisions tables match `nocodb/tables.csv`
 
 ## Next action
 
-1. Merge PR #4
-2. Create NocoDB base **Agent Memory** + set `NOCODB_*` secrets on the Cloud env
-3. `python3 scripts/nocodb_sync.py check` / optional `ecc-universal` MCP later
+1. Optional: `python3 scripts/nocodb_sync.py pull-facts` / `push-decisions` when facts or decisions change
+2. Optional: wire `ecc-universal` MCP later
+3. Clear `/workspace/.cursor/memory-state` warn flag if it keeps nagging
