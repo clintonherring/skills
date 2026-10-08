@@ -2,18 +2,20 @@
 
 ## Goal
 
-Port ECC memory-related skills into `clintonherring/skills` and wire a lightweight `ecc.memory.v1` vault that works without npm.
+Ship ECC-adapted memory skills + stdlib vault in `clintonherring/skills`, then wire NocoDB **Agent Memory** secrets/env for live sync.
 
 ## Active task
 
-`tasks/ecc-memory-skills/` on branch `cursor/ecc-memory-skills-917e`.
+PR https://github.com/clintonherring/skills/pull/4 (`cursor/ecc-memory-skills-917e`) — open, ready to merge.
 
 ## Constraints
 
-- Adapt ECC (MIT); do not require `ecc-universal` for Cloud Agents
-- Keep existing NOW/facts/hooks/NocoDB kit as the compaction substrate
-- Vault entries stay `trust: unreviewed` until promoted
+- Vault is `ecc.memory.v1` via `python3 scripts/memory_vault.py` (no npm required)
+- Compaction survival still depends on hooks + `memory/NOW.md` reinjection
+- This VM still has no `NOCODB_*` credentials
 
 ## Next action
 
-- Finish tests, commit, open PR; then optionally install `ecc-universal` locally if you want official MCP
+1. Merge PR #4
+2. Create NocoDB base **Agent Memory** + set `NOCODB_*` secrets on the Cloud env
+3. `python3 scripts/nocodb_sync.py check` / optional `ecc-universal` MCP later
