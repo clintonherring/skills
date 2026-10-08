@@ -7,6 +7,36 @@
                 "abstract": "Maintain and sync project agent memory (NOW.md, facts, decisions) so intent survives context compaction and model switches."
             },
             {
+                "path": "skills://custom/unified-memory",
+                "name": "unified-memory",
+                "abstract": "Share durable, inspectable context and handoffs through the local memory vault (ecc.memory.v1)."
+            },
+            {
+                "path": "skills://custom/strategic-compact",
+                "name": "strategic-compact",
+                "abstract": "Suggests checkpointing and context compaction at logical task boundaries rather than mid-task."
+            },
+            {
+                "path": "skills://custom/knowledge-ops",
+                "name": "knowledge-ops",
+                "abstract": "Route knowledge into the right storage layer (NOW/facts/vault/NocoDB/GitHub)."
+            },
+            {
+                "path": "skills://custom/save-session",
+                "name": "save-session",
+                "abstract": "Save current session state to memory/sessions/ for later resume."
+            },
+            {
+                "path": "skills://custom/resume-session",
+                "name": "resume-session",
+                "abstract": "Load the most recent memory/sessions file and orient before new work."
+            },
+            {
+                "path": "skills://custom/session-lessons",
+                "name": "session-lessons",
+                "abstract": "Extract reusable lessons into the memory vault and decisions log."
+            },
+            {
                 "path": "skills://custom/android-ui-m3",
                 "name": "android-ui-m3",
                 "abstract": "Design and build Android UI following Material 3 layout principles, glassmorphism, and modern map-app patterns. Use w..."
@@ -238,7 +268,7 @@
             {
                 "path": "skills://anthropic/pptx",
                 "name": "pptx",
-                "abstract": "\"Use this skill any time a .pptx file is involved in any way \u2014 as input, output, or both. This includes: creating s..."
+                "abstract": "\"Use this skill any time a .pptx file is involved in any way — as input, output, or both. This includes: creating s..."
             },
             {
                 "path": "skills://anthropic/quieter",

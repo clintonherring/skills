@@ -7,9 +7,11 @@
 - [x] `.cursor/skills/agent-memory/SKILL.md`
 - [x] `memory/NOW.md`, `facts.md`, `decisions.md`
 - [x] `memory.config.json`
-- [x] `scripts/memory_doctor.py`, `nocodb_sync.py`, `nocodb_bootstrap.py`
-- [x] `nocodb/tables.csv`
+- [x] `scripts/memory_doctor.py`, `nocodb_sync.py`, `nocodb_bootstrap.py`, `memory_vault.py`
+- [x] `nocodb/tables.csv` + `schemas/memory.schema.json`
+- [x] ECC-adapted skills: unified-memory, strategic-compact, knowledge-ops, save/resume-session, session-lessons
 - [ ] Run `python3 scripts/memory_doctor.py` (expect OK / WARN only)
+- [ ] Run `python3 scripts/memory_vault.py init && python3 scripts/memory_vault.py doctor`
 
 ## 2. Create NocoDB base **Agent Memory**
 

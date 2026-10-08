@@ -14,4 +14,6 @@ Canonical installable skill + kit lives at the repo root:
 - Hooks / rule / memory files / scripts: see [tasks/setup.md](../../../tasks/setup.md)
 
 Agents working in this skills repository should follow the project skill path above.
-When copying the kit into another repo, copy the root `.cursor/`, `memory/`, `memory.config.json`, `scripts/`, and `nocodb/` pieces listed in setup.
+When copying the kit into another repo, copy the root `.cursor/`, `memory/`, `memory.config.json`, `scripts/`, `schemas/memory.schema.json`, and `nocodb/` pieces listed in setup.
+
+Companion catalog skills (ECC-adapted): `unified-memory`, `strategic-compact`, `knowledge-ops`, `save-session`, `resume-session`, `session-lessons`.
