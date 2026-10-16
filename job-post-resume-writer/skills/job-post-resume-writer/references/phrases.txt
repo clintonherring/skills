@@ -1,0 +1,152 @@
+# Generic multi-word and special-case terms worth matching as a unit when scanning a job posting.
+# One per line, lower case. The person's own skill terms are harvested from facts.md at run time,
+# so this list only needs cross-profession vocabulary. Lines starting with # are ignored.
+
+# ways of working
+problem management
+incident management
+change management
+release management
+service management
+service delivery
+service desk
+service review
+service reviews
+root cause
+root cause analysis
+continuous improvement
+lifecycle management
+lifecycle
+roadmap
+principles
+standards
+guidelines
+governance
+compliance
+risk management
+business case
+business cases
+stakeholder management
+stakeholders
+project management
+programme management
+program management
+agile
+scrum
+kanban
+itil
+itsm
+sla
+slas
+kpi
+kpis
+okr
+okrs
+
+# people and suppliers
+supplier
+suppliers
+supplier management
+vendor
+vendors
+vendor management
+contractor
+contractors
+outsourced
+outsourcing
+team lead
+team leadership
+people management
+line management
+coaching
+mentoring
+hiring
+onboarding
+training
+
+# delivery and analysis
+reporting
+dashboards
+analysis
+analytics
+forecasting
+budget
+budgeting
+cost reduction
+automation
+process improvement
+rollout
+rollouts
+deployment
+deployments
+migration
+implementation
+testing
+validation
+pilot
+handover
+documentation
+runbooks
+knowledge base
+
+# tooling families (named products are harvested from facts.md)
+servicenow
+jira
+confluence
+power bi
+tableau
+excel
+salesforce
+sap
+microsoft 365
+office 365
+sharepoint
+google workspace
+slack
+azure
+aws
+gcp
+kubernetes
+docker
+linux
+windows
+python
+sql
+javascript
+typescript
+java
+c#
+.net
+react
+node
+git
+github
+gitlab
+ci/cd
+terraform
+ansible
+
+# ai
+ai
+artificial intelligence
+machine learning
+generative ai
+llm
+llms
+copilot
+chatgpt
+prompt engineering
+ai tools
+ai-assisted
+
+# language and location
+english
+dutch
+german
+french
+spanish
+italian
+hybrid
+remote
+on site
+on-site

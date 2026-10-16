@@ -1,0 +1,10 @@
+{
+  "name": "job-post-resume-writer-scripts",
+  "private": true,
+  "scripts": {
+    "build": "node build-cv.js"
+  },
+  "dependencies": {
+    "docx": "^9.5.0"
+  }
+}

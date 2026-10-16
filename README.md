@@ -35,3 +35,7 @@ Create a NocoDB base named **Agent Memory**, then follow `tasks/setup.md`.
 ## Skill catalog
 
 See `skills/` (`custom/`, `cursor/`, `jet/`, `anthropic/`). Registry: `skills/registry.json`.
+
+## Job post resume writer (standalone bundle)
+
+`job-post-resume-writer/` is a self-contained, personal-data-free bundle of two installable skills (`job-post-resume-writer`, `my-voice`) with a cross-platform installer, templates, five-rule CV checker and `.docx`/`.pdf` builder. It is kept at the repo root so its contents can be copied into an independent public repository as-is; see `job-post-resume-writer/README.md`.
