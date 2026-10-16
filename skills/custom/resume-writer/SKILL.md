@@ -13,6 +13,7 @@ Read first, every time:
 - [references/voice.md](references/voice.md) — how he writes; the "would he say it in an interview" test
 - [references/ai-era-guidelines.md](references/ai-era-guidelines.md) — the five rules and the pre-send checklist
 - [references/jd-matching.md](references/jd-matching.md) — the JD → evidence workflow and `match.md` template
+- [references/scorecard.md](references/scorecard.md) — how to score the draft against the five rules before Clinton sees it
 
 ## Rules that override everything
 
@@ -27,13 +28,31 @@ Read first, every time:
 ```
 - [ ] 1. Save the JD to tasks/applications/<company>-<role>/jd.md
 - [ ] 2. python3 scripts/jd_match.py jd.md   (mapped / gaps / unused terms)
-- [ ] 3. Write match.md: employer problems → keywords that matter → JD→evidence table → gaps → emphasis
-- [ ] 4. Draft bullets from the brain dumps in facts.md, in his voice, XYZ where a verified number exists
-- [ ] 5. Honesty pass against facts.md; move scope limits to the letter
-- [ ] 6. Save the CV as Markdown: assets/<yyyy-mm>-<company>-<role-slug>.md (format below). Letter, if asked: assets/<same>-cover-letter.md
-- [ ] 7. Show Clinton the match table, the draft, and open questions
-- [ ] 8. Only when Clinton asks for a .docx or .pdf: transcribe the .md into cv.json (copy examples/rituals-2026.json) → node scripts/build-cv.js cv.json <name>.docx --pdf → validate (docx validate.py; PDF 2 pages, selectable text, < 2.5 MB)
+- [ ] 3. Write match.md: employer problems FIRST → keywords that matter → JD→evidence table → gaps → emphasis
+- [ ] 4. Brain-dump intake: for every role the CV will lead with, check facts.md has result / what Clinton did / how
+         AND an outcome number. Where it does not, ask Clinton the questions under "Open metric questions" in
+         facts.md BEFORE drafting. Write his answers into facts.md.
+- [ ] 5. Draft bullets from the brain dumps, in his voice, following "Writing rules" below
+- [ ] 6. Honesty pass against facts.md; move scope limits to the letter
+- [ ] 7. Save the CV as Markdown: assets/<yyyy-mm>-<company>-<role-slug>.md (format below)
+- [ ] 8. Self-review: python3 scripts/cv_check.py assets/<cv>.md --jd jd.md; fix every FAIL; decide every WARN;
+         then score by hand with references/scorecard.md into assets/<cv>-review.md. Iterate until thresholds
+         are met (rules 1–2 ≥ 8, rules 3–5 ≥ 7) or the only thing missing is an answer from Clinton.
+- [ ] 9. Show Clinton the draft WITH the review and the open questions. Letter, if asked: assets/<same>-cover-letter.md
+- [ ] 10. Only when Clinton asks for a .docx or .pdf: transcribe the .md into cv.json (copy examples/rituals-2026.json)
+          → node scripts/build-cv.js cv.json <name>.docx --pdf → validate (docx validate.py; PDF 2 pages, selectable
+          text, < 2.5 MB)
 ```
+
+## Writing rules (apply while drafting, not after)
+
+These are the five rules turned into constraints on the text. `cv_check.py` tests most of them; the scorecard covers the rest.
+
+1. **Readable.** Headings Summary → Skills → Experience → Education; experience first; no images, tables or bars; 600–1050 words.
+2. **Mapped once.** Every lead JD term that `facts.md` supports appears in the CV in his words. Nothing the facts do not support appears at all. Each fact is said **once**: the Summary paragraph sets the scene, the highlights carry the six strongest claims, Skills carries keywords, bullets carry the detail. No highlight that merely restates Skills (no "Tools" line). No key term, including the employer's name, more than three times in the body.
+3. **His voice from a brain dump.** No bullet is written for a role whose brain dump lacks a result; ask first. First person, plain verbs, ≤ ~30 words, one idea, ≤ 5 bullets per role, ≤ 2 for roles older than 15 years. Banned words in `voice.md`.
+4. **Numbers, XYZ, verified.** Each of the three most recent roles carries at least one outcome number, written XYZ (what, measured by, how). Scale numbers (stores, staff, years) are good but do not count as outcomes. Any number not in `facts.md` is a FAIL. When the outcome number does not exist yet, write the plain fact and put the question to Clinton; never estimate.
+5. **AI proven in words.** First bullet of the current role is the AI achievement when the JD can use it, and it says what the tooling takes in, what it produces and who uses it. No "I have ideas" or "I am interested in". No link to the skills repository.
 
 ## Output: Markdown first
 
