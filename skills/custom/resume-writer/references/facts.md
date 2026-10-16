@@ -99,9 +99,9 @@ Numbers I can use: about 30 people.
 
 | Group | Items |
 |-------|-------|
-| Store / retail technology | Cisco Meraki (certified), iPad POS on NewBlack, payment terminals, back-office Macs, MDM/Jamf (how it fits the estate), multi-site rollouts, handover to support |
+| Store / retail technology | Cisco Meraki (CMSS certified), iPad POS on NewBlack, payment terminals, back-office Macs, MDM/Jamf (how it fits the estate), multi-site rollouts, handover to support |
 | Network and security | Cisco (NGFW, VPN, AnyConnect, proxy, load balancer, WAF), Radware, Raytheon, WAN and data centre design, operational security, C2M2 |
-| Cloud and platform | Azure (Network Engineer Associate), AWS, Kubernetes, Datadog, CloudTrail, VMware, Digital Ocean |
+| Cloud and platform | Azure (Network Engineer Associate), AWS (Certified Solutions Architect – Associate), Kubernetes, Datadog, CloudTrail, VMware, Digital Ocean |
 | Identity | Entra ID administration for internal users (about a year, JET). Not identity architecture ownership; not Okta admin. |
 | Ways of working | ITIL / ITSM, Jira, Confluence, ServiceNow (store incident management, CGI training), vendor and contract management, business cases, project and design documentation, stakeholder work across business, application, engineering and support |
 | AI | Builds AI agent skills (Cursor) for incident investigation and change review. Do not link the skills repo. |
@@ -109,9 +109,13 @@ Numbers I can use: about 30 people.
 
 ## Education, certifications, publication
 
-- BCom (Hons) Information Systems, University of Cape Town
-- Cisco Meraki Solutions Specialist
+- BCom (Hons) Information Systems, University of Cape Town — a postgraduate (honours) degree; Clinton describes it as "a post graduate degree in information systems from UCT"
+
+Certifications Clinton holds and **maintains (current)**:
+
 - Microsoft Azure Network Engineer Associate
+- Cisco Meraki Solutions Specialist (CMSS)
+- AWS Certified Solutions Architect – Associate
 - African Journal of Business Management, 2014: "An exploratory investigation into using ITSM metrics to indicate the business value of IT in a South African financial services company" (also on academia.edu)
 
 Not held (do not add): Jamf 200/300, CCNA/CCNP, CISSP, TOGAF, ITIL certificate, ServiceNow certs.

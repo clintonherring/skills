@@ -87,8 +87,9 @@ Use only as landscape familiarity from contractor / consulting work — **not** 
 ## Education, certs, publication
 
 - BCom (Hons) Information Systems, University of Cape Town
-- Cisco Meraki Solutions Specialist
+- Cisco Meraki Solutions Specialist (CMSS)
 - Azure Network Engineer Associate
+- AWS Certified Solutions Architect – Associate
 - AJBM 2014 ITSM metrics / business value of IT paper
 
 Do not add Jamf 200, CCNA, CISSP, TOGAF, or other certs unless the user supplies them.

@@ -58,7 +58,7 @@ Lead with: … Support with: … Leave out: …
 | Vendor / supplier management | 15 years managing 3rd party vendors and contractors at Allan Gray; Rituals partner map (Veducon, CGI/NewBlack, RSG) |
 | Problem management / RCA | JET incident root cause across AWS, Kubernetes, DNS, IAM with Datadog, CloudTrail, PR history |
 | Standards and lifecycle | CGI design → implementation → handover; Allan Gray infrastructure direction and business cases |
-| Cloud | Azure and AWS since 2016; Azure Network Engineer Associate; own Azure/Digital Ocean platforms |
+| Cloud | Azure and AWS since 2016; Azure Network Engineer Associate; AWS Certified Solutions Architect – Associate; own Azure/Digital Ocean platforms |
 | Identity | Entra ID for internal users, about a year at JET |
 | ITSM | Jira/Confluence daily; ServiceNow store rollout training; AJBM 2014 ITSM paper |
 | Security | Operational security; risk/compliance-driven controls at Allan Gray; C2M2 advice |

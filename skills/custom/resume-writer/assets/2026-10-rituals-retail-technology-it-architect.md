@@ -23,7 +23,7 @@ I design, secure and maintain enterprise and retail store infrastructure, with m
 
 - **Store technology:** Cisco Meraki (certified), iPad POS on NewBlack, payment terminals, back-office Macs, MDM/Jamf (how it fits the estate), multi-site rollouts
 - **Network & security:** Cisco, NGFW, VPN, proxy, load balancer, WAF, WAN and data centre design, operational security
-- **Cloud & identity:** Azure (Network Engineer Associate), AWS, Kubernetes, Entra ID, Datadog
+- **Cloud & identity:** Azure (Network Engineer Associate), AWS (Solutions Architect Associate), Kubernetes, Entra ID, Datadog
 - **Ways of working:** ITIL / ITSM, Jira, Confluence, ServiceNow (store incident management), vendor and contract management, business cases and project documentation, C2M2 security maturity
 
 ## Experience
@@ -73,7 +73,7 @@ I was responsible for the networking infrastructure at the largest private asset
 ## Education, certifications and publication
 
 - BCom (Hons) Information Systems, University of Cape Town
-- Cisco Meraki Solutions Specialist  ·  Microsoft Azure Network Engineer Associate
+- Cisco Meraki Solutions Specialist (CMSS)  ·  Microsoft Azure Network Engineer Associate  ·  AWS Certified Solutions Architect – Associate
 - African Journal of Business Management, 2014: “An exploratory investigation into using ITSM metrics to indicate the business value of IT in a South African financial services company”
 
 ## Beyond work
