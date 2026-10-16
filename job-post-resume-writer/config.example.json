@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "ide": "cursor",
+  "skills_dir": "~/.cursor/skills",
+  "data_dir": "~/ResumeData",
+  "locale": "eu",
+  "deps": {
+    "python": true,
+    "node": true,
+    "docx_package": true,
+    "soffice": false,
+    "pdftotext": false,
+    "pypdf": false
+  },
+  "installed_at": "2026-10-16T18:00:00Z"
+}
