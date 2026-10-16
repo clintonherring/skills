@@ -24,7 +24,7 @@ DEFAULT_FACTS = HERE.parent / "references" / "facts.md"
 # Multi-word and special-cased terms worth matching as a unit.
 PHRASES = [
     "problem management", "incident management", "change management", "root cause",
-    "root-cause", "lifecycle management", "life cycle", "payment terminals", "payment terminal",
+    "root-cause", "lifecycle management", "lifecycle", "life cycle", "roadmap", "principles", "guidelines", "validation", "validate", "testing", "pilot", "payment terminals", "payment terminal",
     "point of sale", "pos", "ipad", "ipads", "mac", "macs", "jamf", "meraki", "cisco", "entra id",
     "entra", "azure", "aws", "kubernetes", "datadog", "cloudtrail", "servicenow", "jira",
     "confluence", "itil", "itsm", "okta", "intune", "teams rooms", "mdm", "sd-wan", "wan", "lan",
