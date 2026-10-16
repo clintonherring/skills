@@ -40,8 +40,11 @@ Derived from `Clinton Herring NL ENT ARCH CV.docx`, plus user follow-ups for ret
 
 ## Certifications
 
-- Cisco Meraki Solutions Specialist
+- Cisco Meraki Solutions Specialist (CMSS)
 - Azure Network Engineer Associate
+- AWS Certified Solutions Architect – Associate
+
+All three are current and maintained (user, Oct 2026).
 
 ## Publication
 

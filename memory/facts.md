@@ -12,3 +12,4 @@
 | ecc_memory_pr | https://github.com/clintonherring/skills/pull/4 (merged) | 2026-10-08 |
 | memory_skills | agent-memory, unified-memory, strategic-compact, knowledge-ops, save-session, resume-session, session-lessons | 2026-10-08 |
 | nocodb_env | Cloud env has NOCODB_BASE_URL, NOCODB_TOKEN, NOCODB_FACTS_TABLE, NOCODB_DECISIONS_TABLE; `nocodb_sync.py check` matches contract | 2026-10-08 |
+| resume_writer | `skills/custom/resume-writer` — facts.md, voice.md, ai-era-guidelines.md, jd-matching.md, `jd_match.py`, `build-cv.js`; CVs saved as Markdown in `assets/`; working files in `tasks/applications/<company>-<role>/` | 2026-10-16 |
