@@ -49,7 +49,7 @@ For each role, start from the brain dump in `facts.md` (result / what Clinton di
 
 ## AI proof (rule 5)
 
-Where it fits the JD, the first bullet of the current role is the AI achievement (reusable AI agent skills for incident investigation and change review). Always include the portfolio link `github.com/clintonherring/skills` in the header when AI skills are claimed. If a JD needs AI evidence the facts do not cover, propose a small project to Clinton rather than inventing one.
+Where it fits the JD, the first bullet of the current role is the AI achievement (reusable AI agent skills for incident investigation and change review). Do not link the skills repository or any portfolio; describe the AI work in words and offer to demonstrate it in an interview. If a JD needs AI evidence the facts do not cover, propose a small project to Clinton rather than inventing one.
 
 ## Cover letter
 

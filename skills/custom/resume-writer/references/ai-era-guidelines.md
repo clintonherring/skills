@@ -52,7 +52,7 @@ Bullet: "Decreased duplicate tickets by 50% by creating a shared refund guide fo
 
 - Where possible, make the **first bullet** under a role an AI achievement relevant to the JD.
 - If there is no workplace example yet, do a small project for the target role and list it under **Projects**.
-- Make the proof inspectable: link the portfolio. Clinton's is https://github.com/clintonherring/skills (public). For non-technical readers, a short document per project — situation, how and why AI was used, what changed — is enough.
+- Make the proof inspectable where possible: a portfolio link or a short document per project (situation, how and why AI was used, what changed). **Clinton's instruction: do not link the skills repository.** His proof is described in words on the CV and demonstrated in the interview.
 - Writing "ChatGPT" in a skills list is not proof.
 
 ## Checklist before sending
@@ -65,7 +65,7 @@ Bullet: "Decreased duplicate tickets by 50% by creating a shared refund guide fo
 - [ ] Every bullet written from a brain dump (result / contribution / how)
 - [ ] Numbers present where facts.md has them; none invented
 - [ ] First bullet of the current role is an AI achievement (if relevant)
-- [ ] Portfolio link present when AI skills are claimed
+- [ ] No link to the skills repository; AI work described in words, offered as an interview demo
 - [ ] Experience above education
 - [ ] Reads in Clinton's voice (see voice.md); he could say every line in an interview
 ```

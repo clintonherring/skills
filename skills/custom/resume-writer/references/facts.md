@@ -15,7 +15,7 @@ Each role has a **Brain dump** block (Result / What I did / How) in rough first-
 | Phone | +31 6 27517972 (0627517972) |
 | Email | Clinton.herring@remoteconsulting.eu |
 | Web | https://www.remoteconsulting.eu |
-| Portfolio (AI work) | https://github.com/clintonherring/skills — public repo of agent skills Clinton wrote |
+| Portfolio | None to link. The skills repo is **not** to be used as a portfolio or linked on a CV (Clinton's instruction). |
 | Work status | Dutch residence permit, *Arbeid vrij toegestaan, TWV niet vereist* |
 | Legal form | ZZP (sole proprietor), trading as Remoteconsulting.EU |
 | Language | Native English |
@@ -104,7 +104,7 @@ Numbers I can use: about 30 people.
 | Cloud and platform | Azure (Network Engineer Associate), AWS, Kubernetes, Datadog, CloudTrail, VMware, Digital Ocean |
 | Identity | Entra ID administration for internal users (about a year, JET). Not identity architecture ownership; not Okta admin. |
 | Ways of working | ITIL / ITSM, Jira, Confluence, ServiceNow (store incident management, CGI training), vendor and contract management, business cases, project and design documentation, stakeholder work across business, application, engineering and support |
-| AI | Builds AI agent skills (Cursor) for incident investigation and change review; public portfolio at github.com/clintonherring/skills |
+| AI | Builds AI agent skills (Cursor) for incident investigation and change review. Do not link the skills repo. |
 | Older / historical | Asterisk, SolarWinds, Cisco PIX |
 
 ## Education, certifications, publication
@@ -119,7 +119,7 @@ Not held (do not add): Jamf 200/300, CCNA/CCNP, CISSP, TOGAF, ITIL certificate, 
 ## AI proof points (for rule 5 — prove, do not list)
 
 - Wrote reusable AI agent skills at JET that capture how incidents are investigated and tickets reviewed: `jet-pi-troubleshooter`, `ticket-reviewer` (this repo).
-- Maintains a public skills repository that hiring managers can open: https://github.com/clintonherring/skills
+- No portfolio link. Do not reference or link the skills repository on a CV or in a letter; describe the AI work in words and offer to walk through it in an interview.
 - Has ideas for making an architect role AI-led (proactive and predictive operations from operational signal). Keep as a mindset line unless Clinton supplies specifics.
 - Personal project: search-and-rescue vision app with the DJI platform to help find lost hikers, running in Docker on a VPS (not Azure; Azure hosts ZZP infrastructure, a separate thing).
 
