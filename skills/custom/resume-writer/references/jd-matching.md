@@ -1,6 +1,6 @@
 # Matching a job description to Clinton's CV
 
-Output of this workflow is a folder `tasks/applications/<company>-<role-slug>/` containing `jd.md`, `match.md`, `cv.json`, the generated `.docx`/`.pdf`, and (if asked) `cover-letter.md`.
+Working files (`jd.md`, `match.md`) go in `tasks/applications/<company>-<role-slug>/`. The CV itself is saved as Markdown in the skill's `assets/` folder as `<yyyy-mm>-<company>-<role-slug>.md` (and `…-cover-letter.md` if a letter is asked for). A `.docx`/`.pdf` is produced only when Clinton asks.
 
 ## Steps
 
@@ -10,8 +10,9 @@ Output of this workflow is a folder `tasks/applications/<company>-<role-slug>/` 
 4. **Choose emphasis.** Pick the two or three themes that lead; everything else supports. Record the choice and why.
 5. **Draft bullets** from the brain dumps in `facts.md` in Clinton's voice (`voice.md`), XYZ where a verified number exists. One idea per bullet, ≤ ~30 words.
 6. **Honesty pass.** Delete any claim that is not in `facts.md`. Move scope limits (Jamf, ServiceNow, etc.) to the letter, phrased positively.
-7. **Build.** Write `cv.json` (schema in `scripts/build-cv.js` header; copy `examples/rituals-2026.json`), then `node scripts/build-cv.js cv.json out.docx --pdf`. Validate the `.docx` with `skills/anthropic/docx/scripts/office/validate.py`. Check the PDF: 2 pages, selectable text, < 2.5 MB.
+7. **Save.** Write the CV as Markdown to `assets/<yyyy-mm>-<company>-<role-slug>.md` in the structure given in `SKILL.md`.
 8. **Show Clinton** the match table and anything you left out or were unsure of. He confirms before sending.
+9. **Only if asked for a document:** transcribe the Markdown into `cv.json` (schema in `scripts/build-cv.js` header; copy `examples/rituals-2026.json`), run `node scripts/build-cv.js cv.json out.docx --pdf`, validate the `.docx` with `skills/anthropic/docx/scripts/office/validate.py`, and check the PDF: 2 pages, selectable text, < 2.5 MB.
 
 ## match.md template
 
@@ -47,7 +48,7 @@ Lead with: … Support with: … Leave out: …
 
 ## Worked example
 
-`skills/custom/clinton-cv/references/rituals-retail-tech-architect.md` is the match document for the Rituals Retail Technology IT Architect role (October 2026), and `examples/rituals-2026.json` is the resulting CV content. Reuse its JD → evidence table style.
+`skills/custom/clinton-cv/references/rituals-retail-tech-architect.md` is the match document for the Rituals Retail Technology IT Architect role (October 2026); `assets/2026-10-rituals-retail-technology-it-architect.md` is the resulting CV and `examples/rituals-2026.json` the same content in build form. Reuse its JD → evidence table style.
 
 ## Reusable evidence by theme
 

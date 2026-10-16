@@ -30,18 +30,44 @@ Read first, every time:
 - [ ] 3. Write match.md: employer problems → keywords that matter → JD→evidence table → gaps → emphasis
 - [ ] 4. Draft bullets from the brain dumps in facts.md, in his voice, XYZ where a verified number exists
 - [ ] 5. Honesty pass against facts.md; move scope limits to the letter
-- [ ] 6. Write cv.json (copy examples/rituals-2026.json) → node scripts/build-cv.js cv.json <name>.docx --pdf
-- [ ] 7. Validate: docx validate.py passes; PDF is 2 pages, selectable text, < 2.5 MB
-- [ ] 8. Show Clinton the match table, the draft, and open questions
+- [ ] 6. Save the CV as Markdown: assets/<yyyy-mm>-<company>-<role-slug>.md (format below). Letter, if asked: assets/<same>-cover-letter.md
+- [ ] 7. Show Clinton the match table, the draft, and open questions
+- [ ] 8. Only when Clinton asks for a .docx or .pdf: transcribe the .md into cv.json (copy examples/rituals-2026.json) → node scripts/build-cv.js cv.json <name>.docx --pdf → validate (docx validate.py; PDF 2 pages, selectable text, < 2.5 MB)
 ```
 
-Setup once: `cd scripts && npm install` (needs the `docx` package). PDF export needs LibreOffice (`soffice`) on PATH; without it, deliver the `.docx` and tell Clinton to export the PDF himself. Validate `.docx` with `skills/anthropic/docx/scripts/office/validate.py` (`pip install defusedxml lxml`).
+## Output: Markdown first
+
+Every CV is saved under `assets/` as a Markdown file so the text is versioned and easy to review and diff. Do not produce `.docx` or `.pdf` unless Clinton asks. One file per application, named `<yyyy-mm>-<company>-<role-slug>.md`, starting with an HTML comment: company, role, recruiter, date written, JD source. Structure (matches `build-cv.js` so it can be transcribed later):
+
+```markdown
+# Clinton Herring
+**<headline>**
+<contact line · links>
+*<work status line>*
+## Summary
+<paragraph>
+- **<Lead word>**  <one line>   (up to six)
+## Skills
+- **<Group>:** <keywords>   (four lines)
+## Experience
+### <Title> | <Org> — <dates>
+<one- or two-sentence intro, optional>
+- <bullet>
+## Education, certifications and publication
+- …
+## Beyond work
+<one line>
+```
+
+First saved CV: `assets/2026-10-rituals-retail-technology-it-architect.md`.
+
+Setup for docx/pdf (only when asked): `cd scripts && npm install` (needs the `docx` package). PDF export needs LibreOffice (`soffice`) on PATH; without it, deliver the `.docx` and tell Clinton to export the PDF himself. Validate `.docx` with `skills/anthropic/docx/scripts/office/validate.py` (`pip install defusedxml lxml`).
 
 ## Layout (rule 1 — the AI must be able to read it)
 
 One column, A4, Calibri 10pt, these headings in this order: **Summary** (short paragraph plus up to six one-line bullets with a bold lead word) → **Skills** (four labelled keyword lines) → **Experience** (role header with right-aligned dates, a one- or two-sentence intro in his words, short bullets with one idea each) → **Projects** (only if needed for AI proof) → **Education, certifications and publication** → one line **Beyond work**. No photos, icons, graphics, tables of skill bars or multi-column layouts. Experience before education. Two pages.
 
-`scripts/build-cv.js` produces exactly this layout from `cv.json`; do not hand-build documents.
+`scripts/build-cv.js` produces exactly this layout from `cv.json` when a document is requested; do not hand-build documents. The Markdown in `assets/` follows the same section order so the transcription is mechanical.
 
 ## Bullets (rules 3 and 4)
 
@@ -53,7 +79,7 @@ Where it fits the JD, the first bullet of the current role is the AI achievement
 
 ## Cover letter
 
-Four to six short paragraphs in the same voice: the role and why he fits (two sentences); the most relevant experience with the JD's own problems in mind; the long-tenure proof (Allan Gray, vendors, lifecycle); current role and AI; honest scope line if needed; location and work status; "I would welcome the chance to talk about the role." Keep it to one page. Mirror the text into `tasks/applications/<company>-<role>/cover-letter.md`.
+Four to six short paragraphs in the same voice: the role and why he fits (two sentences); the most relevant experience with the JD's own problems in mind; the long-tenure proof (Allan Gray, vendors, lifecycle); current role and AI; honest scope line if needed; location and work status; "I would welcome the chance to talk about the role." Keep it to one page. Save it as `assets/<yyyy-mm>-<company>-<role-slug>-cover-letter.md`.
 
 ## Keeping the fact base current
 
