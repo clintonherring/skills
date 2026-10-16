@@ -6,7 +6,9 @@ Keep ECC memory kit healthy: hooks + vault + live NocoDB **Agent Memory** sync.
 
 ## Active task
 
-Memory smoke verified on this VM (`nocodb_sync.py check` + `memory_doctor.py` both OK). PR #4 merged.
+Job post resume writer bundle (`job-post-resume-writer/`): generic skills + installer built and self-tested; PR open from `cursor/job-post-resume-writer-f598`. Clinton will lift the folder into its own public repo after merge.
+
+Earlier: memory smoke verified on this VM; PR #4 merged.
 
 ## Constraints
 
