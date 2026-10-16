@@ -21,6 +21,11 @@ Each role has a **Brain dump** block (Result / What I did / How) in rough first-
 | Language | Native English |
 | Office | Lives close to Amsterdam; being in an office most of the week is practical |
 
+## Tenure
+
+- More than 20 years in infrastructure (2001 – present); "20+ years" is fine on a CV
+- 15 years at Allan Gray
+
 ## Career timeline (newest first)
 
 | Period | Title | Organisation | How engaged |
@@ -37,7 +42,7 @@ Presentation rules (Clinton's decisions):
 - Lead with Just Eat Takeaway as a top-level entry.
 - 2022 – Oct 2024 is **one** entry titled Principal Architect — Suitsupply, as sub-contractor to CGI. Its intro sentence says he worked for himself and that Suitsupply was most of the work. Do not add a separate "Self-employed 2022 – present" row and do not show two "present" roles.
 - Suitsupply matters because it is a **second retailer**: retail expertise is not based on Rituals alone.
-- Spell it Principal (old CV had "Principle").
+- Spell it Principal; the old CV misspelled the title.
 
 ## Roles
 
@@ -132,6 +137,17 @@ Not held (do not add): Jamf 200/300, CCNA/CCNP, CISSP, TOGAF, ITIL certificate, 
 - Flies and builds multirotor UAS; commercial RPL (South Africa); registered operator (Netherlands); keen hiker.
 - Frequently recognised as a top performer among peers (no named award on file).
 - Intrinsically motivated; works well in a collegiate team.
+
+## Open metric questions for Clinton (ask before drafting; move answers into the role brain dumps)
+
+- CGI: the ~150-store rollout — over how many months, how many countries, on schedule or not, stores per week at peak?
+- CGI: Cowhills → NewBlack — how many stores migrated during your time, over what period, any downtime figure?
+- JET: AI agent skills — how long did an incident investigation take before versus with the skill; how many incidents or tickets has it been used on; how many engineers use it?
+- JET: Entra ID — roughly how many internal users?
+- Suitsupply: how many stores or countries; what did you deliver (a standard, a design, a rollout) and what did it change?
+- Allan Gray: how many vendors or contracts did you manage; rough annual value; any SLA or renegotiation result?
+- Allan Gray: the lockdown VPN — how many days to build; how many users did it carry? (Your LinkedIn post from April 2020 may say.)
+- Allan Gray: cloud moves — how many workloads or what share of the estate moved to Azure/AWS?
 
 ## Numbers I do not have
 

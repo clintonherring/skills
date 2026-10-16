@@ -57,6 +57,8 @@ Bullet: "Decreased duplicate tickets by 50% by creating a shared refund guide fo
 
 ## Checklist before sending
 
+Run `python3 scripts/cv_check.py <cv>.md --jd <jd>.md` and score with `scorecard.md` first; this list is the manual backstop.
+
 ```
 - [ ] One column, conventional headings, no graphics or skill bars
 - [ ] Selectable-text PDF < 2.5 MB (copy a line to check)

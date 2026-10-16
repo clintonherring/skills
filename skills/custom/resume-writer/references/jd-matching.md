@@ -11,8 +11,9 @@ Working files (`jd.md`, `match.md`) go in `tasks/applications/<company>-<role-sl
 5. **Draft bullets** from the brain dumps in `facts.md` in Clinton's voice (`voice.md`), XYZ where a verified number exists. One idea per bullet, ≤ ~30 words.
 6. **Honesty pass.** Delete any claim that is not in `facts.md`. Move scope limits (Jamf, ServiceNow, etc.) to the letter, phrased positively.
 7. **Save.** Write the CV as Markdown to `assets/<yyyy-mm>-<company>-<role-slug>.md` in the structure given in `SKILL.md`.
-8. **Show Clinton** the match table and anything you left out or were unsure of. He confirms before sending.
-9. **Only if asked for a document:** transcribe the Markdown into `cv.json` (schema in `scripts/build-cv.js` header; copy `examples/rituals-2026.json`), run `node scripts/build-cv.js cv.json out.docx --pdf`, validate the `.docx` with `skills/anthropic/docx/scripts/office/validate.py`, and check the PDF: 2 pages, selectable text, < 2.5 MB.
+8. **Self-review.** `python3 scripts/cv_check.py assets/<cv>.md --jd jd.md`, then score with `scorecard.md` into `assets/<cv>-review.md`; iterate to threshold.
+9. **Show Clinton** the match table and anything you left out or were unsure of. He confirms before sending.
+10. **Only if asked for a document:** transcribe the Markdown into `cv.json` (schema in `scripts/build-cv.js` header; copy `examples/rituals-2026.json`), run `node scripts/build-cv.js cv.json out.docx --pdf`, validate the `.docx` with `skills/anthropic/docx/scripts/office/validate.py`, and check the PDF: 2 pages, selectable text, < 2.5 MB.
 
 ## match.md template
 
