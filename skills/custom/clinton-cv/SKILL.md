@@ -7,6 +7,8 @@ description: Canonical professional profile and CV content for Clinton Herring (
 
 Source of truth for Clinton's professional facts. Do not invent employers, dates, titles, certifications, publications, or metrics. If a fact is not in this skill, [facts.md](references/facts.md), or a role note under `references/`, omit it or ask.
 
+For new applications use `skills/custom/resume-writer` (JD matching, AI-era rules, voice, `build-cv.js`); its `references/facts.md` is the canonical fact base going forward. This skill keeps the original CV extract and the Rituals application notes.
+
 - Verbatim original upload: [source-cv.md](references/source-cv.md)
 - Structured facts: [facts.md](references/facts.md)
 - Rituals Retail Technology IT Architect application: [rituals-retail-tech-architect.md](references/rituals-retail-tech-architect.md)
