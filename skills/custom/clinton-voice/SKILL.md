@@ -121,4 +121,4 @@ Ask him to say the point out loud in his own words. Write that down verbatim. Ad
 - Do not copy whole guide or origin sentences into a CV or letter; copy the shape and the vocabulary.
 - Private samples stay where they were given; nothing private is written into this skill folder.
 - Video hooks, Room lines, captions and Rover voice stay in `clintonherring/videos` (`.cursor/skills/clinton-voice`). This skill shares the register, not the video pipeline.
-- Source pin: videos `origin/main` clinton-voice as of 2026-10-17 (commit that added origin-excerpts / P21 flesh). Re-check that path if the videos skill moves again.
+- Source pin: videos `origin/main` `@49248b5` (P21: CTA is your drone, a phone and OpenSAR; clinton-voice with origin-excerpts). Re-check that path if the videos skill moves again.

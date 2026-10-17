@@ -1,4 +1,4 @@
-# Voice — how Clinton writes (CV quick reference)
+# Voice: how Clinton writes (CV quick reference)
 
 Full skill: [`skills/custom/clinton-voice`](../../clinton-voice/SKILL.md). Habits, slogan table, guide + origin excerpts, pre-handoff checklist. Load that skill whenever drafting more than a few bullets.
 

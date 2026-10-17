@@ -6,7 +6,7 @@ Add `clinton-voice` to skills (professional prose), adapted from the OpenSAR vid
 
 ## Active task
 
-Adapt `clintonherring/videos` `.cursor/skills/clinton-voice` into `skills/custom/clinton-voice` for CV/letter/LinkedIn — strip marketing/video framing, keep register. Branch `cursor/clinton-voice-skill-0fbd`.
+Re-synced `clinton-voice` from videos `origin/main` `@49248b5` (P21 origin excerpts, no em dashes). Branch `cursor/clinton-voice-skill-0fbd`; PR #9.
 
 ## Constraints
 
