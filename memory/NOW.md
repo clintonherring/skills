@@ -2,13 +2,11 @@
 
 ## Goal
 
-Keep ECC memory kit healthy: hooks + vault + live NocoDB **Agent Memory** sync.
+Add `clinton-voice` to skills (professional prose), adapted from the OpenSAR video voice skill.
 
 ## Active task
 
-Job post resume writer bundle (`job-post-resume-writer/`): generic skills + installer built and self-tested; PR open from `cursor/job-post-resume-writer-f598`. Clinton will lift the folder into its own public repo after merge.
-
-Earlier: memory smoke verified on this VM; PR #4 merged.
+Adapt `clintonherring/videos` `.cursor/skills/clinton-voice` into `skills/custom/clinton-voice` for CV/letter/LinkedIn — strip marketing/video framing, keep register. Branch `cursor/clinton-voice-skill-0fbd`.
 
 ## Constraints
 

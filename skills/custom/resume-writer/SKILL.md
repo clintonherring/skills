@@ -10,7 +10,8 @@ Turns a job description plus Clinton's fact base into a tailored CV (and letter)
 Read first, every time:
 
 - [references/facts.md](references/facts.md) — the only source of facts, with a brain dump and verified numbers per role
-- [references/voice.md](references/voice.md) — how he writes; the "would he say it in an interview" test
+- [`clinton-voice`](../clinton-voice/SKILL.md) — how he writes (habits, slogan table, guide excerpts); load before drafting
+- [references/voice.md](references/voice.md) — CV-specific quick reference (patterns, banned words, rewrite examples)
 - [references/ai-era-guidelines.md](references/ai-era-guidelines.md) — the five rules and the pre-send checklist
 - [references/jd-matching.md](references/jd-matching.md) — the JD → evidence workflow and `match.md` template
 - [references/scorecard.md](references/scorecard.md) — how to score the draft against the five rules before Clinton sees it

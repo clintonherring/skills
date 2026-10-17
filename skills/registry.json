@@ -47,6 +47,11 @@
                 "abstract": "Design and build Android UI following Material 3 layout principles, glassmorphism, and modern map-app patterns. Use w..."
             },
             {
+                "path": "skills://custom/clinton-voice",
+                "name": "clinton-voice",
+                "abstract": "Writes CV bullets, cover letters, LinkedIn text, bios and other prose under Clinton Herring's name the way he writes: plain statement then because, hedged numbers, trade-off not triumph, no résumé-speak or slogan. Adapted from the OpenSAR video clinton-voice skill for professional writing."
+            },
+            {
                 "path": "skills://custom/clinton-cv",
                 "name": "clinton-cv",
                 "abstract": "Canonical professional profile and CV content for Clinton Herring (Enterprise Architect / Retail Technology Architect, Operational Security, Almere / ZZP). Use for CVs, bios, cover letters, and Rituals / retail applications."
