@@ -14,7 +14,7 @@
             {
                 "path": "skills://custom/resume-writer",
                 "name": "resume-writer",
-                "abstract": "Writes and tailors Clinton Herring's CV / résumé and cover letters to a job description in his own voice, following AI-era résumé rules (ATS-readable layout, keyword mapping not stuffing, brain-dump bullets, verified-number XYZ metrics, proven AI skills). Saves each CV as Markdown under assets/, checks it with cv_check.py and a scorecard before review; docx/pdf on request."
+                "abstract": "Writes and tailors Clinton Herring's CV / r\u00e9sum\u00e9 and cover letters to a job description in his own voice, following AI-era r\u00e9sum\u00e9 rules (ATS-readable layout, keyword mapping not stuffing, brain-dump bullets, verified-number XYZ metrics, proven AI skills). Saves each CV as Markdown under assets/, checks it with cv_check.py and a scorecard before review; docx/pdf on request."
             },
             {
                 "path": "skills://custom/strategic-compact",
@@ -49,7 +49,7 @@
             {
                 "path": "skills://custom/clinton-voice",
                 "name": "clinton-voice",
-                "abstract": "Writes CV bullets, cover letters, LinkedIn text, bios and other prose under Clinton Herring's name the way he writes: plain statement then because, hedged numbers, trade-off not triumph, no résumé-speak or slogan. Adapted from the OpenSAR video clinton-voice skill for professional writing."
+                "abstract": "Writes CV bullets, cover letters, LinkedIn text, bios and other prose under Clinton Herring's name the way he writes: plain statement then because, hedged numbers, cost and place not triumph, no em dashes, no r\u00e9sum\u00e9-speak or slogan. Adapted from the OpenSAR video clinton-voice skill for professional writing."
             },
             {
                 "path": "skills://custom/clinton-cv",
@@ -278,7 +278,7 @@
             {
                 "path": "skills://anthropic/pptx",
                 "name": "pptx",
-                "abstract": "\"Use this skill any time a .pptx file is involved in any way — as input, output, or both. This includes: creating s..."
+                "abstract": "\"Use this skill any time a .pptx file is involved in any way \u2014 as input, output, or both. This includes: creating s..."
             },
             {
                 "path": "skills://anthropic/quieter",
