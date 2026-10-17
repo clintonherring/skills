@@ -100,7 +100,7 @@ UAS pilot and builder; commercial RPL (ZA) and NL operator; SAR ML vision app wi
 
 ## Voice
 
-Write the way Clinton writes (see [source-cv.md](references/source-cv.md)): **first person, full plain sentences, concrete facts**. "I was responsible for…", "I project managed…", "With my fellow team members I was responsible for…", "I reported to the Group Infrastructure Manager." He gives numbers (7 offices, about 1500 employees, 1000+ stores, approximately 150 stores) and names the products. He says "3rd party vendors", "3rd line support", "day to day", "business cases", "stakeholders".
+Load [`clinton-voice`](../clinton-voice/SKILL.md) for the full habit list and slogan checks. Short form (see also [source-cv.md](references/source-cv.md)): **first person, full plain sentences, concrete facts**. "I was responsible for…", "I project managed…", "With my fellow team members I was responsible for…", "I reported to the Group Infrastructure Manager." He gives numbers (7 offices, about 1500 employees, 1000+ stores, approximately 150 stores) and names the products. He says "3rd party vendors", "3rd line support", "day to day", "business cases", "stakeholders".
 
 Avoid résumé-speak he would not use: noun-phrase fragments ("Owned network architecture for…"), and words like *owned, leveraged, codified, structural fix, supplier governance, muscle, drive, spearheaded*. Prefer "managed", "built", "advised on", "worked with", "the fix goes into the standard, not just the ticket". Fix grammar; keep meaning. Spelling: Principal Architect; Remoteconsulting.EU; Allan Gray; CGI; Suitsupply; NewBlack; Cowhills; Veducon; RSG; Just Eat Takeaway.
 

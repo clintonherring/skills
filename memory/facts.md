@@ -13,4 +13,5 @@
 | memory_skills | agent-memory, unified-memory, strategic-compact, knowledge-ops, save-session, resume-session, session-lessons | 2026-10-08 |
 | nocodb_env | Cloud env has NOCODB_BASE_URL, NOCODB_TOKEN, NOCODB_FACTS_TABLE, NOCODB_DECISIONS_TABLE; `nocodb_sync.py check` matches contract | 2026-10-08 |
 | resume_writer | `skills/custom/resume-writer` — facts.md, voice.md, ai-era-guidelines.md, jd-matching.md, `jd_match.py`, `build-cv.js`; CVs saved as Markdown in `assets/`; working files in `tasks/applications/<company>-<role>/` | 2026-10-16 |
+| clinton_voice | `skills/custom/clinton-voice` — how Clinton writes for CV/letter/LinkedIn/bio; adapted from `clintonherring/videos` `.cursor/skills/clinton-voice` (guide-calibrated register) without the video pipeline | 2026-10-17 |
 | job_post_resume_writer | `job-post-resume-writer/` — generic, personal-data-free bundle (skills `job-post-resume-writer` + `my-voice`, `install.py`, `cv_check.py`, `jd_match.py`, `md_to_cvjson.py`, `build-cv.js`, `selftest.py`, fictional `examples/`); data lives in `~/.job-post-resume-writer/config.json` + chosen data dir; meant to be lifted into its own public repo | 2026-10-16 |

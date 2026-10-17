@@ -22,7 +22,7 @@ Thresholds: rules 1 and 2 ≥ 8/10 (these decide whether the AI passes the CV); 
 ## Rule 3 — does the AI stop where it should? (thoughtful +8%; generic −9%)
 
 - Did the bullets start from a brain dump (result / what Clinton did / how) in `facts.md`? Roles with no result in their brain dump cannot score above 6.
-- Is every line something Clinton would say in an interview? First person, plain verbs, his phrases (`voice.md`). No word from the banned list.
+- Is every line something Clinton would say in an interview? First person, plain verbs, his phrases (`clinton-voice` / `voice.md`). No word from the banned list.
 - One idea per bullet, ≤ ~30 words, ≤ 5 bullets per role, ≤ 2 for roles older than 15 years.
 - Score 10 if all hold; −1 per fragment or banned word; −2 per role written without a brain dump.
 
