@@ -5,8 +5,9 @@ The OpenSAR `clinton-voice` skill in `clintonherring/videos` is the updated how-
 
 ## Done
 - Added `skills/custom/clinton-voice` (SKILL + guide excerpts + abstract/overview)
-- Stripped video pipeline; kept habits, slogan→sentence, hedged numbers, no-hype
-- Added career word table alongside OpenSAR table
+- **Re-synced 2026-10-17:** first pass used a stale videos checkout (8d1ee16, 2026-10-10). Rebuilt from `videos` `origin/main` clinton-voice (P21 origin/pricing, no em dashes, cost-and-place not "trade-off", origin-excerpts.md).
+- Stripped video pipeline; kept habits 0–15, slogan→sentence, hedged numbers, no-hype
+- Added career word table alongside OpenSAR/origin table; copied `origin-excerpts.md`
 - Wired `resume-writer` and `clinton-cv` to load it; refreshed CV `voice.md` quick reference
 - Registered in `skills/registry.json` and `skills/custom/.overview.md`
 

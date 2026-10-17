@@ -1,23 +1,26 @@
 # Voice — how Clinton writes (CV quick reference)
 
-Full skill: [`skills/custom/clinton-voice`](../../clinton-voice/SKILL.md) — habits, slogan table, guide excerpts, pre-handoff checklist. Load that skill whenever drafting more than a few bullets.
+Full skill: [`skills/custom/clinton-voice`](../../clinton-voice/SKILL.md). Habits, slogan table, guide + origin excerpts, pre-handoff checklist. Load that skill whenever drafting more than a few bullets.
 
-Basis: Clinton's own CV (`skills/custom/clinton-cv/references/source-cv.md`), his corrections on the Rituals CV ("the way the points are written don't sound like me"), and the OpenSAR guides (same register). Every sentence in a CV or letter must pass: *would Clinton say this out loud in an interview?*
+Basis: Clinton's own CV (`skills/custom/clinton-cv/references/source-cv.md`), his corrections on the Rituals CV ("the way the points are written don't sound like me"), the OpenSAR guides, and his P21 origin flesh (same register). Every sentence in a CV or letter must pass: *would Clinton say this out loud in an interview?*
 
 ## Patterns to copy
 
 - **First person, full sentences.** "I was responsible for the networking infrastructure at…", "I project managed network hardware deployments for approximately 150 stores worldwide.", "With my fellow team members I was responsible for 1000+ retail stores."
-- **Plain statement, then reason.** Claim and "because" / "so" in the same breath. "I built reusable AI agent skills that capture how we investigate incidents and review changes, so the next person does not start from scratch."
+- **Plain statement, then reason.** Claim and "because" / "so" / "this means" in the same breath. "I built reusable AI agent skills that capture how we investigate incidents and review changes, so the next person does not start from scratch."
 - **Plain verbs.** was responsible for, managed, built, wrote, advised on, worked with, implemented, replaced, reported to, did.
-- **Hedged, conditional numbers.** about 1500 employees, approximately 150 stores, 7 offices, 1000+ stores. Numbers only from `facts.md`.
-- **Context before claim.** Company size and who he reported to, then what he did. Trade-off stated when it matters; no triumph language.
+- **Hedged, conditional numbers.** about 1500 employees, approximately 150 stores, 7 offices, 1000+ stores, more than ten years. Numbers only from `facts.md`.
+- **Context before claim.** Company size and who he reported to, then what he did. Cost and place when it matters; no triumph language; do not label an old approach a "trade-off."
+- **No em dashes.** Comma, full stop, colon, or parentheses only.
 - **His phrases.** "3rd party vendors", "3rd line support", "day to day", "business cases", "stakeholders", "the fix goes into the standard, not just the ticket", "so the next person does not start from scratch", "my retail experience is not based on Rituals alone".
 - **Honest scope.** "I would call that working knowledge rather than Jamf administration, and I would say so in the interview." (Letter, not CV body.)
+- **Understated path.** No hero arc; do not invent "for years" or struggle he did not claim.
 
 ## Words and shapes to avoid
 
 - Noun-phrase fragments: "Owned network architecture for…", "Platform engineering on an AWS estate; investigate…"
 - Résumé-speak / marketing: owned, leveraged, codified, spearheaded, drove, structural fix, supplier governance, results-driven, proven track record, cross-functional initiatives, operational excellence, muscle, game-changer, passionate, seamless.
+- Em dash (`—`).
 - Addressing the employer inside CV bullets ("relevant to Rituals' …"). That goes in the cover letter.
 - Repeating a vendor or fact more than once per document.
 - Negative disclaimers in the CV body ("not a Jamf specialist"). Scope limits go in the letter, phrased positively.

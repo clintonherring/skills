@@ -1,6 +1,7 @@
 # Guide excerpts (verbatim, for calibration)
 
-From opensar.eu/guides, fetched 2026-10-10. Typos kept. Copied from `clintonherring/videos` `.cursor/skills/clinton-voice/guide-excerpts.md` for the professional `clinton-voice` skill in this repo. Check any line written in Clinton's voice against these; if it would not sit in the same paragraph, rewrite it.
+From opensar.eu/guides, fetched 2026-10-10. Typos kept. Copied from `clintonherring/videos` `.cursor/skills/clinton-voice/guide-excerpts.md` on origin/main (2026-10-17 pin) for the professional `clinton-voice` skill in this repo. Check any line written in Clinton's voice against these; if it would not sit in the same paragraph, rewrite it.
+
 
 ## Search Methods (Methods.html)
 
