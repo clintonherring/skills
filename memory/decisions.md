@@ -4,6 +4,7 @@
 
 | Date | Decision | Rationale |
 | --- | --- | --- |
+| 2026-11-10 | All memory goes to the NocoDB Agent Memory DB; never install or keep the older NOW.md-only kit | Clinton's memory lives in the DB; a repo that only writes NOW.md silently drops state for Cloud and other machines |
 | 2026-11-06 | Install the memory kit into `opensarcompanion` and `pocketatc` by copying from this repo | App repos need compaction survival too; this repo stays the source of truth for the kit |
 | 2026-10-16 | `resume-writer` skill owns the canonical CV fact base and JD workflow; `clinton-cv` keeps the Rituals notes and original extract | One fact file to correct; AI-era rules (ATS layout, map-not-stuff, brain-dump bullets, verified numbers, proven AI) apply to every application |
 | 2026-10-08 | Snapshot `memory/NOW.md` to Noco `now` table on edit (pull-now for Cloud) | Lets Cloud read live intent without merging every session; still checkpoint via git for branch history |
