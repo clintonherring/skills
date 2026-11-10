@@ -12,6 +12,7 @@ import time
 import urllib.error
 import urllib.parse
 import urllib.request
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -84,6 +85,10 @@ class NocoClient:
         # NocoDB v2 bulk create accepts a JSON array of row objects.
         return self.request("POST", f"/tables/{table_id}/records", rows)
 
+    def update_records(self, table_id: str, rows: list[dict[str, Any]]) -> Any:
+        # NocoDB v2 bulk update: PATCH with objects that include Id.
+        return self.request("PATCH", f"/tables/{table_id}/records", rows)
+
     def get_table_meta(self, table_id: str) -> Any:
         # Prefer columns endpoint shapes used by NocoDB v2.
         try:
@@ -97,17 +102,20 @@ def load_cfg() -> dict[str, Any]:
         return json.load(fh)
 
 
-def env_from_cfg(cfg: dict[str, Any]) -> tuple[str, str, str, str]:
+def env_from_cfg(cfg: dict[str, Any]) -> tuple[str, str, str, str, str]:
     n = cfg.get("nocodb", {})
     base = os.environ.get(n.get("base_url_env", "NOCODB_BASE_URL"), "")
     token = os.environ.get(n.get("token_env", "NOCODB_TOKEN"), "")
     facts = os.environ.get(n.get("facts_table_env", "NOCODB_FACTS_TABLE"), "")
     decisions = os.environ.get(n.get("decisions_table_env", "NOCODB_DECISIONS_TABLE"), "")
-    return base, token, facts, decisions
+    now = os.environ.get(n.get("now_table_env", "NOCODB_NOW_TABLE"), "") or str(
+        n.get("now_table") or ""
+    )
+    return base, token, facts, decisions, now
 
 
 def require_client(cfg: dict[str, Any]) -> tuple[NocoClient, str, str]:
-    base, token, facts, decisions = env_from_cfg(cfg)
+    base, token, facts, decisions, _now = env_from_cfg(cfg)
     missing = [
         name
         for name, val in (
@@ -123,6 +131,22 @@ def require_client(cfg: dict[str, Any]) -> tuple[NocoClient, str, str]:
     return NocoClient(base, token), facts, decisions
 
 
+def require_now_table(cfg: dict[str, Any]) -> tuple[NocoClient, str]:
+    base, token, _facts, _decisions, now = env_from_cfg(cfg)
+    missing = [
+        name
+        for name, val in (
+            ("NOCODB_BASE_URL", base),
+            ("NOCODB_TOKEN", token),
+            ("NOCODB_NOW_TABLE or nocodb.now_table", now),
+        )
+        if not val
+    ]
+    if missing:
+        raise SystemExit(f"Missing env/config: {', '.join(missing)}")
+    return NocoClient(base, token), now
+
+
 def expected_columns() -> dict[str, list[str]]:
     path = ROOT / "nocodb" / "tables.csv"
     by_table: dict[str, list[str]] = {}
@@ -133,6 +157,24 @@ def expected_columns() -> dict[str, list[str]]:
     return by_table
 
 
+def _print_table_contract(client: NocoClient, label: str, tid: str, expected: dict[str, list[str]]) -> None:
+    meta = client.get_table_meta(tid)
+    cols = []
+    if isinstance(meta, dict):
+        columns = meta.get("columns") or meta.get("fields") or []
+        for col in columns:
+            if isinstance(col, dict):
+                cols.append(str(col.get("title") or col.get("column_name") or col.get("name") or ""))
+    print(f"\nLive table {label} ({tid}) columns:")
+    for c in cols:
+        print(f"  - {c}")
+    missing = [c for c in expected.get(label, []) if c not in cols]
+    if missing:
+        print(f"  MISSING (writes to these will silently blank): {missing}")
+    else:
+        print("  matches contract")
+
+
 def cmd_check(cfg: dict[str, Any]) -> int:
     client, facts_id, decisions_id = require_client(cfg)
     expected = expected_columns()
@@ -140,21 +182,12 @@ def cmd_check(cfg: dict[str, Any]) -> int:
     for table, cols in expected.items():
         print(f"  {table}: {', '.join(cols)}")
     for label, tid in (("facts", facts_id), ("decisions", decisions_id)):
-        meta = client.get_table_meta(tid)
-        cols = []
-        if isinstance(meta, dict):
-            columns = meta.get("columns") or meta.get("fields") or []
-            for col in columns:
-                if isinstance(col, dict):
-                    cols.append(str(col.get("title") or col.get("column_name") or col.get("name") or ""))
-        print(f"\nLive table {label} ({tid}) columns:")
-        for c in cols:
-            print(f"  - {c}")
-        missing = [c for c in expected.get(label, []) if c not in cols]
-        if missing:
-            print(f"  MISSING (writes to these will silently blank): {missing}")
-        else:
-            print("  matches contract")
+        _print_table_contract(client, label, tid, expected)
+    _base, _token, _facts, _decisions, now_id = env_from_cfg(cfg)
+    if now_id:
+        _print_table_contract(client, "now", now_id, expected)
+    else:
+        print("\nnow table: not configured (set NOCODB_NOW_TABLE or nocodb.now_table)")
     return 0
 
 
@@ -183,8 +216,11 @@ def cmd_pull_facts(cfg: dict[str, Any]) -> int:
     rows = client.list_records(facts_id)
     path = ROOT / cfg["files"]["facts"]
     path.write_text(facts_to_markdown(rows), encoding="utf-8")
-    print(f"Wrote {len(rows)} facts → {path}")
+    print(f"Wrote {len(rows)} facts -> {path}")
     return 0
+
+
+DEFAULT_PROJECT = "clintonherring/skills"
 
 
 def parse_decisions_md(text: str) -> list[dict[str, str]]:
@@ -207,25 +243,141 @@ def parse_decisions_md(text: str) -> list[dict[str, str]]:
     return rows
 
 
+def decision_project(cfg: dict[str, Any]) -> str:
+    return str(cfg.get("nocodb", {}).get("project") or DEFAULT_PROJECT)
+
+
+def decision_identity(row: dict[str, Any], project: str) -> tuple[str, str, str]:
+    return (
+        str(row.get("Date") or "").strip(),
+        str(row.get("Decision") or "").strip(),
+        str(row.get("Project") or project).strip(),
+    )
+
+
+def remote_record_id(row: dict[str, Any]) -> str | int | None:
+    if row.get("Id") is not None:
+        return row["Id"]
+    if row.get("id") is not None:
+        return row["id"]
+    return None
+
+
 def cmd_push_decisions(cfg: dict[str, Any]) -> int:
     client, _, decisions_id = require_client(cfg)
     path = ROOT / cfg["files"]["decisions"]
-    rows = parse_decisions_md(path.read_text(encoding="utf-8"))
-    payload = [
+    project = decision_project(cfg)
+    local_rows = [
         {
             "Date": r["Date"],
             "Decision": r["Decision"],
             "Rationale": r["Rationale"],
-            "Project": "clintonherring/skills",
+            "Project": project,
         }
-        for r in rows
+        for r in parse_decisions_md(path.read_text(encoding="utf-8"))
     ]
-    if not payload:
+    if not local_rows:
         print("No decision rows to push")
         return 0
-    # NocoDB v2 accepts a bare array for bulk create.
-    client.create_records(decisions_id, payload)
-    print(f"Pushed {len(payload)} decisions → {decisions_id}")
+
+    existing = client.list_records(decisions_id)
+    by_key: dict[tuple[str, str, str], dict[str, Any]] = {}
+    for remote in existing:
+        key = decision_identity(remote, project)
+        # Prefer the earliest Id when duplicates already exist remotely.
+        if key not in by_key:
+            by_key[key] = remote
+
+    to_create: list[dict[str, Any]] = []
+    to_update: list[dict[str, Any]] = []
+    for row in local_rows:
+        key = decision_identity(row, project)
+        remote = by_key.get(key)
+        if remote is None:
+            to_create.append(row)
+            continue
+        remote_rationale = str(remote.get("Rationale") or "")
+        if remote_rationale != row["Rationale"]:
+            rid = remote_record_id(remote)
+            if rid is None:
+                continue
+            to_update.append(
+                {
+                    "Id": rid,
+                    "Date": row["Date"],
+                    "Decision": row["Decision"],
+                    "Rationale": row["Rationale"],
+                    "Project": project,
+                }
+            )
+
+    if to_create:
+        client.create_records(decisions_id, to_create)
+    if to_update:
+        client.update_records(decisions_id, to_update)
+    print(
+        f"Upserted decisions -> {decisions_id} "
+        f"(created={len(to_create)} updated={len(to_update)} unchanged={len(local_rows) - len(to_create) - len(to_update)})"
+    )
+    return 0
+
+
+def cmd_push_now(cfg: dict[str, Any], *, source: str = "desktop") -> int:
+    """Upsert one NOW snapshot row per project (high-churn intent for Cloud Agents)."""
+    client, now_id = require_now_table(cfg)
+    path = ROOT / cfg["files"]["now"]
+    if not path.is_file():
+        print(f"No NOW file at {path}")
+        return 0
+    content = path.read_text(encoding="utf-8")
+    project = decision_project(cfg)
+    stamp = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    existing = client.list_records(now_id)
+    match = next(
+        (row for row in existing if str(row.get("Project") or "").strip() == project),
+        None,
+    )
+    payload = {
+        "Project": project,
+        "Content": content,
+        "Updated": stamp,
+        "Source": source,
+    }
+    if match is None:
+        client.create_records(now_id, [payload])
+        print(f"Created NOW snapshot -> {now_id} project={project}")
+        return 0
+    rid = remote_record_id(match)
+    if rid is None:
+        raise SystemExit("Remote NOW row missing Id")
+    if str(match.get("Content") or "") == content:
+        print(f"NOW snapshot unchanged -> {now_id} project={project}")
+        return 0
+    client.update_records(now_id, [{"Id": rid, **payload}])
+    print(f"Updated NOW snapshot -> {now_id} project={project}")
+    return 0
+
+
+def cmd_pull_now(cfg: dict[str, Any]) -> int:
+    """Write Noco NOW snapshot for this project into memory/NOW.md (Cloud session start)."""
+    client, now_id = require_now_table(cfg)
+    project = decision_project(cfg)
+    existing = client.list_records(now_id)
+    match = next(
+        (row for row in existing if str(row.get("Project") or "").strip() == project),
+        None,
+    )
+    if match is None:
+        print(f"No NOW snapshot in Noco for project={project}")
+        return 1
+    content = str(match.get("Content") or "")
+    if not content.strip():
+        print("Remote NOW snapshot is empty")
+        return 1
+    path = ROOT / cfg["files"]["now"]
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(content, encoding="utf-8")
+    print(f"Wrote NOW snapshot -> {path} (source={match.get('Source')})")
     return 0
 
 
@@ -233,8 +385,13 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="NocoDB Agent Memory sync")
     parser.add_argument(
         "command",
-        choices=("check", "pull-facts", "push-decisions"),
-        help="check columns | pull facts cache | push decisions",
+        choices=("check", "pull-facts", "push-decisions", "push-now", "pull-now"),
+        help="check | pull-facts | push-decisions | push-now | pull-now",
+    )
+    parser.add_argument(
+        "--source",
+        default="desktop",
+        help="Source label for push-now (desktop|cloud|manual)",
     )
     # Allow injecting a stand-in client in tests via monkeypatching NocoClient.
     args = parser.parse_args()
@@ -243,7 +400,11 @@ def main() -> int:
         return cmd_check(cfg)
     if args.command == "pull-facts":
         return cmd_pull_facts(cfg)
-    return cmd_push_decisions(cfg)
+    if args.command == "push-decisions":
+        return cmd_push_decisions(cfg)
+    if args.command == "push-now":
+        return cmd_push_now(cfg, source=str(args.source or "desktop"))
+    return cmd_pull_now(cfg)
 
 
 if __name__ == "__main__":

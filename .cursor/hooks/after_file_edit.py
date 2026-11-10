@@ -10,12 +10,17 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from _lib import (  # noqa: E402
+    clear_flag,
     conversation_id,
     emit,
+    is_decisions_path,
+    is_now_path,
     load_config,
     read_stdin_json,
     repo_root,
     set_flag,
+    try_push_decisions,
+    try_push_now,
 )
 
 
@@ -43,6 +48,15 @@ def main() -> int:
         path = str(payload.get("file_path") or "")
         if path and not is_memory_path(path, root):
             set_flag(root, cfg, conversation_id(payload), "dirty_edits")
+        conv = conversation_id(payload)
+        if path and is_decisions_path(path, root, cfg):
+            set_flag(root, cfg, conv, "decisions_touched")
+            if try_push_decisions(root, cfg, reason="afterFileEdit"):
+                clear_flag(root, cfg, conv, "decisions_touched")
+        if path and is_now_path(path, root, cfg):
+            set_flag(root, cfg, conv, "now_touched")
+            if try_push_now(root, cfg, reason="afterFileEdit", source="desktop"):
+                clear_flag(root, cfg, conv, "now_touched")
         emit({})
     except Exception:
         traceback.print_exc(file=sys.stderr)

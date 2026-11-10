@@ -18,6 +18,8 @@ from _lib import (  # noqa: E402
     read_stdin_json,
     repo_root,
     set_flag,
+    try_push_decisions,
+    try_push_now,
 )
 
 
@@ -31,6 +33,13 @@ def main() -> int:
         if status != "completed":
             emit({})
             return 0
+        # Backup: retry upserts only if memory files were edited and not yet synced.
+        if has_flag(root, cfg, conv, "decisions_touched"):
+            if try_push_decisions(root, cfg, reason="stop"):
+                clear_flag(root, cfg, conv, "decisions_touched")
+        if has_flag(root, cfg, conv, "now_touched"):
+            if try_push_now(root, cfg, reason="stop", source="desktop"):
+                clear_flag(root, cfg, conv, "now_touched")
         if not has_flag(root, cfg, conv, "dirty_edits"):
             emit({})
             return 0

@@ -10,42 +10,34 @@
 - [x] `scripts/memory_doctor.py`, `nocodb_sync.py`, `nocodb_bootstrap.py`, `memory_vault.py`
 - [x] `nocodb/tables.csv` + `schemas/memory.schema.json`
 - [x] ECC-adapted skills: unified-memory, strategic-compact, knowledge-ops, save/resume-session, session-lessons
-- [ ] Run `python3 scripts/memory_doctor.py` (expect OK / WARN only)
-- [ ] Run `python3 scripts/memory_vault.py init && python3 scripts/memory_vault.py doctor`
+- [x] Run `python3 scripts/memory_doctor.py` (expect OK / WARN only)
+- [x] Run `python3 scripts/memory_vault.py init && python3 scripts/memory_vault.py doctor`
 
 ## 2. Create NocoDB base **Agent Memory**
 
-This cloud VM has no NocoDB MCP or tokens. Do one of:
-
-**A. UI**
-
-1. In your NocoDB workspace, create a base named `Agent Memory`.
-2. Create tables `facts` and `decisions` with columns from `nocodb/tables.csv` (names must match exactly).
-3. Create an API token with access to that base.
-4. Note table IDs (from table URL or API).
-
-**B. API bootstrap** (from a machine with credentials)
-
-```bash
-export NOCODB_BASE_URL='https://<host>/api/v2'
-export NOCODB_TOKEN='...'
-export NOCODB_BASE_ID='...'   # existing empty base id, or omit to print instructions
-python3 scripts/nocodb_bootstrap.py
-python3 scripts/nocodb_sync.py check
-```
+- [x] Base `Agent Memory` (`pbvl82n18u5mtvr`) in workspace `wzrgpf7n`
+- [x] Tables bootstrapped: `facts`=`mpj7s77tld5967c`, `decisions`=`mk6usl9kkjsimw2`
+- [x] `python3 scripts/nocodb_sync.py check` — columns match `nocodb/tables.csv`
+- [x] Seeded facts + decisions; local MCP entry in `~/.cursor/mcp.json`
+- [x] Decisions auto-upsert: `afterFileEdit` on `memory/decisions.md` + `stop` retry; `push-decisions` is idempotent
+- [x] NOW snapshot: Noco table `now` (`mn7hsjdbx0uiwh7`); `push-now` / `pull-now`; auto on `NOW.md` edit
 
 ## 3. Wire env + MCP (desktop / Cloud Agent env)
 
+Local (done on this machine — User env + gitignored `.env.nocodb.local`):
+
 ```bash
-export NOCODB_BASE_URL='https://<host>/api/v2'
-export NOCODB_TOKEN='...'
-export NOCODB_FACTS_TABLE='...'
-export NOCODB_DECISIONS_TABLE='...'
+export NOCODB_BASE_URL='https://ufm.remoteconsulting.eu/api/v2'
+export NOCODB_TOKEN='...'   # API xc-token (not the MCP token)
+export NOCODB_FACTS_TABLE='mpj7s77tld5967c'
+export NOCODB_DECISIONS_TABLE='mk6usl9kkjsimw2'
+export NOCODB_NOW_TABLE='mn7hsjdbx0uiwh7'   # also in memory.config.json as nocodb.now_table
 ```
 
-Add an MCP server entry for the Agent Memory base (same pattern as OpenSAR / Tax in `opensar-nocodb`), named e.g. `NocoDB Base - Agent Memory`.
+Desktop MCP: `NocoDB Base - Agent Memory` via `mcp-remote` (already in `~/.cursor/mcp.json`).
 
-For Cloud Agents: put the four env vars in the Cursor environment secrets for an environment named **Agent Memory** (or this skills env), then start agents from that environment.
+- [x] Cloud Agents: `NOCODB_*` Runtime Secrets live (see PR #5); add `NOCODB_NOW_TABLE` if not reading `memory.config.json`
+- Cloud session start (optional live intent): `python3 scripts/nocodb_sync.py pull-now`
 
 ## 4. Verify compaction restore
 

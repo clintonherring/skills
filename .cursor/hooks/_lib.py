@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import json
 import os
+import subprocess
 import sys
 from pathlib import Path
 from typing import Any
@@ -176,3 +177,116 @@ def workspace_roots(payload: dict[str, Any]) -> list[Path]:
     if not out:
         out.append(repo_root())
     return out
+
+
+def relative_posix(path: str, root: Path) -> str:
+    try:
+        return str(Path(path).resolve().relative_to(root.resolve())).replace("\\", "/")
+    except Exception:
+        return path.replace("\\", "/")
+
+
+def is_decisions_path(path: str, root: Path, cfg: dict[str, Any] | None = None) -> bool:
+    cfg = cfg or load_config(root)
+    decisions_rel = str(cfg.get("files", {}).get("decisions", "memory/decisions.md")).replace("\\", "/")
+    rel = relative_posix(path, root)
+    return rel == decisions_rel or rel.endswith("/" + decisions_rel)
+
+
+def is_now_path(path: str, root: Path, cfg: dict[str, Any] | None = None) -> bool:
+    cfg = cfg or load_config(root)
+    now_rel = str(cfg.get("files", {}).get("now", "memory/NOW.md")).replace("\\", "/")
+    rel = relative_posix(path, root)
+    return rel == now_rel or rel.endswith("/" + now_rel)
+
+
+def nocodb_env_ready(cfg: dict[str, Any]) -> bool:
+    n = cfg.get("nocodb", {})
+    required = (
+        n.get("base_url_env", "NOCODB_BASE_URL"),
+        n.get("token_env", "NOCODB_TOKEN"),
+        n.get("facts_table_env", "NOCODB_FACTS_TABLE"),
+        n.get("decisions_table_env", "NOCODB_DECISIONS_TABLE"),
+    )
+    return all(bool(os.environ.get(str(name) or "")) for name in required)
+
+
+def nocodb_now_ready(cfg: dict[str, Any]) -> bool:
+    n = cfg.get("nocodb", {})
+    base_ok = bool(os.environ.get(str(n.get("base_url_env", "NOCODB_BASE_URL") or "")))
+    token_ok = bool(os.environ.get(str(n.get("token_env", "NOCODB_TOKEN") or "")))
+    now_env = os.environ.get(str(n.get("now_table_env", "NOCODB_NOW_TABLE") or ""), "")
+    now_cfg = str(n.get("now_table") or "")
+    return base_ok and token_ok and bool(now_env or now_cfg)
+
+
+def _run_nocodb_cmd(
+    root: Path,
+    cfg: dict[str, Any],
+    command: str,
+    *,
+    reason: str,
+    extra_args: list[str] | None = None,
+) -> bool:
+    script = root / "scripts" / "nocodb_sync.py"
+    if not script.is_file():
+        return False
+    timeout = float(cfg.get("nocodb", {}).get("push_timeout_sec") or 20)
+    cmd = [sys.executable, str(script), command, *(extra_args or [])]
+    try:
+        proc = subprocess.run(
+            cmd,
+            cwd=str(root),
+            capture_output=True,
+            text=True,
+            timeout=timeout,
+            check=False,
+        )
+        if proc.returncode != 0:
+            msg = (proc.stderr or proc.stdout or "").strip()[:300]
+            if msg:
+                print(f"nocodb {command} failed ({reason}): {msg}", file=sys.stderr)
+            return False
+        return True
+    except Exception as exc:  # noqa: BLE001 — hooks must fail open
+        print(f"nocodb {command} error ({reason}): {exc}", file=sys.stderr)
+        return False
+
+
+def try_push_decisions(
+    root: Path | None = None,
+    cfg: dict[str, Any] | None = None,
+    *,
+    reason: str = "",
+) -> bool:
+    """Best-effort upsert of decisions.md → NocoDB. Never raises; returns True on success."""
+    root = root or repo_root()
+    cfg = cfg or load_config(root)
+    if cfg.get("nocodb", {}).get("auto_push_decisions", True) is False:
+        return False
+    if not nocodb_env_ready(cfg):
+        return False
+    return _run_nocodb_cmd(root, cfg, "push-decisions", reason=reason)
+
+
+def try_push_now(
+    root: Path | None = None,
+    cfg: dict[str, Any] | None = None,
+    *,
+    reason: str = "",
+    source: str = "desktop",
+) -> bool:
+    """Best-effort NOW.md snapshot → NocoDB. Never raises; returns True on success."""
+    root = root or repo_root()
+    cfg = cfg or load_config(root)
+    if cfg.get("nocodb", {}).get("auto_push_now", True) is False:
+        return False
+    if not nocodb_now_ready(cfg):
+        return False
+    return _run_nocodb_cmd(
+        root,
+        cfg,
+        "push-now",
+        reason=reason,
+        extra_args=["--source", source],
+    )

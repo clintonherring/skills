@@ -1,4 +1,5 @@
 client_secret_*.json
+.env.nocodb.local
 .cursor/memory-state/
 node_modules/
 __pycache__/

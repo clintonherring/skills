@@ -12,6 +12,12 @@
     "base_url_env": "NOCODB_BASE_URL",
     "token_env": "NOCODB_TOKEN",
     "facts_table_env": "NOCODB_FACTS_TABLE",
-    "decisions_table_env": "NOCODB_DECISIONS_TABLE"
+    "decisions_table_env": "NOCODB_DECISIONS_TABLE",
+    "now_table_env": "NOCODB_NOW_TABLE",
+    "now_table": "mn7hsjdbx0uiwh7",
+    "project": "clintonherring/skills",
+    "auto_push_decisions": true,
+    "auto_push_now": true,
+    "push_timeout_sec": 20
   }
 }

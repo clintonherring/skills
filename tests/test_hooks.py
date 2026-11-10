@@ -170,6 +170,33 @@ class HookLifecycleTests(unittest.TestCase):
         )
         self.assertEqual(stop, {})
 
+    def test_decisions_edit_marks_touched_without_env(self) -> None:
+        """Without NOCODB_* env, edit still marks touched and fails open."""
+        for key in (
+            "NOCODB_BASE_URL",
+            "NOCODB_TOKEN",
+            "NOCODB_FACTS_TABLE",
+            "NOCODB_DECISIONS_TABLE",
+        ):
+            os.environ.pop(key, None)
+        conv = "dec-1"
+        self._run(
+            "after_file_edit.py",
+            {
+                "conversation_id": conv,
+                "file_path": str(self.tmp / "memory" / "decisions.md"),
+            },
+        )
+        flag = self.tmp / "state" / f"decisions_touched-{conv}"
+        self.assertTrue(flag.is_file())
+        # stop backup also fails open (no env) and leaves flag
+        stop = self._run(
+            "stop.py",
+            {"conversation_id": conv, "status": "completed", "loop_count": 0},
+        )
+        self.assertEqual(stop, {})
+        self.assertTrue(flag.is_file())
+
     def test_malformed_stdin(self) -> None:
         proc = subprocess.run(
             [PY, str(self.hooks / "pre_compact.py")],

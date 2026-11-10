@@ -74,6 +74,19 @@ class StandIn(BaseHTTPRequestHandler):
                 },
             )
             return
+        if path.endswith("/meta/tables/now_tbl") or path.endswith("/tables/now_tbl"):
+            self._send(
+                200,
+                {
+                    "columns": [
+                        {"title": "Project"},
+                        {"title": "Content"},
+                        {"title": "Updated"},
+                        {"title": "Source"},
+                    ]
+                },
+            )
+            return
         if "/tables/facts_tbl/records" in path:
             offset = int((qs.get("offset") or ["0"])[0])
             if offset > 0:
@@ -101,6 +114,9 @@ class StandIn(BaseHTTPRequestHandler):
         if "/tables/decisions_tbl/records" in path:
             self._send(200, {"list": StandIn.store.get("decisions", [])})
             return
+        if "/tables/now_tbl/records" in path:
+            self._send(200, {"list": StandIn.store.get("now", [])})
+            return
         self._send(404, {"msg": "missing"})
 
     def do_POST(self) -> None:  # noqa: N802
@@ -108,11 +124,44 @@ class StandIn(BaseHTTPRequestHandler):
             self._send(401, {"msg": "unauthorized"})
             return
         body = self._read_json()
-        if "/tables/decisions_tbl/records" in self.path:
-            rows = body if isinstance(body, list) else body.get("records", [])
-            StandIn.store.setdefault("decisions", []).extend(rows)
-            self._send(200, {"list": rows})
+        for key, store_key in (
+            ("decisions_tbl", "decisions"),
+            ("now_tbl", "now"),
+        ):
+            if f"/tables/{key}/records" in self.path:
+                rows = body if isinstance(body, list) else body.get("records", [])
+                existing = StandIn.store.setdefault(store_key, [])
+                next_id = StandIn.store.get("next_id", 1)
+                for row in rows:
+                    item = dict(row)
+                    if "Id" not in item and "id" not in item:
+                        item["Id"] = next_id
+                        next_id += 1
+                    existing.append(item)
+                StandIn.store["next_id"] = next_id
+                self._send(200, {"list": rows})
+                return
+        self._send(404, {"msg": "missing"})
+
+    def do_PATCH(self) -> None:  # noqa: N802
+        if not self._auth():
+            self._send(401, {"msg": "unauthorized"})
             return
+        body = self._read_json()
+        for key, store_key in (
+            ("decisions_tbl", "decisions"),
+            ("now_tbl", "now"),
+        ):
+            if f"/tables/{key}/records" in self.path:
+                rows = body if isinstance(body, list) else body.get("records", [])
+                existing = StandIn.store.setdefault(store_key, [])
+                by_id = {str(r.get("Id") or r.get("id")): r for r in existing}
+                for row in rows:
+                    rid = str(row.get("Id") or row.get("id") or "")
+                    if rid in by_id:
+                        by_id[rid].update(row)
+                self._send(200, {"list": rows})
+                return
         self._send(404, {"msg": "missing"})
 
 
@@ -140,6 +189,7 @@ class NocoSyncTests(unittest.TestCase):
         os.environ["NOCODB_TOKEN"] = "test-token"
         os.environ["NOCODB_FACTS_TABLE"] = "facts_tbl"
         os.environ["NOCODB_DECISIONS_TABLE"] = "decisions_tbl"
+        os.environ["NOCODB_NOW_TABLE"] = "now_tbl"
         StandIn.store = {}
 
     def test_check_columns(self) -> None:
@@ -166,6 +216,62 @@ class NocoSyncTests(unittest.TestCase):
         cfg = nocodb_sync.load_cfg()
         self.assertEqual(nocodb_sync.cmd_push_decisions(cfg), 0)
         self.assertTrue(StandIn.store.get("decisions"))
+
+    def test_push_decisions_upserts_no_duplicates(self) -> None:
+        import nocodb_sync
+
+        decisions_path = ROOT / "memory" / "decisions.md"
+        backup = decisions_path.read_text(encoding="utf-8")
+        self.addCleanup(decisions_path.write_text, backup, "utf-8")
+        decisions_path.write_text(
+            """# Recent decisions
+
+| Date | Decision | Rationale |
+| --- | --- | --- |
+| 2026-10-08 | Unique upsert decision | First rationale |
+""",
+            encoding="utf-8",
+        )
+        cfg = nocodb_sync.load_cfg()
+        self.assertEqual(nocodb_sync.cmd_push_decisions(cfg), 0)
+        self.assertEqual(len(StandIn.store.get("decisions", [])), 1)
+
+        # Second push with same identity must not create another row.
+        self.assertEqual(nocodb_sync.cmd_push_decisions(cfg), 0)
+        self.assertEqual(len(StandIn.store.get("decisions", [])), 1)
+
+        # Rationale change updates in place.
+        decisions_path.write_text(
+            """# Recent decisions
+
+| Date | Decision | Rationale |
+| --- | --- | --- |
+| 2026-10-08 | Unique upsert decision | Updated rationale |
+""",
+            encoding="utf-8",
+        )
+        self.assertEqual(nocodb_sync.cmd_push_decisions(cfg), 0)
+        rows = StandIn.store.get("decisions", [])
+        self.assertEqual(len(rows), 1)
+        self.assertEqual(rows[0].get("Rationale"), "Updated rationale")
+
+    def test_push_now_upserts_one_row_per_project(self) -> None:
+        import nocodb_sync
+
+        now_path = ROOT / "memory" / "NOW.md"
+        backup = now_path.read_text(encoding="utf-8")
+        self.addCleanup(now_path.write_text, backup, "utf-8")
+        now_path.write_text("# NOW\n\nSnapshot A\n", encoding="utf-8")
+        cfg = nocodb_sync.load_cfg()
+        self.assertEqual(nocodb_sync.cmd_push_now(cfg, source="test"), 0)
+        self.assertEqual(len(StandIn.store.get("now", [])), 1)
+        self.assertEqual(nocodb_sync.cmd_push_now(cfg, source="test"), 0)
+        self.assertEqual(len(StandIn.store.get("now", [])), 1)
+        now_path.write_text("# NOW\n\nSnapshot B\n", encoding="utf-8")
+        self.assertEqual(nocodb_sync.cmd_push_now(cfg, source="test"), 0)
+        rows = StandIn.store.get("now", [])
+        self.assertEqual(len(rows), 1)
+        self.assertIn("Snapshot B", rows[0].get("Content", ""))
 
     def test_token_required(self) -> None:
         import nocodb_sync

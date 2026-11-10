@@ -2,20 +2,24 @@
 
 ## Goal
 
-Add `clinton-voice` to skills (professional prose), adapted from the OpenSAR video voice skill.
+Keep the ECC memory kit healthy (hooks + vault + live NocoDB Agent Memory) and the custom skills (resume-writer, clinton-voice, job-post-resume-writer) current, using ECC intentionally across Cursor with Auto (Cost) on Ultra.
 
 ## Active task
 
-Re-synced `clinton-voice` from videos `origin/main` `@49248b5` (P21 origin excerpts, no em dashes). Branch `cursor/clinton-voice-skill-0fbd`; PR #9.
+- Memory auto-sync is on `main`: decisions auto-upsert, `memory/NOW.md` snapshots to the NocoDB `now` table on edit; Cloud can `pull-now` at session start. Facts stay pull-owned by Noco.
+- Kit installed into `opensarcompanion` and `pocketatc` (2026-11-06); keep their copies in sync when hooks/scripts change here.
+- `clinton-voice` synced from videos `@49248b5` (PR #9/#10 merged).
 
 ## Constraints
 
 - Vault is `ecc.memory.v1` via `python3 scripts/memory_vault.py` (no npm required)
-- Compaction survival still depends on hooks + `memory/NOW.md` reinjection
-- `NOCODB_*` env vars are set; live facts/decisions tables match `nocodb/tables.csv`
+- `NOCODB_*` set on Cloud + desktop; `nocodb.now_table` = `mn7hsjdbx0uiwh7`
+- Never commit `.env.nocodb.local`
+- Desktop `python3` = real Python 3.12 (Store alias removed 2026-11-06)
+- Prefer Auto (Cost) on Ultra
 
 ## Next action
 
-1. Optional: `python3 scripts/nocodb_sync.py pull-facts` / `push-decisions` when facts or decisions change
-2. Optional: wire `ecc-universal` MCP later
-3. Clear `/workspace/.cursor/memory-state` warn flag if it keeps nagging
+1. Cloud Agents: add Runtime Secret `NOCODB_NOW_TABLE=mn7hsjdbx0uiwh7` (or rely on config)
+2. Cloud session start: `python3 scripts/nocodb_sync.py pull-now`
+3. Optional: wire `ecc-universal` MCP later

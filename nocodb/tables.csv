@@ -8,3 +8,7 @@ decisions,Rationale,LongText,Why
 decisions,Date,Date,When
 decisions,ConversationId,SingleLineText,Optional Cursor conversation / agent id
 decisions,Project,SingleLineText,Repo or project slug
+now,Project,SingleLineText,Repo or project slug (one live snapshot row per project)
+now,Content,LongText,Full memory/NOW.md body
+now,Updated,DateTime,Snapshot time
+now,Source,SingleLineText,desktop|cloud|manual

@@ -63,6 +63,12 @@ def main() -> int:
         help="Existing NocoDB base/project id (or set NOCODB_BASE_ID)",
     )
     parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument(
+        "--only",
+        action="append",
+        default=[],
+        help="Only create these table names (repeatable). Default: all from tables.csv",
+    )
     args = parser.parse_args()
 
     base_url = os.environ.get("NOCODB_BASE_URL", "")
@@ -84,7 +90,16 @@ def main() -> int:
         return 1
 
     contract = load_contract()
+    only = {name.strip() for name in args.only if name and name.strip()}
+    if only:
+        missing = only - set(contract)
+        if missing:
+            print(f"Unknown --only tables: {', '.join(sorted(missing))}", file=sys.stderr)
+            return 1
+        contract = {k: v for k, v in contract.items() if k in only}
+
     created: dict[str, str] = {}
+    skipped: list[str] = []
     for table, columns in contract.items():
         payload = {
             "table_name": table,
@@ -103,13 +118,21 @@ def main() -> int:
             print(json.dumps(payload, indent=2))
             continue
         # Meta path used by NocoDB v2: POST /api/v2/meta/bases/{baseId}/tables
-        result = request(
-            base_url,
-            token,
-            "POST",
-            f"/meta/bases/{args.base_id}/tables",
-            payload,
-        )
+        try:
+            result = request(
+                base_url,
+                token,
+                "POST",
+                f"/meta/bases/{args.base_id}/tables",
+                payload,
+            )
+        except SystemExit as exc:
+            msg = str(exc)
+            if "ERR_DUPLICATE_IN_ALIAS" in msg or "Duplicate table" in msg:
+                print(f"  skip: already exists")
+                skipped.append(table)
+                continue
+            raise
         tid = str(result.get("id") or result.get("table_id") or "")
         created[table] = tid
         print(f"  id={tid or '(see response)'}")
@@ -122,7 +145,11 @@ def main() -> int:
             print(f"export NOCODB_FACTS_TABLE='{created['facts']}'")
         if created.get("decisions"):
             print(f"export NOCODB_DECISIONS_TABLE='{created['decisions']}'")
+        if created.get("now"):
+            print(f"export NOCODB_NOW_TABLE='{created['now']}'")
         print("Then: python3 scripts/nocodb_sync.py check")
+    if skipped:
+        print(f"Skipped existing: {', '.join(skipped)}")
     return 0
 
 

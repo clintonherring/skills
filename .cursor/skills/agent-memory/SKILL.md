@@ -63,12 +63,21 @@ postToolUse → see flag → inject NOW + task state + facts + decisions
 
 One-way each direction — do not bidirectional-merge:
 
-- **Pull facts:** NocoDB `facts` → regenerate `memory/facts.md` cache  
+- **Pull facts (manual):** NocoDB `facts` → regenerate `memory/facts.md` cache  
   `python3 scripts/nocodb_sync.py pull-facts`
-- **Push decisions:** `memory/decisions.md` rows → NocoDB `decisions`  
-  `python3 scripts/nocodb_sync.py push-decisions`
+- **Push decisions (automatic + manual):** `memory/decisions.md` → NocoDB `decisions`  
+  - **Auto:** `afterFileEdit` on `memory/decisions.md` upserts immediately; `stop` retries if that push failed.  
+  - **Manual:** `python3 scripts/nocodb_sync.py push-decisions`  
+  - Upsert key: `Date` + `Decision` + `Project` (no duplicates; rationale updates in place).
+- **NOW snapshot (automatic + manual):** `memory/NOW.md` → NocoDB `now` (one row per project)  
+  - **Auto:** `afterFileEdit` on `memory/NOW.md` snapshots; `stop` retries if that push failed.  
+  - **Manual:** `python3 scripts/nocodb_sync.py push-now`  
+  - **Cloud session start:** `python3 scripts/nocodb_sync.py pull-now` writes the snapshot into `memory/NOW.md`  
+  - Not every keystroke forever — only when NOW is edited / stop retry. Git still owns branch history.
 - **Schema check:** `python3 scripts/nocodb_sync.py check`  
   NocoDB silently accepts unknown column names on write (HTTP 200, blank fields).
+
+Toggle auto-push in `memory.config.json` → `nocodb.auto_push_decisions` / `nocodb.auto_push_now` (default `true`). Requires `NOCODB_*` env vars (`NOCODB_NOW_TABLE` or `nocodb.now_table`).
 
 Env vars (see `memory.config.json`):
 
@@ -76,6 +85,7 @@ Env vars (see `memory.config.json`):
 - `NOCODB_TOKEN` — XC token
 - `NOCODB_FACTS_TABLE` — table id for facts
 - `NOCODB_DECISIONS_TABLE` — table id for decisions
+- `NOCODB_NOW_TABLE` — table id for NOW snapshots (or set `nocodb.now_table` in config)
 
 Create the base once with `python3 scripts/nocodb_bootstrap.py` (needs URL + token + base id) or via the NocoDB UI using `nocodb/tables.csv`.
 
